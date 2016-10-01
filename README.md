@@ -1,9 +1,9 @@
 Group 1 Project
 =========================================
 
-Jay Bishop, Jordan Cooper, Brant Dolling, Kegan McIlwaine
+Members: Jay Bishop, Jordan Cooper, Brant Dolling, Kegan McIlwaine
 
-Deep Learning MOBA AI
+Project: Deep Learning MOBA AI
 
 Our project is an implementation of a deep learning AI in a MOBA video game. 
 The goal is to have an AI for one single character. 
