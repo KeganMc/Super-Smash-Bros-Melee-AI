@@ -1,5 +1,13 @@
-Project Boiler Plate for UWyo COSC 4950/5
+Group 1 Project
 =========================================
+
+Jay Bishop, Jordan Cooper, Brant Dolling, Kegan McIlwaine
+
+Deep Learning MOBA AI
+
+Our project is an implementation of a deep learning AI in a MOBA video game. 
+The goal is to have an AI for one single character. 
+We also plan on being able to test how well the bot does against actual humans in multiplayer environments.
 
 This is nothing more than a directory structure to use for starting a new project.  
 It contains the following folders:
