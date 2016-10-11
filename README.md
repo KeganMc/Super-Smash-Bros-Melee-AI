@@ -3,11 +3,11 @@ Group 1 Project
 
 Members: Jay Bishop, Jordan Cooper, Brant Dolling, Kegan McIlwaine
 
-Project: Deep Learning MOBA AI
+Project: Deep Learning Super Smash Brothers Melee Bot
 
-Our project is an implementation of a deep learning AI in a MOBA video game. 
-The goal is to have an AI for one single character. 
-We also plan on being able to test how well the bot does against actual humans in multiplayer environments.
+Our project is an implementation of a deep learning AI for the video game, "Super Smash Brothers Melee". 
+The goal is to create a bot for a single character in the game that learns how to play the game based off of
+state information and reinforced learning.
 
 This is nothing more than a directory structure to use for starting a new project.  
 It contains the following folders:
