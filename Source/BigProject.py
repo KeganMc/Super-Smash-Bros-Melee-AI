@@ -29,7 +29,6 @@ def main():
 
   pipeout = open(pipe, "w")
   while(True):
-    pipeout = open(pipeName, "w")
     pipeout.write("SET MAIN 0.5 0.3\n")
     pipeout.write("PRESS B\n")
     pipeout.flush()
