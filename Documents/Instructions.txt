@@ -1,0 +1,24 @@
+Dolphin running melee bot instructions
+
+In Dolphin:
+Load super smash Bros. Melee
+* Right arrow over
+* * Controllers
+* * * In a port select Standard Controller and configure
+* * * * Load "deepbot" which is located in /home/jcoope24/.dolphin-emu/Config/Profiles/GCPad/test.ini
+
+* Click Play
+* * VS. Mode
+* * * Melee
+* * * Choose StarFox (bot) and make him a hmn player
+
+* Go back to terminal and type:
+* -----------------------------
+  cd seniordesign
+  cd Super-Smash-Bros-Melee_AI
+  python BigProject.py
+* -----------------------------
+
+
+
+
