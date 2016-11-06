@@ -1,4 +1,8 @@
 import os, time
+import state
+import state_manager
+import memory_watcher
+
 def find_directory():
   possible = ["~/.dolphin-emu", "~/.local/share/.dolphin-emu", "~/Library/Application/ Support/Dolphin", "~/.local/share/dolphin-emu"]
   for path in possible:

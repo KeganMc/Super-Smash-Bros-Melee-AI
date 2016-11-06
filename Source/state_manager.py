@@ -1,12 +1,12 @@
 import struct
 
-from p3.state import State
-from p3.state import PlayerType
-from p3.state import Character
-from p3.state import Menu
-from p3.state import Stage
-from p3.state import ActionState
-from p3.state import BodyState
+from state import State
+from state import PlayerType
+from state import Character
+from state import Menu
+from state import Stage
+from state import ActionState
+from state import BodyState
 
 def int_handler(obj, name, shift=0, mask=0xFFFFFFFF, wrapper=None, default=0):
     """Returns a handler that sets an attribute for a given object.
