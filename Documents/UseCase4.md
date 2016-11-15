@@ -1,6 +1,6 @@
 #Use Cases
 
-##Use Case: 5 Running The Bot
+##Use Case: 4 Running The Bot
 
 ###CHARACTERISTIC INFORMATION
 

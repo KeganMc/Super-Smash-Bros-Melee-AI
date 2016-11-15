@@ -1,75 +1,79 @@
 #Use Cases
 
-##Use Case: 2 Configuring Controller
+##Use Case: 2 Installing Dolphin Emulator
 
 ###CHARACTERISTIC INFORMATION
 
-**Goal in Context:** User configures controller to which the bot will use.
+**Goal in Context:** Download and install the Dolphin Emulator in order to run the
+Super Smash Brothers Melee rom file, and play against the bot or watch the bot.
 
-**Scope:** Dolphin Emulator (GameCube)
+**Scope** Ubuntu OS
 
-**Level:** Subfunction
+**Level** Instructions
 
-**Preconditions:** User has Dolphin downloaded, and deepbot.ini downloaded.
+**Preconditions:** We know that we need the Dolphin Emulator in order to run the game.
 
-**Success End Condition:** Bot controller configuration is set up.
+**Success End Condition:** The user has successfully dowlnoaded and installed the Dolphin
+Emulator and is now able to run the game, and can then run the bot.
 
-**Failed End Condition:** Bot controller configuration is not set up.
+**Failed End Condition:** The user will neither be able to run the game, Super Smash Bros
+Melee from their pc, and thus won't be able to play against or watch the bot play.
 
-**Primary Actor:** User, the person configuring the controller.
+**Primary Actor:** The user/player who needs to install Dolphin.
 
-**Trigger:** User downloads the bot and emulator for the first time.
+**Trigger:** Open the Ubuntu Terminal
 
 ###MAIN SUCCESS SCENARIO
 
-1. User locates the gcpad folder in dolphin.emu
+1. Open the Terminal
 
-2. User Places the deepbot.ini file into the gcpad folder
+3. Add the PPA repository that contains the stable and latest development version
+   of this software package.
 
-3. User launches the Dolphin Emulator
+4. Install the Dolphin emulator
 
-4. User navigates to the controller menu in the emulator (drop down box in the upper-right)
+5. Dolphin has now been installed. Update the database
 
-5. User selects standard controller for controller port 2 under "Gamecube Controllers" and clicks on the configure button to its right
-
-6. User selects the deepbot.ini file under the profile drop-down menu and then clicks the load button to the right
+6. Locate where dolphin was saved to.
 
 ###EXTENSIONS
 
-* 1a. User is having difficulties locating the gcpad folder:
+* 1a. Click the "Search your computer" button in the upper left corner of the desktop.
 
-  + 1a1. Open up the terminal (linux)
+* 1b. Type in "Terminal" and click the Terminal icon.
 
-  + 1a2. Move to the root directory
-  
-  + 1a3. Type in "locate gcpad"
-  
-  + 1a4. Change directories to the path given from the command
-  
-* 2b. User still cannot locate the gcpad folder:
-  
-  + 1b1. Installing Dolphin Emulator (Use Case 3)
+* 3a. Type: sudo add-apt-repository ppa:dolphin-emu/ppa, press Enter. Then type in your login password
+   and press Enter.
+
+* 4a. Type: sudo apt-get update, and press Enter.
+
+* 4b. Type: sudo apt-get install dolphin-emu, and press enter.
+
+* 5a. Type: sudo updatedb, and press enter.
+
+* 6a. Type: locate dolphin-emu, and press enter.
 
 ###SUB-VARIATIONS
 
-###RELATED INFORMATION (optional)
+* 1a. Press Ctrl+Alt+T shortcut keys
 
-**Priority:** High
+###RELATED INFORMATION
 
-**Performance Target:** 5 minutes
+**Priority** Maximum
 
-**Frequency:** 1 time for each user
+**Frequency** Every time the game is to be loaded.
 
-**Superordinate Use Case:** Running the bot for the first time (use case 1)
-
-**Subordinate Use Cases:** Installing Dolphin Emulator (use case 3)
-
-**Channel to primary actor:** Interactive
-
-**Secondary Actors:** Dolphin Emulator
-
-**Channel to Secondary Actors:** File
+**SuperOrdinate Use Case:** Running the bot for the first time (Use Case 1)
 
 ###SCHEDULE
 
-Due Date: release 1.0
+Due Date: Realease 1.0
+
+
+
+
+
+
+
+
+

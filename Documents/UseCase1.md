@@ -22,9 +22,9 @@
 
 ###MAIN SUCCESS SCENARIO
 
-1. The Player installs Dolphin (use case 3).
+1. The Player installs Dolphin (use case 2).
 
-2. Player configures the controller for the bot (use case 2).
+2. Player configures the controller for the bot (use case 3).
 
 3. Player runs Super Smash Bros Melee from Dolphin.
 
@@ -51,7 +51,7 @@
 
 * 10a. The bot does not move:
 
-  + 10a1. Configure the controller for the bot (use case 2)
+  + 10a1. Configure the controller for the bot (use case 3)
 
 ###SUB-VARIATIONS
 
@@ -59,7 +59,7 @@
 time or stock rules.
 
 
-###RELATED INFORMATION (optional)
+###RELATED INFORMATION
 
 **Priority:** maximum
 
@@ -71,19 +71,15 @@ time or stock rules.
 
 **Subordinate Use Cases:**
 
-* Installing Dolphin (use case 3)
+* Installing Dolphin (use case 2)
 
-* Configuring the Controller (use case 2)
+* Configuring the Controller (use case 3)
 
 * Running the bot (use case 4)
 
 **Channel to primary actor:** project files
 
-**Secondary Actors:**
-
-**Channel to Secondary Actors:**
-
-###OPEN ISSUES (optional)
+###OPEN ISSUES
 
 * What happens if the directory structure for the Player's Dolphin installation is not supported?
 
