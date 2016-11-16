@@ -61,7 +61,7 @@ Melee from their pc, and thus won't be able to play against or watch the bot pla
 
 **Priority** Maximum
 
-**Frequency** Every time the game is to be loaded.
+**Frequency** Dolphin will be installed one time.
 
 **SuperOrdinate Use Case:** Running the bot for the first time (Use Case 1)
 
