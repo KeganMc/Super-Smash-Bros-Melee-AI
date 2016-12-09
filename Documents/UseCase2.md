@@ -11,7 +11,7 @@ Super Smash Brothers Melee rom file, and play against the bot or watch the bot.
 
 **Level** Instructions
 
-**Preconditions:** We know that we need the Dolphin Emulator in order to run the game.
+**Preconditions:** The user has the Super Smash Bros Melee .iso file.
 
 **Success End Condition:** The user has successfully downloaded and installed the Dolphin
 Emulator and is now able to run the game, and can then run the bot.
