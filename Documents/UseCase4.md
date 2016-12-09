@@ -22,13 +22,11 @@
 
 ###MAIN SUCCESS SCENARIO
 
-1. User opens the dolphin emulator, starts the melee game, selects a character for the bot to run, and starts the game.
+1. User opens command prompt or terminal.
 
-2. User opens command prompt or terminal.
+2. User types python bigProject.py into the command prompt or terminal.
 
-3. User types python bigProject.py into the command prompt or terminal.
-
-4. User observes bot successfully input in commands.
+3. User observes bot successfully input in commands.
 
 ###EXTENSIONS
 
