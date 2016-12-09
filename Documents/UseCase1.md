@@ -83,7 +83,7 @@ time or stock rules.
 
 * What happens if the directory structure for the Player's Dolphin installation is not supported?
 
-* Could we move running the bot to happen before opening Dolphin to avoid the Player switching windows a lot?
+* Move running the bot to happen before opening Dolphin. This will avoid the Player switching between windows too much?
 
 ###SCHEDULE
 
