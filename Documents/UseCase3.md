@@ -4,7 +4,7 @@
 
 ###CHARACTERISTIC INFORMATION
 
-**Goal in Context:** User configures controller to which the bot will use.
+**Goal in Context:** User configures the controller that the bot will use.
 
 **Scope:** Dolphin Emulator (GameCube)
 
