@@ -50,6 +50,10 @@
 
 **Channel to Secondary Actors:**
 
+###OPEN ISSUES
+
+* Add a UI to make the program more user friendly
+
 ###SCHEDULE
 
 Due Date: release 1.0
