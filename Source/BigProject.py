@@ -2,6 +2,9 @@ import os, time
 import state
 import state_manager
 import memory_watcher
+from controller_outputs import outputs
+from controller_outputs import output_map
+import random
 
 def find_directory():
   possible = ["~/.dolphin-emu", "~/.local/share/.dolphin-emu", "~/Library/Application/ Support/Dolphin", "~/.local/share/dolphin-emu"]
@@ -19,7 +22,6 @@ def find_make_pipe_dir(dolphinPath):
   return pipesPath
 
 def main():
-  i = 0
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -33,35 +35,10 @@ def main():
 
   pipeout = open(pipe, "w")
   while(True):
-    pipeout.write("SET MAIN 0.5 0.3\n")
-    pipeout.write("PRESS B\n")
+    pipeout.write(output_map[random.choice(list(outputs))])
     pipeout.flush()
     time.sleep(0.02)
-    pipeout.write("RELEASE B\n")
-    pipeout.write("SET MAIN 0.5 0.5\n")
-    pipeout.flush()
-    time.sleep(0.03)
-    # double laser
-    pipeout.write("PRESS X\n")
-    pipeout.flush()
-    time.sleep(.018)
-    pipeout.write("RELEASE X\n")
-    pipeout.flush()
-    time.sleep(.05)
-    pipeout.write("PRESS B\n")
-    pipeout.flush()
-    time.sleep(.02)
-    pipeout.write("RELEASE B\n")
-    pipeout.flush()
-    time.sleep(.04)
-    pipeout.write("PRESS B\n")
-    pipeout.flush()
-    time.sleep(.05)
-    pipeout.write("RELEASE B\n")
-    pipeout.flush()
-    time.sleep(.05)
-    time.sleep(.3)
-    i = i + 1
+
   pipeout.close()
     
 if __name__=="__main__": main()
