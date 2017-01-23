@@ -21,6 +21,20 @@ def find_make_pipe_dir(dolphinPath):
   os.mkdir(pipesPath)
   return pipesPath
 
+
+def write_locations(dolphin_dir, locations):
+  path = dolphin_dir + '/MemoryWatcher/Locations.txt'
+  with open(path, 'w') as f:
+    f.write('\n'.join(locations))
+  return
+
+def find_socket(dolphinPath):
+  socketPath = dolphinPath + "/MemoryWatcher/MemoryWatcher"
+  #socketPath = "~/.config/dolphin-emu/MemoryWatcher"
+  #socketPath = os.path.expanduser(socketPath)
+  print(socketPath)
+  return socketPath
+
 def main():
   dolphinPath = find_directory()
   if dolphinPath is None:
@@ -28,16 +42,28 @@ def main():
     return
 
   pipe = find_make_pipe_dir(dolphinPath) + "/pipe"
+  mwLocation = find_socket(dolphinPath)
+  st = state.State()
+  stateManager = state_manager.StateManager(st)
+  write_locations(dolphinPath, stateManager.locations())
   try:
     os.mkfifo(pipe)
   except OSError:
     pass
 
   pipeout = open(pipe, "w")
-  while(True):
-    pipeout.write(output_map[random.choice(list(outputs))])
-    pipeout.flush()
-    time.sleep(0.02)
+  with memory_watcher.MemoryWatcher(mwLocation) as mw:
+    last_frame = 0
+    while(True):
+      res = next(mw)
+      if res is not None:
+        stateManager.handle(*res)
+      if st.frame > last_frame+30:
+        last_frame = st.frame
+        if st.menu == state.Menu.Game:
+          pipeout.write(output_map[random.choice(list(outputs))])
+          pipeout.flush()
+      #time.sleep(0.02)
 
   pipeout.close()
     
