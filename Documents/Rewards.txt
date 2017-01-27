@@ -1,0 +1,9 @@
+Reward System:
+
+Negative Rewards
+-Losing a Stock
+-Taking damage
+
+Positive Rewards
+-Opponent losing a stock
+-Opponent taking damage
