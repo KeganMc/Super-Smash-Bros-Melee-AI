@@ -29,10 +29,10 @@ def write_locations(dolphin_dir, locations):
   return
 
 def find_socket(dolphinPath):
-  socketPath = dolphinPath + "/MemoryWatcher/MemoryWatcher"
-  #socketPath = "~/.config/dolphin-emu/MemoryWatcher"
-  #socketPath = os.path.expanduser(socketPath)
-  print(socketPath)
+  socketDir = dolphinPath + "/MemoryWatcher"
+  if not os.path.isdir(socketDir):
+    os.mkdir(socketDir)
+  socketPath = socketDir + "/MemoryWatcher"
   return socketPath
 
 def main():
