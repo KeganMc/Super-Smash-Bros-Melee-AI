@@ -58,7 +58,7 @@ def main():
       res = next(mw)
       if res is not None:
         stateManager.handle(*res)
-      if st.frame > last_frame+30:
+      if st.frame > last_frame:
         last_frame = st.frame
         if st.menu == state.Menu.Game:
           pipeout.write(output_map[random.choice(list(outputs))])
