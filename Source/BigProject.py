@@ -5,6 +5,10 @@ import memory_watcher
 from controller_outputs import outputs
 from controller_outputs import output_map
 import random
+import tensorflow as tf
+import numpy as np
+import random
+from actor_critic import ActorCriticNetwork
 
 def find_directory():
   possible = ["~/.dolphin-emu", "~/.local/share/.dolphin-emu", "~/Library/Application/ Support/Dolphin", "~/.local/share/dolphin-emu"]
