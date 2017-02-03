@@ -17,14 +17,14 @@ def reward(lastState, currentState):
   lastStocks1 = lastState.players[0].stocks
   currentStocks1 = currentState.players[0].stocks
   
-  lastStocks2 = lastState.players[0].stocks
-  currentStocks2 = currentState.players[0].stocks
+  lastStocks2 = lastState.players[1].stocks
+  currentStocks2 = currentState.players[1].stocks
   
   #Percentages
   lastPercent1 = lastState.players[0].percent
   currentPercent1 = currentState.players[0].percent
   
-  lastPercent2 = lastState.players[0].percent
-  currentPercent2 = currentState.players[0].percent
+  lastPercent2 = lastState.players[1].percent
+  currentPercent2 = currentState.players[1].percent
   return botReward
   
