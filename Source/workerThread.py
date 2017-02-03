@@ -1,9 +1,12 @@
 import tensorflow as tf
 import numpy as np
+from threading import Thread
 
-class workerThread(object):
-    def _init_(self, arg):
-        self.actorCritic = arg
+class workerThread(Thread):
+    def _init_(self, function, *args):
+        self.function = function
+        self.args = args
+        Thread._init_(self)
 
-    def apply(self, sess, a_batch, r_batch, s_batch, reward_val_diff_batch, lr):
-		actorCritic.apply_grads(sess, a_batch, r_batch, s_batch, reward_val_diff_batch, lr)
+    def run(self):
+        self.function(*self.args)
