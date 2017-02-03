@@ -26,5 +26,15 @@ def reward(lastState, currentState):
   
   lastPercent2 = lastState.players[1].percent
   currentPercent2 = currentState.players[1].percent
+  
+  #Determine Reward
+  if lastStocks1 > currentStocks1 and lastStocks2 > currentStocks2
+    return 0
+  else if lastStocks1 > currentStocks1:
+    return 100
+  else if lastStocks2 > currentStocks2:
+    return -100
+  
+  botReward = (currentPercent1 - lastPercent1) - (currentPercent2 - lastPercent2)
   return botReward
   
