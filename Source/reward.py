@@ -11,5 +11,11 @@ def reward(lastState, currentState):
   botReward = 0
   stateManagerLast = state_manager.StateManager(lastState)
   stateManagerCurrent = state_manager.StateManager(currentState)
+  
+  """variables pertinent to creating a reward from each state"""
+  #Stocks
+  
+  #Percentages
+  
   return botReward
   

@@ -70,6 +70,7 @@ class StateManager:
             player = State()
             self.state.players.append(player)
 
+            #Used to get a Player's Stocks
             self.addresses[add_address('8045310C', 0xE90 * player_id)] = int_handler(player, 'stocks', 8, 0xFF)
 
             cursor_x_address = add_address('81118DEC', -0xB80 * player_id)
@@ -93,7 +94,7 @@ class StateManager:
             self.addresses[data_pointer + ' 114'] = float_handler(player, 'pos_y')
             self.addresses[data_pointer + ' 140'] = int_handler(player, 'on_ground', 0, 0xFFFF, lambda x: x == 0, True)
             self.addresses[data_pointer + ' 8F4'] = float_handler(player, 'action_frame')
-            self.addresses[data_pointer + ' 1890'] = float_handler(player, 'percent')
+            self.addresses[data_pointer + ' 1890'] = float_handler(player, 'percent') #Player's Percentage
             self.addresses[data_pointer + ' 19BC'] = float_handler(player, 'hitlag')
             self.addresses[data_pointer + ' 19C8'] = int_handler(player, 'jumps_used', 0, 0xFF)
             self.addresses[data_pointer + ' 19EC'] = int_handler(player, 'body_state', 0, 0xFF, BodyState, BodyState.Normal)
