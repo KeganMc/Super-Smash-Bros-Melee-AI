@@ -14,8 +14,17 @@ def reward(lastState, currentState):
   
   """variables pertinent to creating a reward from each state"""
   #Stocks
+  lastStocks1 = lastState.players[0].stocks
+  currentStocks1 = currentState.players[0].stocks
+  
+  lastStocks2 = lastState.players[0].stocks
+  currentStocks2 = currentState.players[0].stocks
   
   #Percentages
+  lastPercent1 = lastState.players[0].percent
+  currentPercent1 = currentState.players[0].percent
   
+  lastPercent2 = lastState.players[0].percent
+  currentPercent2 = currentState.players[0].percent
   return botReward
   
