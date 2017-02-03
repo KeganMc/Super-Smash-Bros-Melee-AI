@@ -70,5 +70,5 @@ def main():
       #time.sleep(0.02)
 
   pipeout.close()
-    
+
 if __name__=="__main__": main()
