@@ -39,6 +39,34 @@ def find_socket(dolphinPath):
   socketPath = socketDir + "/MemoryWatcher"
   return socketPath
 
+#TODO: Preprocess for certain player numbers (ie player 3 vs player 4)
+def preprocess(st):
+  stList = []
+  stList.append(st.frame)
+  stList.append(st.stage.value)
+  for playerID in range(4):
+    player = st.players[playerID]
+    stList.append(player.stocks)
+    stList.append(player.cursor_x)
+    stList.append(player.cursor_y)
+    stList.append(player.type.value)
+    stList.append(player.character.value)
+    stList.append(player.action_state.value)
+    stList.append(player.facing)
+    stList.append(player.self_air_vel_x)
+    stList.append(player.self_air_vel_y)
+    stList.append(player.attack_vel_x)
+    stList.append(player.attack_vel_y)
+    stList.append(player.pos_x)
+    stList.append(player.pos_y)
+    stList.append(player.on_ground)
+    stList.append(player.action_frame)
+    stList.append(player.percent)
+    stList.append(player.hitlag)
+    stList.append(player.jumps_used)
+    stList.append(player.body_state.value)
+  return np.reshape(np.array(stList), [1,78])
+
 def main():
   dolphinPath = find_directory()
   if dolphinPath is None:
@@ -57,16 +85,26 @@ def main():
 
   pipeout = open(pipe, "w")
   with memory_watcher.MemoryWatcher(mwLocation) as mw:
-    last_frame = 0
-    while(True):
-      res = next(mw)
-      if res is not None:
-        stateManager.handle(*res)
-      if st.frame > last_frame:
-        last_frame = st.frame
-        if st.menu == state.Menu.Game:
-          pipeout.write(output_map[random.choice(list(outputs))])
-          pipeout.flush()
+    with tf.Session() as sess:
+      learning_rate_tensor = tf.placeholder(tf.float32)
+      network = ActorCriticNetwork(40,
+                    tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9))
+
+      network.set_up_loss(0.01)
+      network.set_up_apply_grads(learning_rate_tensor)
+      last_frame = 0
+      sess.run(tf.global_variables_initializer())
+      while(True):
+        res = next(mw)
+        if res is not None:
+          stateManager.handle(*res)
+        if st.frame > last_frame+3:
+          last_frame = st.frame
+          if st.menu == state.Menu.Game:
+            action, val =  network.run_policy_and_value(sess, preprocess(st))
+            print(action)
+            pipeout.write(output_map[np.random.choice(list(outputs), p=action)])
+            pipeout.flush()
       #time.sleep(0.02)
 
   pipeout.close()
