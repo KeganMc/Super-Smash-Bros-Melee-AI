@@ -25,14 +25,29 @@ def reward(lastState, currentState):
   lastPercent2 = lastState.players[1].percent
   currentPercent2 = currentState.players[1].percent
   
+  #Dying
+  prevDying1 = lastState.players[0].action_state.value <= 0xA
+  prevDying2 = lastState.players[1].action_state.value <= 0xA
+  nowDying1 = currentState.players[0].action_state.value <= 0xA
+  nowDying2 = currentState.players[1].action_state.value <= 0xA
+
   #Determine Reward
-  if lastStocks1 > currentStocks1 and lastStocks2 > currentStocks2:
+  if (not prevDying1 and nowDying1) and (not prevDying2 and nowDying2):
     return 0
-  elif lastStocks1 > currentStocks1:
+  elif (not prevDying1 and nowDying1):
     return 100
-  elif lastStocks2 > currentStocks2:
+  elif (not prevDying2 and nowDying2):
     return -100
-  
-  botReward = (currentPercent1 - lastPercent1) - (currentPercent2 - lastPercent2)
+
+  # Don't give negative reward for the opponent respawning.
+  opponentPercentReward = 0
+  if not (currentPercent1 == 0 and lastPercent1 > 0):
+    opponentPercentReward = currentPercent1 - lastPercent1
+
+  allyPercentPenalty = 0
+  if not (currentPercent2 == 0 and lastPercent2 > 0):
+    allyPercentPenalty = currentPercent2 - lastPercent2
+
+  botReward = opponentPercentReward - allyPercentPenalty
   return botReward
   

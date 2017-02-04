@@ -149,7 +149,6 @@ def main():
             lastState = st
             pipeout.write(output_map[chosenAction])
             pipeout.flush()
-      #time.sleep(0.02)
 
   pipeout.close()
 
