@@ -1,4 +1,6 @@
 import os, time
+from reward import reward
+from workerThread import workerThread
 import state
 import state_manager
 import memory_watcher
@@ -67,6 +69,27 @@ def preprocess(st):
     stList.append(player.body_state.value)
   return np.reshape(np.array(stList), [1,78])
 
+def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma):
+  R = valList[0]
+  actionList.reverse()
+  stateList.reverse()
+  valList.reverse()
+  rewardList.reverse()
+  batch_a = []
+  batch_s = []
+  batch_r = []
+  batch_td = []
+  for(ai, ri, si, vi) in zip(actionList, rewardList, stateList, valList):
+    R = ri + gamma * R
+    td = R - vi
+    a = np.zeros([40])
+    a[ai.value] = 1
+    batch_a.append(a)
+    batch_s.append(si)
+    batch_td.append(td)
+    batch_r.append(R)
+    network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, 0.01)
+
 def main():
   dolphinPath = find_directory()
   if dolphinPath is None:
@@ -93,6 +116,11 @@ def main():
       network.set_up_loss(0.01)
       network.set_up_apply_grads(learning_rate_tensor)
       last_frame = 0
+      actionList = []
+      stateList = []
+      valList = []
+      rewardList = []
+      lastState = None
       sess.run(tf.global_variables_initializer())
       while(True):
         res = next(mw)
@@ -101,9 +129,25 @@ def main():
         if st.frame > last_frame+3:
           last_frame = st.frame
           if st.menu == state.Menu.Game:
-            action, val =  network.run_policy_and_value(sess, preprocess(st))
-            print(action)
-            pipeout.write(output_map[np.random.choice(list(outputs), p=action)])
+            currentState = preprocess(st)
+            if lastState is not None:
+              rewardList.append(reward(lastState, st))
+              valList.append(network.run_value(sess, currentState))
+            if len(valList) >= 64:
+              #workerThread(updateNetwork, (sess, network, actionList, stateList, valList, rewardList, 0.99))
+              #workerThread.run()
+              updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
+              actionList = []
+              stateList = []
+              valList = []
+              rewardList = []
+            action, val =  network.run_policy_and_value(sess, currentState)
+            chosenAction = np.random.choice(list(outputs), p=action)
+            print(chosenAction)
+            actionList.append(chosenAction)
+            stateList.append(currentState)
+            lastState = st
+            pipeout.write(output_map[chosenAction])
             pipeout.flush()
       #time.sleep(0.02)
 

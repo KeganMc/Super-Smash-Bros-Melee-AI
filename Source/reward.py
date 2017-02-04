@@ -9,8 +9,6 @@ Output: Reward to be given to our bot
 """
 def reward(lastState, currentState):
   botReward = 0
-  stateManagerLast = state_manager.StateManager(lastState)
-  stateManagerCurrent = state_manager.StateManager(currentState)
   
   """variables pertinent to creating a reward from each state"""
   #Stocks
@@ -28,11 +26,11 @@ def reward(lastState, currentState):
   currentPercent2 = currentState.players[1].percent
   
   #Determine Reward
-  if lastStocks1 > currentStocks1 and lastStocks2 > currentStocks2
+  if lastStocks1 > currentStocks1 and lastStocks2 > currentStocks2:
     return 0
-  else if lastStocks1 > currentStocks1:
+  elif lastStocks1 > currentStocks1:
     return 100
-  else if lastStocks2 > currentStocks2:
+  elif lastStocks2 > currentStocks2:
     return -100
   
   botReward = (currentPercent1 - lastPercent1) - (currentPercent2 - lastPercent2)
