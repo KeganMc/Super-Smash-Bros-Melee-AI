@@ -6,4 +6,6 @@ window = tkinter.Tk()
 window.title("Super Smash Bros AI")
 window.geometry("500x500")
 
+window.wm_iconbitmap('SmashIcon.ico')
+
 window.mainloop()
