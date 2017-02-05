@@ -2,10 +2,14 @@ import tkinter
 
 
 window = tkinter.Tk()
-# Code to add widgets will go here
+
+# Set up title and icon
 window.title("Super Smash Bros AI")
 window.geometry("500x500")
-
 window.wm_iconbitmap('SmashIcon.ico')
+
+# Create and Add widgets
+launch = tkinter.Button(window, text = "Launch Bot")
+launch.pack()
 
 window.mainloop()
