@@ -90,6 +90,12 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
     batch_r.append(R)
     network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, 0.01)
 
+def getLatestState(mw, sm):
+  res = next(mw)
+  while res is not None:
+    sm.handle(*res)
+    res = next(mw)
+
 def main():
   dolphinPath = find_directory()
   if dolphinPath is None:
@@ -123,9 +129,10 @@ def main():
       lastState = None
       sess.run(tf.global_variables_initializer())
       while(True):
-        res = next(mw)
-        if res is not None:
-          stateManager.handle(*res)
+        #res = next(mw)
+        #if res is not None:
+        #  stateManager.handle(*res)
+        getLatestState(mw,stateManager)
         if st.frame > last_frame+3:
           last_frame = st.frame
           if st.menu == state.Menu.Game:
