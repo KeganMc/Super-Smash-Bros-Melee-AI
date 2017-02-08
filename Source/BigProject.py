@@ -128,6 +128,8 @@ def main():
       rewardList = []
       lastState = None
       sess.run(tf.global_variables_initializer())
+      pipeout.write(output_map[outputs.RESET])
+      pipeout.flush()
       while(True):
         #res = next(mw)
         #if res is not None:
