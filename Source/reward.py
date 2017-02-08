@@ -32,27 +32,42 @@ def reward(lastState, currentState, characters):
   botStockLast = lastState.players[bot].stocks
   botStockCurrent = currentState.players[bot].stocks
   
-  opponentStockLast = lastState.players[0].stocks
-  opponentStockCurrent = currentState.players[0].stocks
+  for i in opponents:
+    opponentStockLast[i] = lastState.players[opponents[i]].stocks
+    opponentStockCurrent[i] = currentState.players[opponents[i]].stocks
+    
+  for i in allies:
+    allyStockLast[i] = lastState.players[allies[i]].stocks
+    allyStockCurrent[i] = currentState.players[allies[i]].stocks
   
   #Percentages
   botPercentLast = lastState.players[bot].percent
   botPercentCurrent = currentState.players[bot].percent
   
-  opponentPercentLast = lastState.players[0].percent
-  opponentPercentCurrent = currentState.players[0].percent
+  for i in opponents:
+    opponentPercentLast[i] = lastState.players[opponents[i]].percent
+    opponentPercentCurrent[i] = currentState.players[opponents[i]].percent
+    
+  for i in allies:
+    allyPercentLast[i] = lastState.players[allies[i]].percent
+    allyPercentCurrent[i] = currentState.players[allies[i]].percent
   
   #Dying
   botPrevDying = lastState.players[bot].action_state.value <= 0xA
   botNowDying = currentState.players[bot].action_state.value <= 0xA
   
-  opponentPrevDying = lastState.players[0].action_state.value <= 0xA
-  opponentNowDying = currentState.players[0].action_state.value <= 0xA
+  for i in opponents:
+    opponentPrevDying[i] = lastState.players[opponents[i]].action_state.value <= 0xA
+    opponentNowDying[i] = currentState.players[opponents[i]].action_state.value <= 0xA
+    
+  for i in allies:
+    allyPrevDying[i] = lastState.players[allies[i]].action_state.value <= 0xA
+    allyNowDying[i] = currentState.players[allies[i]].action_state.value <= 0xA
   
   #Determine Reward
-  if (not opponentPrevDying and opponentNowDying) and (not botPrevDying and botNowDying):
+  if (not opponentPrevDying[0] and opponentNowDying[0]) and (not botPrevDying and botNowDying):
     return 0
-  elif (not opponentPrevDying and opponentNowDying):
+  elif (not opponentPrevDying[0] and opponentNowDying[0]):
     return 1
   elif (not botPrevDying and botNowDying):
     return -1
