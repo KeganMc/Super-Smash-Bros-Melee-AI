@@ -16,28 +16,39 @@ Output: Reward to be given to our bot
 def reward(lastState, currentState, characters):
   botReward = 0
   
+  #Bot Pleyer Number
+  bot = characters.index(1)
+  
+  #Opponent Player Numbers
+  opponents = []
+  [opponents.insert(i) for i, j in enumerate(characters) if j == 2]
+  
+  #Ally Player Numbers
+  allies = []
+  [allies.insert(i) for i, j in enumerate(characters) if j == 3]
+  
   """variables pertinent to creating a reward from each state"""
-  #Stocks
+  #Stocks 
+  botStockLast = lastState.players[bot].stocks
+  botStockCurrent = currentState.players[bot].stocks
+  
   opponentStockLast = lastState.players[0].stocks
   opponentStockCurrent = currentState.players[0].stocks
   
-  botStockLast = lastState.players[1].stocks
-  botStockCurrent = currentState.players[1].stocks
-  
   #Percentages
+  botPercentLast = lastState.players[bot].percent
+  botPercentCurrent = currentState.players[bot].percent
+  
   opponentPercentLast = lastState.players[0].percent
   opponentPercentCurrent = currentState.players[0].percent
   
-  botPercentLast = lastState.players[1].percent
-  botPercentCurrent = currentState.players[1].percent
-  
   #Dying
+  botPrevDying = lastState.players[bot].action_state.value <= 0xA
+  botNowDying = currentState.players[bot].action_state.value <= 0xA
+  
   opponentPrevDying = lastState.players[0].action_state.value <= 0xA
   opponentNowDying = currentState.players[0].action_state.value <= 0xA
   
-  botPrevDying = lastState.players[1].action_state.value <= 0xA
-  botNowDying = currentState.players[1].action_state.value <= 0xA
-
   #Determine Reward
   if (not opponentPrevDying and opponentNowDying) and (not botPrevDying and botNowDying):
     return 0
