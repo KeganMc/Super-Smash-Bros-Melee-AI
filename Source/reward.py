@@ -7,7 +7,7 @@ Input: The current and previous states our bot had been in (is in)
     list reflects the id number for each character and the value reflects the character allegiance.
         0 = Does not exist in game
         1 = Our Bot
-        2 = Oponent
+        2 = Opponent
         3 = Ally
 Process: Past and current state variables such as player stocks and percentages are
     examined and a reward is assigned to our bot based off the differences in those variables
@@ -18,41 +18,42 @@ def reward(lastState, currentState, characters):
   
   """variables pertinent to creating a reward from each state"""
   #Stocks
-  lastStocks1 = lastState.players[0].stocks
-  currentStocks1 = currentState.players[0].stocks
+  opponentStockLast = lastState.players[0].stocks
+  opponentStockCurrent = currentState.players[0].stocks
   
-  lastStocks2 = lastState.players[1].stocks
-  currentStocks2 = currentState.players[1].stocks
+  botStockLast = lastState.players[1].stocks
+  botStockCurrent = currentState.players[1].stocks
   
   #Percentages
-  lastPercent1 = lastState.players[0].percent
-  currentPercent1 = currentState.players[0].percent
+  opponentPercentLast = lastState.players[0].percent
+  opponentPercentCurrent = currentState.players[0].percent
   
-  lastPercent2 = lastState.players[1].percent
-  currentPercent2 = currentState.players[1].percent
+  botPercentLast = lastState.players[1].percent
+  botPercentCurrent = currentState.players[1].percent
   
   #Dying
-  prevDying1 = lastState.players[0].action_state.value <= 0xA
-  prevDying2 = lastState.players[1].action_state.value <= 0xA
-  nowDying1 = currentState.players[0].action_state.value <= 0xA
-  nowDying2 = currentState.players[1].action_state.value <= 0xA
+  opponentPrevDying = lastState.players[0].action_state.value <= 0xA
+  opponentNowDying = currentState.players[0].action_state.value <= 0xA
+  
+  botPrevDying = lastState.players[1].action_state.value <= 0xA
+  botNowDying = currentState.players[1].action_state.value <= 0xA
 
   #Determine Reward
-  if (not prevDying1 and nowDying1) and (not prevDying2 and nowDying2):
+  if (not opponentPrevDying and opponentNowDying) and (not botPrevDying and botNowDying):
     return 0
-  elif (not prevDying1 and nowDying1):
+  elif (not opponentPrevDying and opponentNowDying):
     return 100
-  elif (not prevDying2 and nowDying2):
+  elif (not botPrevDying and botNowDying):
     return -100
 
   # Don't give negative reward for the opponent respawning.
   opponentPercentReward = 0
-  if not (currentPercent1 == 0 and lastPercent1 > 0):
-    opponentPercentReward = currentPercent1 - lastPercent1
+  if not (opponentPercentCurrent == 0 and opponentPercentLast > 0):
+    opponentPercentReward = opponentPercentCurrent - opponentPercentLast
 
   allyPercentPenalty = 0
-  if not (currentPercent2 == 0 and lastPercent2 > 0):
-    allyPercentPenalty = currentPercent2 - lastPercent2
+  if not (botPercentCurrent == 0 and botPercentLast > 0):
+    allyPercentPenalty = botPercentCurrent - botPercentLast
 
   botReward = opponentPercentReward - allyPercentPenalty
   return botReward
