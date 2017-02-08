@@ -3,11 +3,17 @@ import state_manager
 
 """
 Input: The current and previous states our bot had been in (is in)
+    characters = A list containing character information. The index of each element in the
+    list reflects the id number for each character and the value reflects the character allegiance.
+        0 = Does not exist in game
+        1 = Our Bot
+        2 = Oponent
+        3 = Ally
 Process: Past and current state variables such as player stocks and percentages are
     examined and a reward is assigned to our bot based off the differences in those variables
 Output: Reward to be given to our bot
 """
-def reward(lastState, currentState):
+def reward(lastState, currentState, characters):
   botReward = 0
   
   """variables pertinent to creating a reward from each state"""

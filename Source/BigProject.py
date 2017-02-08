@@ -138,7 +138,7 @@ def main():
           if st.menu == state.Menu.Game:
             currentState = preprocess(st)
             if lastState is not None:
-              rewardList.append(reward(lastState, st))
+              rewardList.append(reward(lastState, st, [2,1]))
               valList.append(network.run_value(sess, currentState))
             if len(valList) >= 64:
               #workerThread(updateNetwork, (sess, network, actionList, stateList, valList, rewardList, 0.99))
