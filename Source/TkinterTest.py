@@ -5,7 +5,7 @@ window = tkinter.Tk()
 
 # Set up title and icon
 window.title("Super Smash Bros AI")
-window.geometry("500x500")
+window.geometry("200x200")
 window.wm_iconbitmap('SmashIcon.ico')
 
 # Create and Add widgets
