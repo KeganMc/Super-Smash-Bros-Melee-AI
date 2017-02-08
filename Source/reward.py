@@ -42,9 +42,9 @@ def reward(lastState, currentState, characters):
   if (not opponentPrevDying and opponentNowDying) and (not botPrevDying and botNowDying):
     return 0
   elif (not opponentPrevDying and opponentNowDying):
-    return 100
+    return 1
   elif (not botPrevDying and botNowDying):
-    return -100
+    return -1
 
   # Don't give negative reward for the opponent respawning.
   opponentPercentReward = 0
@@ -56,5 +56,5 @@ def reward(lastState, currentState, characters):
     allyPercentPenalty = botPercentCurrent - botPercentLast
 
   botReward = opponentPercentReward - allyPercentPenalty
-  return botReward
+  return (botReward*0.01)
   
