@@ -80,17 +80,20 @@ def reward(lastState, currentState, characters):
       alliesDying++
 
   #Don't give negative reward for the opponent respawning.
+  botPercentPenalty = 0
+  if not (botPercentCurrent == 0 and botPercentLast > 0):
+      botPercentPenalty += botPercentCurrent - botPercentLast
+  
   opponentPercentReward = 0
-  if not (opponentPercentCurrent == 0 and opponentPercentLast > 0):
-    opponentPercentReward = opponentPercentCurrent - opponentPercentLast
+  for i in opponents:
+    if not (opponentPercentCurrent[i] == 0 and opponentPercentLast[i] > 0):
+      opponentPercentReward += opponentPercentCurrent[i] - opponentPercentLast[i]
 
   allyPercentPenalty = 0
-  if not (botPercentCurrent == 0 and botPercentLast > 0):
-    allyPercentPenalty = botPercentCurrent - botPercentLast
+  for i in allies:
+    if not (allyPercentCurrent[i] == 0 and allyPercentLast[i] > 0):
+      allyPercentPenalty += allyPercentCurrent[i] - allyPercentLast[i]
 
-  botReward = opponentPercentReward - allyPercentPenalty
-  return (botReward*0.01)
-  
-  return opponentsDying - botDying - alliesDying*0.2 
-  #.005 and .05 allies
+  botReward = opponentPercentReward - botPercentPenalty - (allyPercentPenalty*0.2)
+  return opponentsDying - botDying - alliesDying*0.2 + (botReward * 0.01)
   
