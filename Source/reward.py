@@ -66,18 +66,18 @@ def reward(lastState, currentState, characters):
   
   #Determine Reward
   botDying = 0
-  if(not(botPrevDying) and botNowDying)
+  if(not(botPrevDying) and botNowDying):
     botDying = 1
     
   opponentsDying = 0
   for i in opponents:
     if(not(opponentPrevDying[i]) and opponentNowDying[i]):
-      opponentsDying++
+      opponentsDying+=1
       
   alliesDying = 0
   for i in allies:
     if(not(allyPrevDying[i]) and allyNowDying[i]):
-      alliesDying++
+      alliesDying+=1
 
   #Don't give negative reward for the opponent respawning.
   botPercentPenalty = 0
