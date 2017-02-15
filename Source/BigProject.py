@@ -13,7 +13,7 @@ import random
 from actor_critic import ActorCriticNetwork
 
 def find_directory():
-  possible = ["~/.dolphin-emu", "~/.local/share/.dolphin-emu", "~/Library/Application/ Support/Dolphin", "~/.local/share/dolphin-emu"]
+  possible = ["~/.dolphin-emu", "~/.local/share/.dolphin-emu", "~/Library/Application Support/Dolphin", "~/.local/share/dolphin-emu"]
   for path in possible:
     fullPath = os.path.expanduser(path)
     if os.path.isdir(fullPath):

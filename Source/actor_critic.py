@@ -23,7 +23,7 @@ class ActorCriticNetwork(object):
 		self.diff = tf.placeholder(tf.float32, [None])
 		log_policy = tf.log(tf.clip_by_value(self.policy_out, 1e-15, 1.0))
 		entropy = -tf.reduce_sum(self.policy_out * log_policy, reduction_indices=1)
-		policy_loss = -tf.reduce_sum(tf.reduce_sum(tf.mul(log_policy, self.a), reduction_indices=1) * self.diff + entropy * entropy_var)
+		policy_loss = -tf.reduce_sum(tf.reduce_sum(tf.multiply(log_policy, self.a), reduction_indices=1) * self.diff + entropy * entropy_var)
 		self.reward = tf.placeholder(tf.float32, [None])
 		value_loss = 0.5 * tf.nn.l2_loss(self.reward - self.value)
 		self.total_loss = policy_loss + value_loss
