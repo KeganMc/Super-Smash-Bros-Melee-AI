@@ -166,7 +166,7 @@ def main():
           if st.menu == state.Menu.Game:
             currentState = preprocess(st, PLAYER_RELATIONSHIP_LIST)
             if lastState is not None:
-              rewardList.append(reward(lastState, st, [2,1,0,0]))
+              rewardList.append(reward(lastState, st, PLAYER_RELATIONSHIP_LIST))
             if len(valList) >= 64:
               updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
               actionList = []
