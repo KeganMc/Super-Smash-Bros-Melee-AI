@@ -11,10 +11,10 @@ state information and reinforced learning. The algorithm the bot uses is Deep Q 
 
 Requirements
 =========================================
-Python3
-Tensorflow
-Tkinter
-Dolphin Emulator
+* Python3
+* Tensorflow
+* Tkinter
+* Dolphin Emulator
 
 Installation
 =========================================
