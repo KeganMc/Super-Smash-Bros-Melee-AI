@@ -41,12 +41,8 @@ def find_socket(dolphinPath):
   socketPath = socketDir + "/MemoryWatcher"
   return socketPath
 
-#TODO: Preprocess for certain player numbers (ie player 3 vs player 4)
-def preprocess(st):
-  stList = []
-  stList.append(st.frame)
-  stList.append(st.stage.value)
-  for playerID in range(4):
+def appendPlayerInfoToStateList(stList, players):
+  for playerID in players:
     player = st.players[playerID]
     stList.append(player.stocks)
     stList.append(player.cursor_x)
@@ -67,6 +63,38 @@ def preprocess(st):
     stList.append(player.hitlag)
     stList.append(player.jumps_used)
     stList.append(player.body_state.value)
+
+#TODO: Preprocess for certain player numbers (ie player 3 vs player 4)
+"""
+Input: The current states our bot is in
+    players = A list containing character information. The index of each element in the
+    list reflects the id number for each character and the value reflects the character allegiance.
+        0 = Does not exist in game
+        1 = Our Bot
+        2 = Opponent
+        3 = Ally
+Process: Past and current state variables such as player stocks and percentages are
+    examined and a reward is assigned to our bot based off the differences in those variables
+Output: Reward to be given to our bot
+"""
+def preprocess(st, players):
+  # Find bot, then ally, then enemy
+  botID = None
+  allys = []
+  enemys = []
+  for playerID, relation in enumerate(players):
+    if relation == 1:
+      botID = playerID
+    elif relation == 3:
+      allys.append(playerID)
+    else:
+      enemys.append(playerID)
+  stList = []
+  stList.append(st.frame)
+  stList.append(st.stage.value)
+  appendPlayerInfoToStateList(stList, [botID])
+  appendPlayerInfoToStateList(stList, allys)
+  appendPlayerInfoToStateList(stList, enemys)
   return np.reshape(np.array(stList), [1,78])
 
 def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma):
@@ -118,7 +146,6 @@ def main():
       learning_rate_tensor = tf.placeholder(tf.float32)
       network = ActorCriticNetwork(40,
                     tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9))
-
       network.set_up_loss(0.01)
       network.set_up_apply_grads(learning_rate_tensor)
       last_frame = 0
@@ -131,9 +158,6 @@ def main():
       pipeout.write(output_map[outputs.RESET])
       pipeout.flush()
       while(True):
-        #res = next(mw)
-        #if res is not None:
-        #  stateManager.handle(*res)
         getLatestState(mw,stateManager)
         if st.frame > last_frame+3:
           last_frame = st.frame
@@ -141,10 +165,7 @@ def main():
             currentState = preprocess(st)
             if lastState is not None:
               rewardList.append(reward(lastState, st, [2,1,0,0]))
-              valList.append(network.run_value(sess, currentState))
             if len(valList) >= 64:
-              #workerThread(updateNetwork, (sess, network, actionList, stateList, valList, rewardList, 0.99))
-              #workerThread.run()
               updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
               actionList = []
               stateList = []
@@ -154,6 +175,7 @@ def main():
             chosenAction = np.random.choice(list(outputs), p=action)
             print(chosenAction)
             actionList.append(chosenAction)
+            valList.append(val)
             stateList.append(currentState)
             lastState = st
             pipeout.write(output_map[chosenAction])

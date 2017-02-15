@@ -3,19 +3,19 @@ import numpy as np
 
 class ActorCriticNetwork(object):
 	def __init__(self, act_size, opt):
+		self.state = tf.placeholder(tf.float32, [None, 1, 78])
 		self.action_size = act_size
 		self.optimizer = opt
-		self.fc1, self.fc1_b = self.fc_layer([78, 512])
-		self.fc2, self.fc2_b = self.fc_layer([512, 256])
-		self.fc3, self.fc3_b = self.fc_layer([256, 64])
-		self.fc4, self.fc4_b = self.fc_layer([64, act_size])
-		self.fc5, self.fc5_b = self.fc_layer([64, 1])
-		self.state = tf.placeholder(tf.float32, [None, 1, 78])
+		self.fc1, self.fc1_b = self.fc_layer([78, 256])
+		self.fc2, self.fc2_b = self.fc_layer([256, 256])
+		self.fc3, self.fc3_b = self.fc_layer([256, act_size])
+		#self.fc4, self.fc4_b = self.fc_layer([64, act_size])
+		self.fc4, self.fc4_b = self.fc_layer([256, 1])
 		h_fc1 = tf.nn.relu(tf.matmul(tf.reshape(self.state, [-1, 78]), self.fc1) + self.fc1_b)
 		h_fc2 = tf.nn.relu(tf.matmul(h_fc1, self.fc2) + self.fc2_b)
 		h_fc3 = tf.nn.relu(tf.matmul(h_fc2, self.fc3) + self.fc3_b)
-		self.policy_out = tf.nn.softmax(tf.nn.relu(tf.matmul(h_fc3, self.fc4) + self.fc4_b))
-		val = tf.matmul(h_fc3, self.fc5) + self.fc5_b
+		self.policy_out = tf.nn.softmax(tf.nn.relu(tf.matmul(h_fc2, self.fc3) + self.fc3_b))
+		val = tf.matmul(h_fc2, self.fc4) + self.fc4_b
 		self.value = tf.reshape(val, [-1])
 
 	def set_up_loss(self, entropy_var):
@@ -66,5 +66,5 @@ class ActorCriticNetwork(object):
 		return [self.fc1, self.fc1_b,
 			self.fc2, self.fc2_b,
 			self.fc3, self.fc3_b,
-			self.fc4, self.fc4_b,
-			self.fc5, self.fc5_b]
+			self.fc4, self.fc4_b]
+			#self.fc5, self.fc5_b]
