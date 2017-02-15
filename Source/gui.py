@@ -1,7 +1,7 @@
-import tkinter
+from tkinter import *
 import BigProject
 
-window = tkinter.Tk()
+window = Tk()
 
 # Launch BigProject.py
 def BP():
@@ -9,13 +9,12 @@ def BP():
 
 # Set up title and icon
 window.title("Super Smash Bros AI")
-window.geometry("200x200")
 window.wm_iconbitmap('SmashIcon.ico')
+window.geometry("400x300")
 
 # Create and Add widgets
-launch = tkinter.Button(window, text = "Launch Bot", command=BP)
+launch = Button(window, text = "Launch Bot", command=BP)
 launch.pack()
-
 
 window.mainloop()
 
