@@ -18,16 +18,7 @@ def reward(lastState, currentState, characters):
   bot = -1
   allies = []
   opponents = []
-  #Bot Player Number
-  for (playerID, relation) in enumerate(characters):
-    if relation == 1:
-      bot = playerID
-    elif relation == 3:
-      allies.append(playerID)
-    elif relation == 2:
-      opponents.append(playerID)
   
-  """variables pertinent to creating a reward from each state"""
   opponentPercentLast = []
   opponentPercentCurrent = []
   
@@ -40,29 +31,40 @@ def reward(lastState, currentState, characters):
   allyPrevDying = []
   allyNowDying = []
   
+  #Bot Player Number
+  for (playerID, relation) in enumerate(characters):
+    if relation == 1:
+      bot = playerID
+    elif relation == 3:
+      allies.append(playerID)
+    elif relation == 2:
+      opponents.append(playerID)
+  
+  """variables pertinent to creating a reward from each state"""
+  
   #Percentages
   botPercentLast = lastState.players[bot].percent
   botPercentCurrent = currentState.players[bot].percent
   
   for i in opponents:
-    opponentPercentLast[i] = lastState.players[opponents[i]].percent
-    opponentPercentCurrent[i] = currentState.players[opponents[i]].percent
+    opponentPercentLast.append(lastState.players[opponents[i]].percent)
+    opponentPercentCurrent.append(currentState.players[opponents[i]].percent)
     
   for i in allies:
-    allyPercentLast[i] = lastState.players[allies[i]].percent
-    allyPercentCurrent[i] = currentState.players[allies[i]].percent
+    allyPercentLast.append(lastState.players[allies[i]].percent)
+    allyPercentCurrent.append(currentState.players[allies[i]].percent)
   
   #Dying
   botPrevDying = lastState.players[bot].action_state.value <= 0xA
   botNowDying = currentState.players[bot].action_state.value <= 0xA
   
   for i in opponents:
-    opponentPrevDying[i] = lastState.players[opponents[i]].action_state.value <= 0xA
-    opponentNowDying[i] = currentState.players[opponents[i]].action_state.value <= 0xA
+    opponentPrevDying.append(lastState.players[opponents[i]].action_state.value <= 0xA)
+    opponentNowDying.append(currentState.players[opponents[i]].action_state.value <= 0xA)
     
   for i in allies:
-    allyPrevDying[i] = lastState.players[allies[i]].action_state.value <= 0xA
-    allyNowDying[i] = currentState.players[allies[i]].action_state.value <= 0xA
+    allyPrevDying.append(lastState.players[allies[i]].action_state.value <= 0xA)
+    allyNowDying.append(currentState.players[allies[i]].action_state.value <= 0xA)
   
   #Determine Reward
   botDying = 0
