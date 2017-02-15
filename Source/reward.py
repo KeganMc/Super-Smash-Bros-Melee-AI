@@ -17,23 +17,15 @@ def reward(lastState, currentState, characters):
   botReward = 0
   bot = -1
   allies = []
-  enemies = []
-  #Bot Pleyer Number
+  opponents = []
+  #Bot Player Number
   for (playerID, relation) in enumerate(characters):
     if relation == 1:
       bot = playerID
     elif relation == 3:
       allies.append(playerID)
     elif relation == 2:
-      enemies.append(playerID)
-  
-  #Opponent Player Numbers
-  opponents = []
-  [opponents.insert(i) for i, j in enumerate(characters) if j == 2]
-  
-  #Ally Player Numbers
-  allies = []
-  [allies.insert(i) for i, j in enumerate(characters) if j == 3]
+      opponents.append(playerID)
   
   """variables pertinent to creating a reward from each state"""
   #Stocks 
