@@ -1,5 +1,5 @@
 from tkinter import *
-#import BigProject
+import BigProject
 
 window = Tk()
 
