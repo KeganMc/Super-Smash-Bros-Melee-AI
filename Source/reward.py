@@ -15,9 +15,17 @@ Output: Reward to be given to our bot
 """
 def reward(lastState, currentState, characters):
   botReward = 0
-  
+  bot = -1
+  allies = []
+  enemies = []
   #Bot Pleyer Number
-  bot = characters.index(1)
+  for (playerID, relation) in enumerate(characters):
+    if relation == 1:
+      bot = playerID
+    elif relation == 3:
+      allies.append(playerID)
+    elif relation == 2:
+      enemies.append(playerID)
   
   #Opponent Player Numbers
   opponents = []
