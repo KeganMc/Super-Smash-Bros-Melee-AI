@@ -1,5 +1,5 @@
 from tkinter import *
-#import BigProject
+import BigProject
 
 window = Tk()
 
@@ -33,12 +33,14 @@ window.wm_iconbitmap('SmashIcon.ico')
 
 myframe = Frame(window)
 myframe.pack(fill=BOTH, expand=YES)
-mycanvas = ResizingCanvas(myframe,width=850, height=400, bg="cyan", highlightthickness=0)
+mycanvas = ResizingCanvas(myframe,width=0, height=0, bg="cyan", highlightthickness=0)
 mycanvas.pack(fill=BOTH, expand=YES)
 
 # Create and Add widgets
 launch = Button(window, text = "Launch Bot", command=BP)
 launch.pack()
 
+# tag all of the drawn widgets
+mycanvas.addtag_all("all")
 window.mainloop()
 
