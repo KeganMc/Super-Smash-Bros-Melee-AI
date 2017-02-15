@@ -12,6 +12,8 @@ import numpy as np
 import random
 from actor_critic import ActorCriticNetwork
 
+PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
+
 def find_directory():
   possible = ["~/.dolphin-emu", "~/.local/share/.dolphin-emu", "~/Library/Application Support/Dolphin", "~/.local/share/dolphin-emu"]
   for path in possible:
@@ -41,7 +43,7 @@ def find_socket(dolphinPath):
   socketPath = socketDir + "/MemoryWatcher"
   return socketPath
 
-def appendPlayerInfoToStateList(stList, players):
+def appendPlayerInfoToStateList(stList, st, players):
   for playerID in players:
     player = st.players[playerID]
     stList.append(player.stocks)
@@ -92,9 +94,9 @@ def preprocess(st, players):
   stList = []
   stList.append(st.frame)
   stList.append(st.stage.value)
-  appendPlayerInfoToStateList(stList, [botID])
-  appendPlayerInfoToStateList(stList, allies)
-  appendPlayerInfoToStateList(stList, enemies)
+  appendPlayerInfoToStateList(stList, st, [botID])
+  appendPlayerInfoToStateList(stList, st, allies)
+  appendPlayerInfoToStateList(stList, st, enemies)
   return np.reshape(np.array(stList), [1,78])
 
 def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma):
@@ -162,7 +164,7 @@ def main():
         if st.frame > last_frame+3:
           last_frame = st.frame
           if st.menu == state.Menu.Game:
-            currentState = preprocess(st)
+            currentState = preprocess(st, PLAYER_RELATIONSHIP_LIST)
             if lastState is not None:
               rewardList.append(reward(lastState, st, [2,1,0,0]))
             if len(valList) >= 64:
