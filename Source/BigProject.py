@@ -80,21 +80,21 @@ Output: Reward to be given to our bot
 def preprocess(st, players):
   # Find bot, then ally, then enemy
   botID = None
-  allys = []
-  enemys = []
+  allies = []
+  enemies = []
   for playerID, relation in enumerate(players):
     if relation == 1:
       botID = playerID
     elif relation == 3:
-      allys.append(playerID)
+      allies.append(playerID)
     else:
-      enemys.append(playerID)
+      enemies.append(playerID)
   stList = []
   stList.append(st.frame)
   stList.append(st.stage.value)
   appendPlayerInfoToStateList(stList, [botID])
-  appendPlayerInfoToStateList(stList, allys)
-  appendPlayerInfoToStateList(stList, enemys)
+  appendPlayerInfoToStateList(stList, allies)
+  appendPlayerInfoToStateList(stList, enemies)
   return np.reshape(np.array(stList), [1,78])
 
 def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma):
