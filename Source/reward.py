@@ -28,17 +28,17 @@ def reward(lastState, currentState, characters):
       opponents.append(playerID)
   
   """variables pertinent to creating a reward from each state"""
-  #Stocks 
-  botStockLast = lastState.players[bot].stocks
-  botStockCurrent = currentState.players[bot].stocks
+  opponentPercentLast = []
+  opponentPercentCurrent = []
   
-  for i in opponents:
-    opponentStockLast[i] = lastState.players[opponents[i]].stocks
-    opponentStockCurrent[i] = currentState.players[opponents[i]].stocks
-    
-  for i in allies:
-    allyStockLast[i] = lastState.players[allies[i]].stocks
-    allyStockCurrent[i] = currentState.players[allies[i]].stocks
+  allyPercentLast = []
+  allyPercentCurrent = []
+  
+  opponentPrevDying = []
+  opponentNowDying = []
+
+  allyPrevDying = []
+  allyNowDying = []
   
   #Percentages
   botPercentLast = lastState.players[bot].percent
