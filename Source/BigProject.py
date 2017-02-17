@@ -66,7 +66,6 @@ def appendPlayerInfoToStateList(stList, st, players):
     stList.append(player.jumps_used)
     stList.append(player.body_state.value)
 
-#TODO: Preprocess for certain player numbers (ie player 3 vs player 4)
 """
 Input: The current states our bot is in
     players = A list containing character information. The index of each element in the
@@ -157,6 +156,8 @@ def main():
       rewardList = []
       lastState = None
       sess.run(tf.global_variables_initializer())
+      saver = tf.train.Saver(network.get_vars())
+      saver.restore(sess, './saves/my-model')
       pipeout.write(output_map[outputs.RESET])
       pipeout.flush()
       while(True):
@@ -169,6 +170,7 @@ def main():
               rewardList.append(reward(lastState, st, PLAYER_RELATIONSHIP_LIST))
             if len(valList) >= 64:
               updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
+              saver.save(sess, './saves/my-model')
               actionList = []
               stateList = []
               valList = []
