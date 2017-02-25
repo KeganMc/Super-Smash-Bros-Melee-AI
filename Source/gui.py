@@ -11,6 +11,7 @@ def BP():
 window.title("Super Smash Bros AI")
 window.wm_iconbitmap('SmashIcon.ico')
 window.geometry("400x300")
+window.configure(background = "#ff0000")
 
 # Create and Add widgets
 launch = Button(window, text = "Launch Bot", command=BP)
