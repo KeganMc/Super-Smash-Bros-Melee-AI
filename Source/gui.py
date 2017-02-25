@@ -1,5 +1,5 @@
 from tkinter import *
-import BigProject
+#import BigProject
 
 window = Tk()
 
@@ -14,6 +14,12 @@ window.geometry("400x300")
 window.configure(background = "#ff0000")
 
 # Create and Add widgets
+save = Button(window, text = "Save Bot")
+save.pack()
+
+load = Button(window, text = "Load Bot")
+load.pack()
+
 launch = Button(window, text = "Launch Bot", command=BP)
 launch.pack()
 
