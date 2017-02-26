@@ -27,11 +27,19 @@ class ActorCriticNetwork(object):
 		self.reward = tf.placeholder(tf.float32, [None])
 		value_loss = 0.5 * tf.nn.l2_loss(self.reward - self.value)
 		self.total_loss = policy_loss + value_loss
-		self.gradients = self.optimizer.compute_gradients(self.total_loss, self.get_vars())
+		self.gradients = tf.gradients(self.total_loss, self.get_vars())
 
-	def set_up_apply_grads(self, learning_rate_tensor):
+	def set_up_apply_grads(self, learning_rate_tensor, global_vars):
 		self.learning_rate = learning_rate_tensor
-		self.apply_gradients = self.optimizer.apply_gradients(self.gradients)
+		self.var_norms = tf.global_norm(self.get_vars())
+		grads, self.grad_norms = tf.clip_by_global_norm(self.gradients, 40.0)
+		self.apply_gradients = self.optimizer.apply_gradients(zip(grads, global_vars))
+
+	def set_up_sync_weights(self, global_vars):
+		local_vars = self.get_vars()
+		self.sync = []
+		for(local, globl) in zip(local_vars, global_vars):
+			self.sync.append(local.assign(globl))
 
 	def apply_grads(self, sess, a_batch, r_batch, s_batch, reward_val_diff_batch, lr):
 		sess.run(self.apply_gradients, feed_dict={self.state: s_batch,
@@ -39,6 +47,9 @@ class ActorCriticNetwork(object):
 							self.diff: reward_val_diff_batch,
 							self.reward: r_batch,
 							self.learning_rate: lr})
+
+	def sync_weights(self, sess):
+		sess.run(self.sync)
 
 	def fc_layer(self, shapes):
 		inputs = shapes[0]

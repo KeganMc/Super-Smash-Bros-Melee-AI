@@ -10,7 +10,9 @@ import random
 import tensorflow as tf
 import numpy as np
 import random
+from state_store import StateStore
 from actor_critic import ActorCriticNetwork
+from threading import Thread
 
 PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
 
@@ -96,6 +98,7 @@ def preprocess(st, players):
   appendPlayerInfoToStateList(stList, st, [botID])
   appendPlayerInfoToStateList(stList, st, allies)
   appendPlayerInfoToStateList(stList, st, enemies)
+  print(len(stList))
   return np.reshape(np.array(stList), [1,78])
 
 def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma):
@@ -125,7 +128,95 @@ def getLatestState(mw, sm):
     sm.handle(*res)
     res = next(mw)
 
-def main():
+def trainingThread(i, sess, network, pipeout, stateStore, relationList, training, saver, modelName):
+  dolphinPath = find_directory()
+  if dolphinPath is None:
+    print("Could not find dolphin directory!")
+    return
+  st = state.State()
+  stateManager = state_manager.StateManager(st)
+  write_locations(dolphinPath, stateManager.locations())
+  last_frame = 0
+  actionList = []
+  stateList = []
+  valList = []
+  rewardList = []
+  lastState = None
+  
+  pipeout.write(output_map[outputs.RESET])
+  pipeout.flush()
+  while(True):
+    res = stateStore.getNextState()
+    while(res is None):
+      res = stateStore.getNextState()
+    stateManager.handle(*res)
+    if st.frame > last_frame+3:
+      last_frame = st.frame
+      if st.menu == state.Menu.Game:
+        currentState = preprocess(st, relationList)
+        if lastState is not None:
+          rewardList.append(reward(lastState, st, relationList))
+        if len(valList) >= 64:
+          if training:
+            updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
+            saver.save(sess, './saves/' + modelName)
+          network.sync_weights(sess)
+          actionList = []
+          stateList = []
+          valList = []
+          rewardList = []
+        action, val =  network.run_policy_and_value(sess, currentState)
+        chosenAction = np.random.choice(list(outputs), p=action)
+        print(chosenAction)
+        actionList.append(chosenAction)
+        valList.append(val)
+        stateList.append(currentState)
+        lastState = st
+        pipeout.write(output_map[chosenAction])
+        pipeout.flush()
+
+  pipeout.close()
+
+def main(botRelations=[[2,1,0,0]], training=True, modelName='my-model'):
+  dolphinPath = find_directory()
+  if dolphinPath is None:
+    print("Could not find dolphin directory!")
+    return
+
+  mwLocation = find_socket(dolphinPath)
+  
+  with memory_watcher.MemoryWatcher(mwLocation) as mw:
+    stateStore = StateStore(mw)
+    with tf.Session() as sess:
+      learning_rate_tensor = tf.placeholder(tf.float32)
+      optimizer = tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9)
+      globalNetwork = ActorCriticNetwork(40, optimizer)
+      globalNetwork.set_up_loss(0.01)
+      globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
+      saver = tf.train.Saver(globalNetwork.get_vars())
+      threads = []
+      for threadIndex in range(len(botRelations)):
+        pipe = find_make_pipe_dir(dolphinPath) + "/pipe" + str(threadIndex)
+        try:
+          os.mkfifo(pipe)
+        except OSError:
+          pass
+        pipeout = open(pipe, "w")
+        threadNet = ActorCriticNetwork(40, optimizer)
+        threadNet.set_up_loss(0.01)
+        threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
+        threadNet.set_up_sync_weights(globalNetwork.get_vars())
+        threads.append(Thread(target=trainingThread,
+                              args=(threadIndex, sess, threadNet, 
+                                    pipeout, stateStore, botRelations[threadIndex],
+                                    training, saver, modelName)))
+      sess.run(tf.global_variables_initializer())
+      for thread in threads:
+        thread.start()
+      for thread in threads:
+        thread.join()
+
+def deprecated():
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -192,8 +283,9 @@ def main():
             if lastState is not None:
               rewardList.append(reward(lastState, st, PLAYER_RELATIONSHIP_LIST))
             if len(valList) >= 64:
-              updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
-              saver.save(sess, './saves/' + modelName)
+              if training:
+                updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
+                saver.save(sess, './saves/' + modelName)
               actionList = []
               stateList = []
               valList = []
