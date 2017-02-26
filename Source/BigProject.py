@@ -157,7 +157,30 @@ def main():
       lastState = None
       sess.run(tf.global_variables_initializer())
       saver = tf.train.Saver(network.get_vars())
-      saver.restore(sess, './saves/my-model')
+      print("Train bot? (y/n)")
+      ans = input()
+      if ans == 'y':
+        training = True
+      else:
+        training = False
+      filesSaved = [f for f in os.listdir('./saves') 
+                    if os.path.isfile(os.path.join('./saves', f))]
+      files = []
+      fileCounter = 1
+      print('Which model would you like to load? (0 for new model)')
+      for f in filesSaved:
+        if f.endswith('.index'):
+          files.append(f[:-6])
+          print(str(fileCounter) + ': ' + f[:-6])
+          fileCounter += 1
+      ansInt = int(input())
+      modelName = ''
+      if ansInt > 0:
+        modelName = files[ansInt - 1]
+        saver.restore(sess, './saves/' + modelName)
+      elif training:
+        print('Please enter a name for the new model')
+        modelName = input()
       pipeout.write(output_map[outputs.RESET])
       pipeout.flush()
       while(True):
@@ -170,7 +193,7 @@ def main():
               rewardList.append(reward(lastState, st, PLAYER_RELATIONSHIP_LIST))
             if len(valList) >= 64:
               updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
-              saver.save(sess, './saves/my-model')
+              saver.save(sess, './saves/' + modelName)
               actionList = []
               stateList = []
               valList = []
