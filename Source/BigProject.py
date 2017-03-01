@@ -16,6 +16,9 @@ from threading import Thread
 
 PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
 
+"""
+Find the Dolphin user directory.
+"""
 def find_directory():
   possible = ["~/.dolphin-emu", "~/.local/share/.dolphin-emu", "~/Library/Application Support/Dolphin", "~/.local/share/dolphin-emu"]
   for path in possible:
@@ -24,6 +27,10 @@ def find_directory():
       return fullPath
   return None
 
+"""
+Find and make the pipe for the bot to send controller inputs.
+    dolphinPath = the path to the dolphin user directory
+"""
 def find_make_pipe_dir(dolphinPath):
   pipesPath = dolphinPath + "/Pipes"
   if os.path.isdir(pipesPath):
@@ -31,13 +38,21 @@ def find_make_pipe_dir(dolphinPath):
   os.mkdir(pipesPath)
   return pipesPath
 
-
+"""
+Write the memory locations we want dolphin to output.
+    dolphin_dir = the Dolphin user directory
+    locations = the list of memory locations for Dolphin to output
+"""
 def write_locations(dolphin_dir, locations):
   path = dolphin_dir + '/MemoryWatcher/Locations.txt'
   with open(path, 'w') as f:
     f.write('\n'.join(locations))
   return
 
+"""
+Finds the memory watcher directory.
+    dolphinPath = the path to the dolphin user directory
+"""
 def find_socket(dolphinPath):
   socketDir = dolphinPath + "/MemoryWatcher"
   if not os.path.isdir(socketDir):
@@ -45,6 +60,12 @@ def find_socket(dolphinPath):
   socketPath = socketDir + "/MemoryWatcher"
   return socketPath
 
+"""
+Appends the state info about a player to the state list.
+    stList = the current list of state info
+    st = the current state
+    players = the list of playerIDs for the player info to append
+"""
 def appendPlayerInfoToStateList(stList, st, players):
   for playerID in players:
     player = st.players[playerID]
@@ -101,6 +122,16 @@ def preprocess(st, players):
   print(len(stList))
   return np.reshape(np.array(stList), [1,78])
 
+"""
+Call this function to update an ActorCritic network. The lists are reversed in this function.
+    sess = tensorflow
+    network = the local neural network
+    actionList = the list of actions taken in order
+    stateList = the list of states encountered in order
+    valList = the list of values from the network in order
+    rewardList = the list of rewards in order
+    gamma = discount factor
+"""
 def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma):
   R = valList[0]
   actionList.reverse()
@@ -122,12 +153,27 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
     batch_r.append(R)
     network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, 0.01)
 
+"""
+Deprecated function use state_store.py now.
+"""
 def getLatestState(mw, sm):
   res = next(mw)
   while res is not None:
     sm.handle(*res)
     res = next(mw)
 
+"""
+Thread to create for each bot.
+    i = the thread index/id
+    sess = the tensorflow session
+    network = local neural network for the specific bot
+    pipeout = the pipe that the bot will send inputs to
+    stateStore = the StateStore shared between all threads
+    relationList = the relationships of the players to the bot
+    training = whether we need to update the networks or not
+    saver = the tensorflow saver for loading and saving the model
+    modelName = the file name of the model saved to disk
+"""
 def trainingThread(i, sess, network, pipeout, stateStore, relationList, training, saver, modelName):
   dolphinPath = find_directory()
   if dolphinPath is None:
@@ -145,6 +191,7 @@ def trainingThread(i, sess, network, pipeout, stateStore, relationList, training
   
   pipeout.write(output_map[outputs.RESET])
   pipeout.flush()
+  network.sync_weights(sess)
   while(True):
     res = stateStore.getNextState()
     while(res is None):
@@ -177,6 +224,13 @@ def trainingThread(i, sess, network, pipeout, stateStore, relationList, training
 
   pipeout.close()
 
+"""
+Create the bots and start to run them.
+    botRelations = A list of relations
+        0 = nothing
+        1 = bot index
+        2 = enemy
+"""
 def main(botRelations=[[2,1,0,0]], training=True, modelName='my-model'):
   dolphinPath = find_directory()
   if dolphinPath is None:
@@ -211,11 +265,15 @@ def main(botRelations=[[2,1,0,0]], training=True, modelName='my-model'):
                                     pipeout, stateStore, botRelations[threadIndex],
                                     training, saver, modelName)))
       sess.run(tf.global_variables_initializer())
+      saver.restore(sess, './saves/' + modelName)
       for thread in threads:
         thread.start()
       for thread in threads:
         thread.join()
 
+"""
+Deprecated main function
+"""
 def deprecated():
   dolphinPath = find_directory()
   if dolphinPath is None:
