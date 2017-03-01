@@ -230,6 +230,7 @@ Create the bots and start to run them.
         0 = nothing
         1 = bot index
         2 = enemy
+        3 = ally
 """
 def main(botRelations=[[2,1,0,0]], training=True, modelName='my-model'):
   dolphinPath = find_directory()
