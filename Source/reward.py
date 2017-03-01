@@ -1,5 +1,13 @@
 import state
 import state_manager
+import enum
+
+@enum.unique
+class Player(enum.Enum):
+    Unselected = 0
+    Bot        = 1
+    Opponent   = 2
+    Ally       = 3
 
 """
 Input: The current and previous states our bot had been in (is in)
@@ -33,11 +41,11 @@ def reward(lastState, currentState, characters):
   
   #Bot Player Number
   for (playerID, relation) in enumerate(characters):
-    if relation == 1:
+    if relation == Player.Bot:
       bot = playerID
-    elif relation == 3:
+    elif relation == Player.Ally:
       allies.append(playerID)
-    elif relation == 2:
+    elif relation == Player.Opponent:
       opponents.append(playerID)
   
   """variables pertinent to creating a reward from each state"""
