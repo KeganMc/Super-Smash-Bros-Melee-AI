@@ -13,9 +13,11 @@ import random
 from state_store import StateStore
 from actor_critic import ActorCriticNetwork
 from threading import Thread
+import threading
 
 PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
-
+global threads_save
+global threads_quit
 """
 Find the Dolphin user directory.
 """
@@ -117,9 +119,8 @@ def preprocess(st, players):
   stList.append(st.frame)
   stList.append(st.stage.value)
   appendPlayerInfoToStateList(stList, st, [botID])
-  appendPlayerInfoToStateList(stList, st, allies)
   appendPlayerInfoToStateList(stList, st, enemies)
-  print(len(stList))
+  appendPlayerInfoToStateList(stList, st, allies)
   return np.reshape(np.array(stList), [1,78])
 
 """
@@ -174,11 +175,18 @@ Thread to create for each bot.
     saver = the tensorflow saver for loading and saving the model
     modelName = the file name of the model saved to disk
 """
-def trainingThread(i, sess, network, pipeout, stateStore, relationList, training, saver, modelName):
+def trainingThread(i, sess, network, stateStore, relationList, training, saver, modelName, lock):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
     return
+  pipe = find_make_pipe_dir(dolphinPath) + "/pipe" + str(i)
+  try:
+    os.mkfifo(pipe)
+  except OSError:
+    pass
+  pipeout = open(pipe, "w")
+  print("Bot " + str(i+1) + " is pipe " + pipe)
   st = state.State()
   stateManager = state_manager.StateManager(st)
   write_locations(dolphinPath, stateManager.locations())
@@ -188,7 +196,8 @@ def trainingThread(i, sess, network, pipeout, stateStore, relationList, training
   valList = []
   rewardList = []
   lastState = None
-  
+  global threads_save
+  global threads_quit
   pipeout.write(output_map[outputs.RESET])
   pipeout.flush()
   network.sync_weights(sess)
@@ -206,7 +215,16 @@ def trainingThread(i, sess, network, pipeout, stateStore, relationList, training
         if len(valList) >= 64:
           if training:
             updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
-            saver.save(sess, './saves/' + modelName)
+            lock.acquire()
+            if threads_save:
+              saver.save(sess, './saves/' + modelName)
+              threads_save = False
+            lock.release()
+            lock.acquire()
+            if threads_quit:
+              lock.release()
+              break
+            lock.release()
           network.sync_weights(sess)
           actionList = []
           stateList = []
@@ -214,7 +232,6 @@ def trainingThread(i, sess, network, pipeout, stateStore, relationList, training
           rewardList = []
         action, val =  network.run_policy_and_value(sess, currentState)
         chosenAction = np.random.choice(list(outputs), p=action)
-        print(chosenAction)
         actionList.append(chosenAction)
         valList.append(val)
         stateList.append(currentState)
@@ -232,14 +249,18 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def main(botRelations=[[2,1,0,0]], training=True, modelName='my-model'):
+def runBots(botRelations=[[2,1,3,0], [2,3,1,0]], training=True, loading=False, modelName='my-model'):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
     return
 
+  global threads_save
+  global threads_quit
+  threads_save = False
+  threads_quit = False
   mwLocation = find_socket(dolphinPath)
-  
+  lock = threading.Lock()
   with memory_watcher.MemoryWatcher(mwLocation) as mw:
     stateStore = StateStore(mw)
     with tf.Session() as sess:
@@ -251,31 +272,38 @@ def main(botRelations=[[2,1,0,0]], training=True, modelName='my-model'):
       saver = tf.train.Saver(globalNetwork.get_vars())
       threads = []
       for threadIndex in range(len(botRelations)):
-        pipe = find_make_pipe_dir(dolphinPath) + "/pipe" + str(threadIndex)
-        try:
-          os.mkfifo(pipe)
-        except OSError:
-          pass
-        pipeout = open(pipe, "w")
         threadNet = ActorCriticNetwork(40, optimizer)
         threadNet.set_up_loss(0.01)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
         threads.append(Thread(target=trainingThread,
                               args=(threadIndex, sess, threadNet, 
-                                    pipeout, stateStore, botRelations[threadIndex],
-                                    training, saver, modelName)))
+                                    stateStore, botRelations[threadIndex],
+                                    training, saver, modelName, lock)))
       sess.run(tf.global_variables_initializer())
-      saver.restore(sess, './saves/' + modelName)
+      if loading:
+        saver.restore(sess, './saves/' + modelName)
       for thread in threads:
         thread.start()
+      print("Enter 'save' to save the model and 'quit' to quit the program:")
+      while True:
+        com = input()
+        if com == "save":
+          lock.acquire()
+          threads_save = True
+          lock.release()
+        if com == "quit":
+          lock.acquire()
+          threads_quit = True
+          lock.release()
+          break
       for thread in threads:
         thread.join()
 
 """
 Deprecated main function
 """
-def deprecated():
+def main():
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -290,75 +318,44 @@ def deprecated():
     os.mkfifo(pipe)
   except OSError:
     pass
-
-  pipeout = open(pipe, "w")
-  with memory_watcher.MemoryWatcher(mwLocation) as mw:
-    with tf.Session() as sess:
-      learning_rate_tensor = tf.placeholder(tf.float32)
-      network = ActorCriticNetwork(40,
-                    tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9))
-      network.set_up_loss(0.01)
-      network.set_up_apply_grads(learning_rate_tensor)
-      last_frame = 0
-      actionList = []
-      stateList = []
-      valList = []
-      rewardList = []
-      lastState = None
-      sess.run(tf.global_variables_initializer())
-      saver = tf.train.Saver(network.get_vars())
-      print("Train bot? (y/n)")
-      ans = input()
-      if ans == 'y':
-        training = True
-      else:
-        training = False
-      filesSaved = [f for f in os.listdir('./saves') 
-                    if os.path.isfile(os.path.join('./saves', f))]
-      files = []
-      fileCounter = 1
-      print('Which model would you like to load? (0 for new model)')
-      for f in filesSaved:
-        if f.endswith('.index'):
-          files.append(f[:-6])
-          print(str(fileCounter) + ': ' + f[:-6])
-          fileCounter += 1
-      ansInt = int(input())
-      modelName = ''
-      if ansInt > 0:
-        modelName = files[ansInt - 1]
-        saver.restore(sess, './saves/' + modelName)
-      elif training:
-        print('Please enter a name for the new model')
-        modelName = input()
-      pipeout.write(output_map[outputs.RESET])
-      pipeout.flush()
-      while(True):
-        getLatestState(mw,stateManager)
-        if st.frame > last_frame+3:
-          last_frame = st.frame
-          if st.menu == state.Menu.Game:
-            currentState = preprocess(st, PLAYER_RELATIONSHIP_LIST)
-            if lastState is not None:
-              rewardList.append(reward(lastState, st, PLAYER_RELATIONSHIP_LIST))
-            if len(valList) >= 64:
-              if training:
-                updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
-                saver.save(sess, './saves/' + modelName)
-              actionList = []
-              stateList = []
-              valList = []
-              rewardList = []
-            action, val =  network.run_policy_and_value(sess, currentState)
-            chosenAction = np.random.choice(list(outputs), p=action)
-            print(chosenAction)
-            actionList.append(chosenAction)
-            valList.append(val)
-            stateList.append(currentState)
-            lastState = st
-            pipeout.write(output_map[chosenAction])
-            pipeout.flush()
-
-  pipeout.close()
+  learning_rate_tensor = tf.placeholder(tf.float32)
+  network = ActorCriticNetwork(40,
+                tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9))
+  network.set_up_loss(0.01)
+  network.set_up_apply_grads(learning_rate_tensor)
+  last_frame = 0
+  actionList = []
+  stateList = []
+  valList = []
+  rewardList = []
+  lastState = None
+  sess.run(tf.global_variables_initializer())
+  saver = tf.train.Saver(network.get_vars())
+  print("Train bot? (y/n)")
+  ans = input()
+  train = False
+  if ans == 'y':
+    train = True
+  filesSaved = [f for f in os.listdir('./saves') 
+               if os.path.isfile(os.path.join('./saves', f))]
+  files = []
+  fileCounter = 1
+  print('Which model would you like to load? (0 for new model)')
+  for f in filesSaved:
+    if f.endswith('.index'):
+      files.append(f[:-6])
+    print(str(fileCounter) + ': ' + f[:-6])
+    fileCounter += 1
+  ansInt = int(input())
+  mName = ''
+  load = False
+  if ansInt > 0:
+    load = True
+    mName = files[ansInt - 1]
+    #saver.restore(sess, './saves/' + modelName)
+  elif training:
+    print('Please enter a name for the new model')
+    mName = input()
+  runBots(training=train, loading=load, modelName=mName)
 
 if __name__=="__main__": main()
