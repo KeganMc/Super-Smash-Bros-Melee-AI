@@ -18,15 +18,19 @@ class SmashGui(QtGui.QMainWindow):
 		w.setWindowIcon(QtGui.QIcon("SmashIcon.ico"))
 
 	def initializeButtons(self):
-"""		save = Button(self.parent, text = "Save Bot").grid(row=5, column=1)
-		load = Button(self.parent, text = "Load Bot").grid(row=5, column=2)
-		launch = Button(self.parent, text = "Launch Bot", command=self.BP).grid(row=5, column=3)"""
 		save = QtGui.QPushButton("Save", self)
 		#save.clicked.connect(#save function here)
 		load = QtGui.QPushButton("Load", self)
 		#load.clicked.connect("Load function here)
 		launch = QtGui.QPushButton("Launch", self)
 		launch.clicked.connect(self.BP)
+
+	def initializeMenu(self):
+		fileAction = QtGui.QAction("New Game")
+		mainMenu = self.menuBar()
+		fileMenu = mainMenu.addMenu('&File')
+		fileMenu.addAction(fileAction)
+		aboutMenu = mainMenu.addMenu('&About')
 
 	# Launch BigProject.py
 	def BP(self):
