@@ -186,7 +186,11 @@ def trainingThread(i, sess, network, stateStore, relationList, training, saver, 
   except OSError:
     pass
   pipeout = open(pipe, "w")
-  print("Bot " + str(i+1) + " is pipe " + pipe)
+  botID = -1
+  for pid, rel in enumerate(relationList):
+    if rel == 1:
+      botID = pid
+  print("Player " + str(botID+1) + " is pipe " + pipe)
   st = state.State()
   stateManager = state_manager.StateManager(st)
   write_locations(dolphinPath, stateManager.locations())
@@ -280,6 +284,7 @@ def runBots(botRelations=[[2,1,3,0], [2,3,1,0]], training=True, loading=False, m
                               args=(threadIndex, sess, threadNet, 
                                     stateStore, botRelations[threadIndex],
                                     training, saver, modelName, lock)))
+      #TODO: Only initialize variables as needed.
       sess.run(tf.global_variables_initializer())
       if loading:
         saver.restore(sess, './saves/' + modelName)
@@ -304,33 +309,6 @@ def runBots(botRelations=[[2,1,3,0], [2,3,1,0]], training=True, loading=False, m
 Deprecated main function
 """
 def main():
-  dolphinPath = find_directory()
-  if dolphinPath is None:
-    print("Could not find dolphin directory!")
-    return
-
-  pipe = find_make_pipe_dir(dolphinPath) + "/pipe"
-  mwLocation = find_socket(dolphinPath)
-  st = state.State()
-  stateManager = state_manager.StateManager(st)
-  write_locations(dolphinPath, stateManager.locations())
-  try:
-    os.mkfifo(pipe)
-  except OSError:
-    pass
-  learning_rate_tensor = tf.placeholder(tf.float32)
-  network = ActorCriticNetwork(40,
-                tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9))
-  network.set_up_loss(0.01)
-  network.set_up_apply_grads(learning_rate_tensor)
-  last_frame = 0
-  actionList = []
-  stateList = []
-  valList = []
-  rewardList = []
-  lastState = None
-  sess.run(tf.global_variables_initializer())
-  saver = tf.train.Saver(network.get_vars())
   print("Train bot? (y/n)")
   ans = input()
   train = False
@@ -344,15 +322,14 @@ def main():
   for f in filesSaved:
     if f.endswith('.index'):
       files.append(f[:-6])
-    print(str(fileCounter) + ': ' + f[:-6])
-    fileCounter += 1
+      print(str(fileCounter) + ': ' + f[:-6])
+      fileCounter += 1
   ansInt = int(input())
   mName = ''
   load = False
   if ansInt > 0:
     load = True
     mName = files[ansInt - 1]
-    #saver.restore(sess, './saves/' + modelName)
   elif training:
     print('Please enter a name for the new model')
     mName = input()
