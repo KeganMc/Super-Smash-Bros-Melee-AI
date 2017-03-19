@@ -157,12 +157,13 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
 """
 Deprecated function use state_store.py now.
 """
+"""
 def getLatestState(mw, sm):
   res = next(mw)
   while res is not None:
     sm.handle(*res)
     res = next(mw)
-
+"""
 """
 Thread to create for each bot.
     i = the thread index/id
@@ -221,7 +222,7 @@ def trainingThread(i, sess, network, stateStore, relationList, training, saver, 
             updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
             lock.acquire()
             if threads_save:
-              saver.save(sess, './saves/' + modelName)
+              print(saver.save(sess, './saves/' + modelName))
               threads_save = False
             lock.release()
             lock.acquire()
@@ -273,21 +274,39 @@ def runBots(botRelations=[[2,1,3,0], [2,3,1,0]], training=True, loading=False, m
       globalNetwork = ActorCriticNetwork(40, optimizer)
       globalNetwork.set_up_loss(0.01)
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
-      saver = tf.train.Saver(globalNetwork.get_vars())
+      globalVarDict = dict()
+      counter = 0
+      print(globalNetwork.get_vars())
+      for var in globalNetwork.get_vars():
+        globalVarDict["global" + str(counter)] = var
+        counter = counter + 1
+      print(globalVarDict)
+      saver = tf.train.Saver(globalVarDict)
       threads = []
+      varsToInit = []
       for threadIndex in range(len(botRelations)):
         threadNet = ActorCriticNetwork(40, optimizer)
         threadNet.set_up_loss(0.01)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
+        varsToInit = varsToInit + threadNet.get_vars()
         threads.append(Thread(target=trainingThread,
                               args=(threadIndex, sess, threadNet, 
                                     stateStore, botRelations[threadIndex],
                                     training, saver, modelName, lock)))
       #TODO: Only initialize variables as needed.
-      sess.run(tf.global_variables_initializer())
       if loading:
+        sess.run(tf.variables_initializer(varsToInit))
+        optimizerVars = []
+        for var in globalNetwork.get_vars():
+          for name in optimizer.get_slot_names():
+            tempVar = optimizer.get_slot(var, name)
+            if tempVar is not None:
+              optimizerVars.append(tempVar)
+        sess.run(tf.variables_initializer(optimizerVars))
         saver.restore(sess, './saves/' + modelName)
+      else:
+        sess.run(tf.global_variables_initializer())
       for thread in threads:
         thread.start()
       print("Enter 'save' to save the model and 'quit' to quit the program:")
@@ -306,7 +325,7 @@ def runBots(botRelations=[[2,1,3,0], [2,3,1,0]], training=True, loading=False, m
         thread.join()
 
 """
-Deprecated main function
+Main function
 """
 def main():
   print("Train bot? (y/n)")
@@ -318,19 +337,21 @@ def main():
                if os.path.isfile(os.path.join('./saves', f))]
   files = []
   fileCounter = 1
-  print('Which model would you like to load? (0 for new model)')
   for f in filesSaved:
     if f.endswith('.index'):
       files.append(f[:-6])
       print(str(fileCounter) + ': ' + f[:-6])
       fileCounter += 1
-  ansInt = int(input())
+  ansInt = 0
+  if len(files) > 0:
+    print('Which model would you like to load? (0 for new model)')
+    ansInt = int(input())
   mName = ''
   load = False
   if ansInt > 0:
     load = True
     mName = files[ansInt - 1]
-  elif training:
+  elif train:
     print('Please enter a name for the new model')
     mName = input()
   runBots(training=train, loading=load, modelName=mName)
