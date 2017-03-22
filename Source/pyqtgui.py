@@ -1,12 +1,12 @@
 import sys
-from PyQt5 import QtGui
+from PyQt4 import QtGui
 
 class SmashGui(QtGui.QMainWindow):
 
 	def __init__(self):
 		super(SmashGui, self).__init__()
 		self.initualizeWindow()
-		#self.initualizeMenu()
+		self.initualizeMenu()
 		#self.initualizeButtons()
 		#self.initualizeText()
 		#self.initualizePlayerSelection()
