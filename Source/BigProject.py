@@ -222,7 +222,7 @@ def trainingThread(i, sess, network, stateStore, relationList, training, saver, 
             updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
             lock.acquire()
             if threads_save:
-              print(saver.save(sess, './saves/' + modelName))
+              saver.save(sess, './saves/' + modelName)
               threads_save = False
             lock.release()
             lock.acquire()
@@ -276,35 +276,33 @@ def runBots(botRelations=[[2,1,3,0], [2,3,1,0]], training=True, loading=False, m
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
       globalVarDict = dict()
       counter = 0
-      print(globalNetwork.get_vars())
       for var in globalNetwork.get_vars():
         globalVarDict["global" + str(counter)] = var
         counter = counter + 1
-      print(globalVarDict)
-      saver = tf.train.Saver(globalVarDict)
       threads = []
-      varsToInit = []
+      threadNets = []
       for threadIndex in range(len(botRelations)):
         threadNet = ActorCriticNetwork(40, optimizer)
         threadNet.set_up_loss(0.01)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
-        varsToInit = varsToInit + threadNet.get_vars()
+        threadNets.append(threadNet)
+      counter = 0
+      for var in globalNetwork.get_vars():
+        for name in optimizer.get_slot_names():
+          tempVar = optimizer.get_slot(var, name)
+          if tempVar is not None:
+            globalVarDict["optimizer" + str(counter)] = tempVar
+            counter = counter + 1
+      saver = tf.train.Saver(globalVarDict)
+      for threadIndex in range(len(botRelations)):
         threads.append(Thread(target=trainingThread,
-                              args=(threadIndex, sess, threadNet, 
+                              args=(threadIndex, sess, threadNets[threadIndex], 
                                     stateStore, botRelations[threadIndex],
                                     training, saver, modelName, lock)))
-      #TODO: Only initialize variables as needed.
       if loading:
-        sess.run(tf.variables_initializer(varsToInit))
-        optimizerVars = []
-        for var in globalNetwork.get_vars():
-          for name in optimizer.get_slot_names():
-            tempVar = optimizer.get_slot(var, name)
-            if tempVar is not None:
-              optimizerVars.append(tempVar)
-        sess.run(tf.variables_initializer(optimizerVars))
         saver.restore(sess, './saves/' + modelName)
+        print('loaded ' + modelName)
       else:
         sess.run(tf.global_variables_initializer())
       for thread in threads:
