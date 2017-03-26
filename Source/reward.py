@@ -55,24 +55,24 @@ def reward(lastState, currentState, characters):
   botPercentCurrent = currentState.players[bot].percent
   
   for i in opponents:
-    opponentPercentLast.append(lastState.players[opponents[i]].percent)
-    opponentPercentCurrent.append(currentState.players[opponents[i]].percent)
+    opponentPercentLast.append(lastState.players[i].percent)
+    opponentPercentCurrent.append(currentState.players[i].percent)
     
   for i in allies:
-    allyPercentLast.append(lastState.players[allies[i]].percent)
-    allyPercentCurrent.append(currentState.players[allies[i]].percent)
+    allyPercentLast.append(lastState.players[i].percent)
+    allyPercentCurrent.append(currentState.players[i].percent)
   
   #Dying
   botPrevDying = lastState.players[bot].action_state.value <= 0xA
   botNowDying = currentState.players[bot].action_state.value <= 0xA
   
   for i in opponents:
-    opponentPrevDying.append(lastState.players[opponents[i]].action_state.value <= 0xA)
-    opponentNowDying.append(currentState.players[opponents[i]].action_state.value <= 0xA)
+    opponentPrevDying.append(lastState.players[i].action_state.value <= 0xA)
+    opponentNowDying.append(currentState.players[i].action_state.value <= 0xA)
     
   for i in allies:
-    allyPrevDying.append(lastState.players[allies[i]].action_state.value <= 0xA)
-    allyNowDying.append(currentState.players[allies[i]].action_state.value <= 0xA)
+    allyPrevDying.append(lastState.players[i].action_state.value <= 0xA)
+    allyNowDying.append(currentState.players[i].action_state.value <= 0xA)
   
   #Determine Reward
   botDying = 0
