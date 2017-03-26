@@ -85,8 +85,8 @@ def reward(lastState, currentState, characters):
       opponentsDying += 1
       
   alliesDying = 0
-  for i in allies:
-    if(not(allyPrevDying[i]) and allyNowDying[i]):
+  for prev, now in zip(allyPrevDying, allyNowDying):
+    if(not prev and now):
       alliesDying+=1
 
   #Don't give negative reward for the opponent respawning.
@@ -95,14 +95,14 @@ def reward(lastState, currentState, characters):
       botPercentPenalty += botPercentCurrent - botPercentLast
   
   opponentPercentReward = 0
-  for i in opponents:
-    if not (opponentPercentCurrent[i] == 0 and opponentPercentLast[i] > 0):
+  for last, current in zip(opponentPercentLast, opponentPercentNew):
+    if (not last == 0 and current > 0):
       opponentPercentReward += opponentPercentCurrent[i] - opponentPercentLast[i]
 
-  allyPercentPenalty = 0
-  for i in allies:
-    if not (allyPercentCurrent[i] == 0 and allyPercentLast[i] > 0):
-      allyPercentPenalty += allyPercentCurrent[i] - allyPercentLast[i]
+  allyPercentReward = 0
+  for last, current in zip(allyPercentLast, allyPercentNew):
+    if (not last == 0 and current > 0):
+      allyPercentReward += allyPercentCurrent[i] - allyPercentLast[i]
 
   botReward = opponentPercentReward - botPercentPenalty - (allyPercentPenalty*0.2)
   return opponentsDying - botDying - alliesDying*0.2 + (botReward * 0.01)
