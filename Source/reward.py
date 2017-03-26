@@ -80,9 +80,9 @@ def reward(lastState, currentState, characters):
     botDying = 1
     
   opponentsDying = 0
-  for i in opponents:
-    if(not(opponentPrevDying[i]) and opponentNowDying[i]):
-      opponentsDying+=1
+  for prev, now in zip(opponetPrevDying, opponentNowDying):
+    if(not prev and now):
+      opponentsDying += 1
       
   alliesDying = 0
   for i in allies:
