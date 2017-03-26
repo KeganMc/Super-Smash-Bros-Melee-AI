@@ -41,11 +41,11 @@ def reward(lastState, currentState, characters):
   
   #Bot Player Number
   for (playerID, relation) in enumerate(characters):
-    if relation == Player.Bot:
+    if relation == Player.Bot.value:
       bot = playerID
-    elif relation == Player.Ally:
+    elif relation == Player.Ally.value:
       allies.append(playerID)
-    elif relation == Player.Opponent:
+    elif relation == Player.Opponent.value:
       opponents.append(playerID)
   
   """variables pertinent to creating a reward from each state"""
