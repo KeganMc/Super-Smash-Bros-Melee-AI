@@ -1,28 +1,29 @@
 import sys
-from PyQt4 import QtGui
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt5.QtGui import QIcon
 
-class SmashGui(QtGui.QMainWindow):
+class SmashGui(QWidget):
 
 	def __init__(self):
-		super(SmashGui, self).__init__()
-		self.initualizeWindow()
-		self.initualizeMenu()
-		#self.initualizeButtons()
+		super().__init__()
+		self.initializeWindow()
+		#self.initualizeMenu()
+		self.initializeButtons()
 		#self.initualizeText()
 		#self.initualizePlayerSelection()
 		self.show()
 
-	def initalizeWindow(self):
-		self.parent.setWindowTitle("Super Smash Bros AI")
-		self.parent.setGeometry(500, 500, 450, 250)
-		w.setWindowIcon(QtGui.QIcon("SmashIcon.ico"))
+	def initializeWindow(self):
+		self.setWindowTitle("Super Smash Bros AI")
+		self.setGeometry(500, 500, 450, 250)
+		self.setWindowIcon(QIcon("SmashIcon.ico"))
 
 	def initializeButtons(self):
-		save = QtGui.QPushButton("Save", self)
-		#save.clicked.connect(#save function here)
-		load = QtGui.QPushButton("Load", self)
-		#load.clicked.connect("Load function here)
-		launch = QtGui.QPushButton("Launch", self)
+		save = QPushButton("Save", self)
+		save.clicked.connect(self.save)
+		load = QPushButton("Load", self)
+		load.clicked.connect(self.load)
+		launch = QPushButton("Launch", self)
 		launch.clicked.connect(self.BP)
 
 	def initializeMenu(self):
@@ -36,7 +37,13 @@ class SmashGui(QtGui.QMainWindow):
 	def BP(self):
 		BigProject
 
-app = QtGui.QApplication(sys.argv)
+	def save(self):
+		print('Save pushed')
+
+	def load(self):
+		print('Load pushed')
+
+app = QApplication(sys.argv)
 
 GUI = SmashGui()
 

@@ -14,7 +14,7 @@ class smashGui(Frame):
 
 	def initualizeWindow(self):
 		self.parent.title("Super Smash Bros AI")
-		self.parent.wm_iconbitmap('SmashIcon.ico')
+		self.parent.tk.iconbitmap(self,default='SmashIcon.ico')
 		self.parent.geometry("400x300")
 		##self.parent.eval('tk::PlaceWindow %s center' % self.parent.winfo_toplevel())
 		self.parent.configure(background = "#FFFFFF")
