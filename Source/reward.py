@@ -95,12 +95,12 @@ def reward(lastState, currentState, characters):
       botPercentPenalty += botPercentCurrent - botPercentLast
   
   opponentPercentReward = 0
-  for last, current in zip(opponentPercentLast, opponentPercentNew):
+  for last, current in zip(opponentPercentLast, opponentPercentCurrent):
     if (not last == 0 and current > 0):
       opponentPercentReward += opponentPercentCurrent[i] - opponentPercentLast[i]
 
   allyPercentReward = 0
-  for last, current in zip(allyPercentLast, allyPercentNew):
+  for last, current in zip(allyPercentLast, allyPercentCurrent):
     if (not last == 0 and current > 0):
       allyPercentReward += allyPercentCurrent[i] - allyPercentLast[i]
 
