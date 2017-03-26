@@ -217,24 +217,26 @@ def trainingThread(i, sess, network, stateStore, relationList, training, saver, 
         currentState = preprocess(st, relationList)
         if lastState is not None:
           rewardList.append(reward(lastState, st, relationList))
+
         if len(valList) >= 64:
           if training:
             updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
-            lock.acquire()
-            if threads_save:
-              saver.save(sess, './saves/' + modelName)
-              threads_save = False
+          lock.acquire()
+          if threads_save:
+            saver.save(sess, './saves/' + modelName)
+            threads_save = False
+          lock.release()
+          lock.acquire()
+          if threads_quit:
             lock.release()
-            lock.acquire()
-            if threads_quit:
-              lock.release()
-              break
-            lock.release()
+            break
+          lock.release()
           network.sync_weights(sess)
           actionList = []
           stateList = []
           valList = []
           rewardList = []
+
         action, val =  network.run_policy_and_value(sess, currentState)
         chosenAction = np.random.choice(list(outputs), p=action)
         actionList.append(chosenAction)
@@ -254,7 +256,7 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[2,1,3,0], [2,3,1,0]], training=True, loading=False, modelName='my-model'):
+def runBots(botRelations=[[1,2,2,3], [2,1,3,2], [2,3,1,2], [3,2,2,1]], training=True, loading=False, modelName='my-model'):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
