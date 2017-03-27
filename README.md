@@ -13,7 +13,7 @@ Requirements
 =========================================
 * Python3
 * Tensorflow
-* Tkinter
+* PyQt5
 * Dolphin Emulator
 
 Installation

@@ -1,8 +1,11 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+import BigProject
+import webbrowser
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QWidget, QPushButton, qApp
 from PyQt5.QtGui import QIcon
 
-class SmashGui(QWidget):
+#class SmashGui(QWidget)
+class SmashGui(QMainWindow):
 
 	def __init__(self):
 		super().__init__()
@@ -19,19 +22,33 @@ class SmashGui(QWidget):
 		self.setWindowIcon(QIcon("SmashIcon.ico"))
 
 	def initializeButtons(self):
-		save = QPushButton("Save", self)
-		save.clicked.connect(self.save)
-		load = QPushButton("Load", self)
-		load.clicked.connect(self.load)
-		launch = QPushButton("Launch", self)
+		save = QPushButton("Save Bot", self)
+		load = QPushButton("Load Bot", self)
+		launch = QPushButton("Launch Bot", self)
+
+		launch.move(100, 20)
+		load.move(200, 20)
+		save.move(300, 20)
+
 		launch.clicked.connect(self.BP)
+		load.clicked.connect(self.load)
+		save.clicked.connect(self.save)
 
 	def initializeMenu(self):
-		fileAction = QtGui.QAction("New Game")
+		exitAction = QAction('&Exit', self)
+		exitAction.setShortcut('Ctrl+Q')
+		exitAction.setStatusTip('Exit Application')
+		exitAction.triggered.connect(qApp.quit)
+
+		aboutAction = QAction('&About', self)
+		aboutAction.setStatusTip('About')
+		aboutAction.triggered.connect(self.about)	
+
 		mainMenu = self.menuBar()
 		fileMenu = mainMenu.addMenu('&File')
-		fileMenu.addAction(fileAction)
-		aboutMenu = mainMenu.addMenu('&About')
+
+		fileMenu.addAction(exitAction)
+		fileMenu.addAction(aboutAction)
 
 	# Launch BigProject.py
 	def BP(self):
