@@ -10,10 +10,10 @@ import random
 import tensorflow as tf
 import numpy as np
 import random
-from state_store import StateStore
 from actor_critic import ActorCriticNetwork
 from threading import Thread
 import threading
+from reward_data import RewardData
 
 PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
 global threads_save
@@ -155,28 +155,27 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
     network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, 0.01)
 
 """
-Deprecated function use state_store.py now.
+Create an object that stores the relevant info from the previous state for rewards.
 """
-"""
-def getLatestState(mw, sm):
-  res = next(mw)
-  while res is not None:
-    sm.handle(*res)
-    res = next(mw)
-"""
+def createRewardData(state):
+  return RewardData(state)
+  
+
 """
 Thread to create for each bot.
     i = the thread index/id
     sess = the tensorflow session
     network = local neural network for the specific bot
     pipeout = the pipe that the bot will send inputs to
-    stateStore = the StateStore shared between all threads
+    st = the State shared between all threads
+    stateManager = the StateManager shared between all threads
+    mw = The MemoryWatcher shared between all threads
     relationList = the relationships of the players to the bot
     training = whether we need to update the networks or not
     saver = the tensorflow saver for loading and saving the model
     modelName = the file name of the model saved to disk
 """
-def trainingThread(i, sess, network, stateStore, relationList, training, saver, modelName, lock):
+def trainingThread(i, sess, network, st, stateManager, mw, relationList, training, saver, modelName, lock):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -192,9 +191,6 @@ def trainingThread(i, sess, network, stateStore, relationList, training, saver, 
     if rel == 1:
       botID = pid
   print("Player " + str(botID+1) + " is pipe " + pipe)
-  st = state.State()
-  stateManager = state_manager.StateManager(st)
-  write_locations(dolphinPath, stateManager.locations())
   last_frame = 0
   actionList = []
   stateList = []
@@ -207,19 +203,29 @@ def trainingThread(i, sess, network, stateStore, relationList, training, saver, 
   pipeout.flush()
   network.sync_weights(sess)
   while(True):
-    res = stateStore.getNextState()
-    while(res is None):
-      res = stateStore.getNextState()
-    stateManager.handle(*res)
+    lock.acquire()
+    res = next(mw)
+    if res is not None:
+      stateManager.handle(*res)
+    lock.release()
+    lock.acquire()
     if st.frame > last_frame+3:
       last_frame = st.frame
+      lock.release()
+      lock.acquire()
       if st.menu == state.Menu.Game:
         currentState = preprocess(st, relationList)
+        currentStateRewardData = createRewardData(st)
+        lock.release()
         if lastState is not None:
-          rewardList.append(reward(lastState, st, relationList))
+          rew = reward(lastStateRewardData, currentStateRewardData, relationList)
+          if rew != 0:
+            print(rew)
+          rewardList.append(rew)
 
         if len(valList) >= 64:
           if training:
+            print("updating network")
             updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
           lock.acquire()
           if threads_save:
@@ -236,16 +242,19 @@ def trainingThread(i, sess, network, stateStore, relationList, training, saver, 
           stateList = []
           valList = []
           rewardList = []
-
         action, val =  network.run_policy_and_value(sess, currentState)
+        print(action)
         chosenAction = np.random.choice(list(outputs), p=action)
         actionList.append(chosenAction)
         valList.append(val)
         stateList.append(currentState)
-        lastState = st
+        lastStateRewardData = currentStateRewardData
         pipeout.write(output_map[chosenAction])
         pipeout.flush()
-
+      else:
+        lock.release()
+    else:
+      lock.release()
   pipeout.close()
 
 """
@@ -256,7 +265,7 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[1,2,2,3], [2,1,3,2], [2,3,1,2], [3,2,2,1]], training=True, loading=False, modelName='my-model'):
+def runBots(botRelations=[[1,2,0,0], [2,1,0,0]], training=True, loading=False, modelName='my-model'):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -269,7 +278,6 @@ def runBots(botRelations=[[1,2,2,3], [2,1,3,2], [2,3,1,2], [3,2,2,1]], training=
   mwLocation = find_socket(dolphinPath)
   lock = threading.Lock()
   with memory_watcher.MemoryWatcher(mwLocation) as mw:
-    stateStore = StateStore(mw)
     with tf.Session() as sess:
       learning_rate_tensor = tf.placeholder(tf.float32)
       optimizer = tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9)
@@ -297,10 +305,13 @@ def runBots(botRelations=[[1,2,2,3], [2,1,3,2], [2,3,1,2], [3,2,2,1]], training=
             globalVarDict["optimizer" + str(counter)] = tempVar
             counter = counter + 1
       saver = tf.train.Saver(globalVarDict)
+      st = state.State()
+      stateManager = state_manager.StateManager(st)
+      write_locations(dolphinPath, stateManager.locations())
       for threadIndex in range(len(botRelations)):
         threads.append(Thread(target=trainingThread,
                               args=(threadIndex, sess, threadNets[threadIndex], 
-                                    stateStore, botRelations[threadIndex],
+                                    st, stateManager, mw, botRelations[threadIndex],
                                     training, saver, modelName, lock)))
       if loading:
         saver.restore(sess, './saves/' + modelName)

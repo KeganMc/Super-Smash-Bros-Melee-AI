@@ -62,6 +62,7 @@ def reward(lastState, currentState, characters):
     allyPercentLast.append(lastState.players[i].percent)
     allyPercentCurrent.append(currentState.players[i].percent)
   
+  print(lastState.players[bot].action_state, currentState.players[bot].action_state)
   #Dying
   botPrevDying = lastState.players[bot].action_state.value <= 0xA
   botNowDying = currentState.players[bot].action_state.value <= 0xA
@@ -78,6 +79,7 @@ def reward(lastState, currentState, characters):
   botDying = 0
   if(not(botPrevDying) and botNowDying):
     botDying = 1
+    print(botDying)
     
   opponentsDying = 0
   for prev, now in zip(opponentPrevDying, opponentNowDying):
