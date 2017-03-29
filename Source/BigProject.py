@@ -159,7 +159,7 @@ Create an object that stores the relevant info from the previous state for rewar
 """
 def createRewardData(state):
   return RewardData(state)
-  
+
 
 """
 Thread to create for each bot.
@@ -265,7 +265,7 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[1,2,0,0], [2,1,0,0]], training=True, loading=False, modelName='my-model'):
+def runBots(botRelations=[[1,2,0,0], [2,1,0,0]], training=True, loading=False, modelName='my-model', gui=False):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -310,7 +310,7 @@ def runBots(botRelations=[[1,2,0,0], [2,1,0,0]], training=True, loading=False, m
       write_locations(dolphinPath, stateManager.locations())
       for threadIndex in range(len(botRelations)):
         threads.append(Thread(target=trainingThread,
-                              args=(threadIndex, sess, threadNets[threadIndex], 
+                              args=(threadIndex, sess, threadNets[threadIndex],
                                     st, stateManager, mw, botRelations[threadIndex],
                                     training, saver, modelName, lock)))
       if loading:
@@ -320,18 +320,19 @@ def runBots(botRelations=[[1,2,0,0], [2,1,0,0]], training=True, loading=False, m
         sess.run(tf.global_variables_initializer())
       for thread in threads:
         thread.start()
-      print("Enter 'save' to save the model and 'quit' to quit the program:")
-      while True:
-        com = input()
-        if com == "save":
-          lock.acquire()
-          threads_save = True
-          lock.release()
-        if com == "quit":
-          lock.acquire()
-          threads_quit = True
-          lock.release()
-          break
+      if not gui:
+        print("Enter 'save' to save the model and 'quit' to quit the program:")
+        while True:
+          com = input()
+          if com == "save":
+            lock.acquire()
+            threads_save = True
+            lock.release()
+          if com == "quit":
+            lock.acquire()
+            threads_quit = True
+            lock.release()
+            break
       for thread in threads:
         thread.join()
 
@@ -344,7 +345,7 @@ def main():
   train = False
   if ans == 'y':
     train = True
-  filesSaved = [f for f in os.listdir('./saves') 
+  filesSaved = [f for f in os.listdir('./saves')
                if os.path.isfile(os.path.join('./saves', f))]
   files = []
   fileCounter = 1
@@ -365,6 +366,6 @@ def main():
   elif train:
     print('Please enter a name for the new model')
     mName = input()
-  runBots(training=train, loading=load, modelName=mName)
+  runBots(training=train, loading=load, modelName=mName, gui=False)
 
 if __name__=="__main__": main()
