@@ -196,12 +196,12 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
   stateList = []
   valList = []
   rewardList = []
-  lastState = None
   global threads_save
   global threads_quit
   pipeout.write(output_map[outputs.RESET])
   pipeout.flush()
   network.sync_weights(sess)
+  lastStateRewardData = None
   while(True):
     lock.acquire()
     res = next(mw)
@@ -217,7 +217,7 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
         currentState = preprocess(st, relationList)
         currentStateRewardData = createRewardData(st)
         lock.release()
-        if lastState is not None:
+        if lastStateRewardData is not None:
           rew = reward(lastStateRewardData, currentStateRewardData, relationList)
           if rew != 0:
             print(rew)
@@ -225,7 +225,6 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
 
         if len(valList) >= 64:
           if training:
-            print("updating network")
             updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
           lock.acquire()
           if threads_save:
@@ -243,7 +242,6 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
           valList = []
           rewardList = []
         action, val =  network.run_policy_and_value(sess, currentState)
-        print(action)
         chosenAction = np.random.choice(list(outputs), p=action)
         actionList.append(chosenAction)
         valList.append(val)
@@ -265,7 +263,7 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[1,2,0,0], [2,1,0,0]], training=True, loading=False, modelName='my-model', gui=False):
+def runBots(botRelations=[[1,2,2,3], [2,1,3,2], [2,3,1,2], [3,2,2,1]], training=True, loading=False, modelName='my-model', gui=False):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
