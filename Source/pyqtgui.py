@@ -119,33 +119,34 @@ class SmashGui(QMainWindow):
 	def initializePlayerSelection(self):
 		self.playerOneSelection = QComboBox(self)
 		self.playerOneSelection.addItems(["None", "Team 1", "Team 2", "Team 3", "Team 4"])
-		self.playerOneSelection.move(150,100)
+		self.playerOneSelection.move(175,100)
 		self.playerOneSelection.currentIndexChanged.connect(lambda:self.checkComboState(self.playerOneSelection, 1))
 		self.playerOneCheck = QCheckBox("AI Agent", self)
-		self.playerOneCheck.move(150,150)
+		self.playerOneCheck.move(175,150)
 		self.playerOneCheck.stateChanged.connect(lambda:self.checkBtnState(self.playerOneCheck, self.playerOneCheck.text()+"1"))
 		self.playerTwoSelection = QComboBox(self)
 		self.playerTwoSelection.addItems(["None", "Team 1", "Team 2", "Team 3", "Team 4"])
-		self.playerTwoSelection.move(700,100)
+		self.playerTwoSelection.move(725,100)
 		self.playerTwoSelection.currentIndexChanged.connect(lambda:self.checkComboState(self.playerTwoSelection, 2))
 		self.playerTwoCheck = QCheckBox("AI Agent", self)
-		self.playerTwoCheck.move(700,150)
+		self.playerTwoCheck.move(725,150)
 		self.playerTwoCheck.stateChanged.connect(lambda:self.checkBtnState(self.playerTwoCheck, self.playerTwoCheck.text()+"2"))
 		self.playerThreeSelection = QComboBox(self)
 		self.playerThreeSelection.addItems(["None", "Team 1", "Team 2", "Team 3", "Team 4"])
-		self.playerThreeSelection.move(150,200)
+		self.playerThreeSelection.move(175,200)
 		self.playerThreeSelection.currentIndexChanged.connect(lambda:self.checkComboState(self.playerThreeSelection, 3))
 		self.playerThreeCheck = QCheckBox("AI Agent", self)
-		self.playerThreeCheck.move(150,250)
+		self.playerThreeCheck.move(175,250)
 		self.playerThreeCheck.stateChanged.connect(lambda:self.checkBtnState(self.playerThreeCheck, self.playerThreeCheck.text()+"3"))
 		self.playerFourSelection = QComboBox(self)
 		self.playerFourSelection.addItems(["None", "Team 1", "Team 2", "Team 3", "Team 4"])
-		self.playerFourSelection.move(700,200)
+		self.playerFourSelection.move(725,200)
 		self.playerFourSelection.currentIndexChanged.connect(lambda:self.checkComboState(self.playerFourSelection, 4))
 		self.playerFourCheck = QCheckBox("AI Agent", self)
-		self.playerFourCheck.move(700,250)
+		self.playerFourCheck.move(725,250)
 		self.playerFourCheck.stateChanged.connect(lambda:self.checkBtnState(self.playerFourCheck, self.playerFourCheck.text()+"4"))
 		self.trainingCheck = QCheckBox("Train the Bot?", self)
+		self.trainingCheck.resize(25,75)
 		self.trainingCheck.move(395,350)
 		self.trainingCheck.stateChanged.connect(lambda:self.checkBtnState(self.trainingCheck, self.trainingCheck.text()))
 
@@ -328,7 +329,7 @@ class SmashGui(QMainWindow):
 				return None
 			elif loadInput[0] != "":
 				mName = loadInput[0]
-				
+
 
 		botRelations = self.createBotRelations()
 
