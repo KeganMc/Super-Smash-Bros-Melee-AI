@@ -1,2 +1,2 @@
-model_checkpoint_path: "free4all"
-all_model_checkpoint_paths: "free4all"
+model_checkpoint_path: "2v2"
+all_model_checkpoint_paths: "2v2"

@@ -22,12 +22,25 @@ class ActorCriticNetwork(object):
 		self.a = tf.placeholder(tf.float32, [None, self.action_size])
 		self.diff = tf.placeholder(tf.float32, [None])
 		log_policy = tf.log(tf.clip_by_value(self.policy_out, 1e-15, 1.0))
+		self.log_policy = tf.log(tf.clip_by_value(self.policy_out, 1e-15, 1.0))
 		entropy = -tf.reduce_sum(self.policy_out * log_policy, reduction_indices=1)
+		self.entropy = -tf.reduce_sum(self.policy_out * log_policy, reduction_indices=1)
+		self.policy_loss = -tf.reduce_sum(tf.reduce_sum(tf.multiply(log_policy, self.a), reduction_indices=1) * self.diff + entropy * entropy_var)
+		self.debug_stuff = -tf.reduce_sum(tf.reduce_sum(tf.multiply(log_policy, self.a), reduction_indices=1) * self.diff)
+		self.more_debug = -tf.reduce_sum(entropy * entropy_var)
 		policy_loss = -tf.reduce_sum(tf.reduce_sum(tf.multiply(log_policy, self.a), reduction_indices=1) * self.diff + entropy * entropy_var)
 		self.reward = tf.placeholder(tf.float32, [None])
 		value_loss = 0.5 * tf.nn.l2_loss(self.reward - self.value)
+		self.value_loss = 0.5 * tf.nn.l2_loss(self.reward - self.value)
 		self.total_loss = policy_loss + value_loss
 		self.gradients = tf.gradients(self.total_loss, self.get_vars())
+
+	def run_loss_debug(self, sess, a_batch, r_batch, s_batch, reward_val_diff_batch, lr):
+		return sess.run([self.policy_loss, self.debug_stuff, self.more_debug], feed_dict={self.state: s_batch,
+							self.a: a_batch,
+							self.diff: reward_val_diff_batch,
+							self.reward: r_batch,
+							self.learning_rate: lr})
 
 	def set_up_apply_grads(self, learning_rate_tensor, global_vars):
 		self.learning_rate = learning_rate_tensor

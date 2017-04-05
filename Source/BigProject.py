@@ -152,6 +152,7 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
     batch_s.append(si)
     batch_td.append(td)
     batch_r.append(R)
+    print(network.run_loss_debug(sess, batch_a, batch_r, batch_s, batch_td, 0.01))
     network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, 0.01)
 
 """
@@ -263,7 +264,7 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[1,2,2,3], [2,1,3,2], [2,3,1,2], [3,2,2,1]], training=True, loading=False, modelName='my-model', gui=False):
+def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='my-model', gui=False):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -291,7 +292,7 @@ def runBots(botRelations=[[1,2,2,3], [2,1,3,2], [2,3,1,2], [3,2,2,1]], training=
       threadNets = []
       for threadIndex in range(len(botRelations)):
         threadNet = ActorCriticNetwork(40, optimizer)
-        threadNet.set_up_loss(0.01)
+        threadNet.set_up_loss(0.0001)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
         threadNets.append(threadNet)
