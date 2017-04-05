@@ -1,5 +1,20 @@
-div.container {
-    width: 100%;
+div.form {
+	margin: auto;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 1%;
+	text-align: center;
+	width: 30%
+}
+
+div.label {
+	text-align: left;
+	padding-top: 10px;
+}
+
+div.about {
+	  width: 50%;
+	  margin: auto;
 }
 
 header {
@@ -10,19 +25,10 @@ header {
     text-align: left;
 }
 
-footer {
-    padding: 1em;
-    color: black;
-    background-color: white;
-	text-align: center;
-    clear: left;
-	display: block;
-}
-
 ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     overflow: hidden;
     background-color: #333333;
 }
@@ -42,4 +48,36 @@ li a {
 
 li a:hover {
     background-color: #111111;
+}
+
+input[type=text], input[type=password], select {
+    width: 90%;
+    border: none;
+    border-bottom: 1px solid black;
+    box-sizing: border-box;
+	background-color: #f2f2f2;
+	padding-top: 10px;
+	outline: none;
+}
+
+input[type=submit] {
+    width: 50%;
+    background-color: #991f00;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #4D0F00;
+}
+
+footer {
+    padding: 1em;
+    color: black;
+    background-color: white;
+	text-align: center;
+    clear: left;
+	display: block;
 }

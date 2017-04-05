@@ -14,20 +14,26 @@
 
 <ul>
   <li><a href="/dashboard/ssbmai.html">Home</a></li>
-  <li><a href="#about">About</a></li>
+  <li><a href="/dashboard/about.html">About</a></li>
   <li><a href="/dashboard/login.html">Login</a></li>
   <li><a href="/dashboard/register.html">Register</a></li>
-</ul
+</ul><br>
 
-<form action="/action_page.php">
-  Email:<br>
-  <input type="text" name="email" value="">
-  <br>
-  Password:<br>
-  <input type="password" name="password" value="">
-  <br><br>
-  <input type="submit" value="Submit">
-</form> 
+<div class="form">
+  <form action="/action_page.php">
+    <div class="label">
+      <label>Email:</label><br>
+    </div>
+    <input type="text" name="email" value="" placeholder="Email">
+    <br>
+    <div class="label">
+      <label>Password:</label><br>
+    </div>
+    <input type="password" name="password" value="" placeholder = "Password">
+    <br><br>
+    <input type="submit" value="Submit">
+  </form> 
+</div>
 
 <footer>
   Copyright &copy; University of Wyoming
