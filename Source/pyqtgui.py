@@ -60,9 +60,9 @@ class SmashGui(QMainWindow):
 	def initializeWindow(self):
 		self.setWindowTitle("Super Smash Bros AI")
 		self.setGeometry(300, 200, 900, 500)
-		self.setWindowIcon(QIcon("SmashIcon.png"))
+		self.setWindowIcon(QIcon("SSBMAI_Icon.png"))
 		self.smashPix = QLabel(self)
-		pixmap = QPixmap("SmashIcon.png")
+		pixmap = QPixmap("SSBMAI_Icon.png")
 		self.smashPix.setScaledContents(True)
 		self.smashPix.setPixmap(pixmap.scaled(200,200))
 		self.smashPix.resize(200,200)
