@@ -58,7 +58,7 @@ class SmashGui(QMainWindow):
 		self.show()
 
 	def initializeWindow(self):
-		self.setWindowTitle("Super Smash Bros AI")
+		self.setWindowTitle("Super Smash Bros Melee AI")
 		self.setGeometry(300, 200, 900, 500)
 		self.setWindowIcon(QIcon("SSBMAI_Icon.png"))
 		self.smashPix = QLabel(self)
@@ -87,6 +87,8 @@ class SmashGui(QMainWindow):
 
 	def initializeMenu(self):
 		self.mainMenu = self.menuBar()
+		# Set to False if using a Mac OS
+		self.mainMenu.setNativeMenuBar(True) 
 		self.fileMenu = self.mainMenu.addMenu('File')
 
 		self.exitButton = QAction('Exit', self)
@@ -99,7 +101,10 @@ class SmashGui(QMainWindow):
 		#aboutAction.triggered.connect(self.about)
 
 		self.fileMenu.addAction(self.aboutButton)
-		self.fileMenu.addAction(self.exitButton)
+		self.fileMenu.addAction('Exit')
+
+	def onExit(self):
+		self.close
 
 	def initializeText(self):
 		font = QFont("SansSerif",18,QFont.Bold)
@@ -362,9 +367,6 @@ class SmashGui(QMainWindow):
 			print('inside')
 			load = True
 			mName = loadDialog.selectedFiles()
-
-	def onExit(self):
-		self.close
 
 app = QApplication(sys.argv)
 
