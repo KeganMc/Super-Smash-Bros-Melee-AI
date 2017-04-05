@@ -341,27 +341,24 @@ def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='m
 Saving Function
 """
 def save():
-{
     global threads_save
     global lock
 
     lock.acquire()
     threads_save = True
     lock.release()
-}
 
 """
 Quiting Function
 """
 def quit():
-{
     global threads_quit
     global lock
 
     lock.aquire()
     threads_quit = True
     lock.release()
-}
+
 
 """
 Main function
