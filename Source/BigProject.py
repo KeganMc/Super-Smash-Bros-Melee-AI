@@ -18,6 +18,7 @@ from reward_data import RewardData
 PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
 global threads_save
 global threads_quit
+global lock
 """
 Find the Dolphin user directory.
 """
@@ -272,6 +273,7 @@ def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='m
 
   global threads_save
   global threads_quit
+  global lock
   threads_save = False
   threads_quit = False
   mwLocation = find_socket(dolphinPath)
@@ -334,6 +336,32 @@ def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='m
             break
       for thread in threads:
         thread.join()
+
+"""
+Saving Function
+"""
+def save():
+{
+    global threads_save
+    global lock
+
+    lock.acquire()
+    threads_save = True
+    lock.release()
+}
+
+"""
+Quiting Function
+"""
+def quit():
+{
+    global threads_quit
+    global lock
+
+    lock.aquire()
+    threads_quit = True
+    lock.release()
+}
 
 """
 Main function

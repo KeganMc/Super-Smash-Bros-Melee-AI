@@ -338,10 +338,6 @@ class SmashGui(QMainWindow):
 		botRelations = self.createBotRelations()
 
 		self.bigProject = BigProject
-		print(botRelations)
-		print(training)
-		print(load)
-		print(mName)
 		self.bigProject.runBots(botRelations, training, load, mName, True)
 
 		#BigProject
