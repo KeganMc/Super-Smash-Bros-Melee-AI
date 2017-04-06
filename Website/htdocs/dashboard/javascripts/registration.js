@@ -11,30 +11,33 @@ function registrationCheck(){
 	if(emailText == ""){
 	  emailLabel.style.color = "red";
 	  emailLabel.innerHTML = "Email: (Required Field)";
+	  return false;
 	}
 	else if(!re.test(emailText))
 	{
 	  emailLabel.style.color = "red";
 	  emailLabel.innerHTML = "Invalid Email Address";
+	  return false;
 	}
 	
 	if(passText == ""){
 	  var passLabel = document.getElementById("passwordLabel");
 	  passLabel.style.color = "red";
 	  passLabel.innerHTML = "Password: (Required Field)";
+	  return false;
 	}
 	if(passCheckText == ""){
 	  var passCheckLabel = document.getElementById("passwordCheckLabel");
 	  passCheckLabel.style.color = "red";
 	  passCheckLabel.innerHTML = "Password Confirmation: (Required Field)";
+	  return false;
 	}
-	
 	if(passText != passCheckText)
 	{
-		warning.innerHTML = "Warning: Passwords must be identical"
+	  warning.innerHTML = "Warning: Passwords must be identical"
+      return false;
 	}
-	
-	return false;
+	return true;
 }
 
 function emailChange()

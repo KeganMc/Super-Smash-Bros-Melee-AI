@@ -13,7 +13,7 @@
 </header>
 
 <ul>
-  <li><a href="/dashboard/ssbmai.html">Home</a></li>
+  <li><a href="/dashboard/index.html">Home</a></li>
   <li><a href="/dashboard/about.html">About</a></li>
   <div class="login"><li><a href="/dashboard/login.html">Login</a></li>
   <li><a href="/dashboard/register.html">Register</a></li>
@@ -21,7 +21,7 @@
 
 <div class="form">
   <p id="warning"></p>
-  <form name="registration" onsubmit="return registrationCheck()">
+  <form name="registration" action="/dashboard/PHP/registration.php" onsubmit="return registrationCheck()" method="POST">
     <div class="label">
       <label id="emailLabel">Email:</label><br>
 	</div>
