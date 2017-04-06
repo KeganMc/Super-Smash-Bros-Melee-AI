@@ -9,12 +9,17 @@ div.form {
 
 div.label {
 	text-align: left;
-	padding-top: 10px;
+	padding-left: 4%;
+	padding-top: 2%;
 }
 
 div.about {
-	  width: 50%;
-	  margin: auto;
+	width: 50%;
+	margin: auto;
+}
+
+div.login{
+	padding-left: 87.25%;
 }
 
 header {
@@ -22,7 +27,7 @@ header {
     color: black;
     background-color: white;
     clear: left;
-    text-align: left;
+    text-align: center;
 }
 
 ul {

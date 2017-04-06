@@ -2,37 +2,38 @@
 <html>
 <head>
   <link rel="stylesheet" href="/dashboard/CSS/style.css">
+  <script src="/dashboard/javascripts/registration.js" type="text/javascript"></script>
 </head>
 <body>
 
 <div class="container">
 
 <header>
-   <!--<h1>SSBMAI.com</h1>-->
    <img src="/dashboard/images/ssbm.png" style="width:256px;height:128px;">
 </header>
 
 <ul>
   <li><a href="/dashboard/ssbmai.html">Home</a></li>
   <li><a href="/dashboard/about.html">About</a></li>
-  <li><a href="/dashboard/login.html">Login</a></li>
+  <div class="login"><li><a href="/dashboard/login.html">Login</a></li>
   <li><a href="/dashboard/register.html">Register</a></li>
 </ul><br>
 
 <div class="form">
-  <form action="/action_page.php">
+  <p id="warning"></p>
+  <form name="registration" onsubmit="return registrationCheck()">
     <div class="label">
-      <label>Email:</label><br>
+      <label id="emailLabel">Email:</label><br>
 	</div>
-    <input type="text" name="email" value="" placeholder="Email"><br>
+    <input type="text" name="email" value="" placeholder="Email" onFocus="emailChange()"><br>
 	<div class="label">
-      <label>Password:</label><br>
+      <label id="passwordLabel">Password:</label><br>
 	</div>
-    <input type="password" name="password" value="" placeholder = "Password"><br>
+    <input type="password" name="password" value="" placeholder = "Password" onFocus="passChange()"><br>
 	<div class="label">
-      <label>Password (Confirm):</label><br>
+      <label id="passwordCheckLabel">Password Confirmation:</label><br>
 	</div>
-    <input type="password" name="passwordCheck" value="" placeholder = "Password"><br><br>
+    <input type="password" name="passwordCheck" value="" placeholder = "Password" onFocus="passCheckChange()"><br><br>
     <input type="submit" value="Submit">
   </form> 
 </div>
