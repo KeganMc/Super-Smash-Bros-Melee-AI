@@ -67,3 +67,30 @@ function passCheckChange()
 	passCheckLabel.innerHTML = "Password Confirmation:";
 	warning.innerHTML = "";
 }
+
+/**
+* Warns user that the email already esits in database
+*/
+function userAlreadyExists()
+{
+	var warning = document.getElementById("warning");
+	warning.style.color = "red"; 
+
+	warning.innerHTML = "Warning: Email already exists";
+}
+
+function userRegistered()
+{
+	var warning = document.getElementById("warning");
+	warning.style.color = "#660066"; 
+
+	warning.innerHTML = "User Registered!";
+}
+
+function userRegistrationError()
+{
+	var warning = document.getElementById("warning");
+	warning.style.color = "red"; 
+
+	warning.innerHTML = "Warning: Error adding user to the database";
+}

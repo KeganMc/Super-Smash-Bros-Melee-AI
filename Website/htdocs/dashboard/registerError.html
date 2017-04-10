@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/dashboard/CSS/style.css">
+  <script src="/dashboard/javascripts/registration.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <img src="/dashboard/images/ssbm.png" style="width:256px;height:128px;">
+</header>
+
+<ul>
+  <li><a href="/dashboard/index.html">Home</a></li>
+  <li><a href="/dashboard/about.html">About</a></li>
+  <div class="login"><li><a href="/dashboard/login.html">Login</a></li>
+  <li><a href="/dashboard/register.html">Register</a></li>
+</ul><br>
+
+<div class="form">
+  <p id="warning"></p>
+  <script>
+    userRegistrationError();
+  </script>
+  <form name="registration" action="/dashboard/PHP/registration.php" onsubmit="return registrationCheck()" method="POST">
+    <div class="label">
+      <label id="emailLabel">Email:</label><br>
+	</div>
+    <input type="text" name="email" value="" placeholder="Email" onFocus="emailChange()"><br>
+	<div class="label">
+      <label id="passwordLabel">Password:</label><br>
+	</div>
+    <input type="password" name="password" value="" placeholder = "Password" onFocus="passChange()"><br>
+	<div class="label">
+      <label id="passwordCheckLabel">Password Confirmation:</label><br>
+	</div>
+    <input type="password" name="passwordCheck" value="" placeholder = "Password" onFocus="passCheckChange()"><br><br>
+    <input type="submit" value="Submit">
+  </form> 
+</div>
+
+<footer>
+  Copyright &copy; University of Wyoming
+</footer>
+
+</div>
+
+</body>
+</html>
