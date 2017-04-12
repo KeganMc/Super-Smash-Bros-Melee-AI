@@ -1,3 +1,8 @@
+div.container{
+    padding: 0;
+    text-align: center;
+}
+
 div.form {
 	margin: auto;
     border-radius: 5px;
@@ -15,11 +20,30 @@ div.label {
 
 div.about {
 	width: 50%;
+    padding: 1px;
 	margin: auto;
 }
 
 div.login{
 	padding-left: 87.25%;
+}
+
+div.directory{
+    text-align: center;
+    background-color: #333333;
+    padding: 0;
+}
+
+div.download{
+    text-align: left;
+    margin: auto;
+    background-color: #f2f2f2;
+    padding: 1px;
+    display: inline-block;
+}
+
+div.grey{
+    background-color: #f2f2f2;
 }
 
 header {
@@ -36,6 +60,7 @@ ul {
     padding: 0px;
     overflow: hidden;
     background-color: #333333;
+    display: inline-block;
 }
 
 li {
@@ -46,7 +71,7 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 16px;
+    padding: 20px;
 	font-size: 150%;
     text-decoration: none
 }
@@ -59,7 +84,6 @@ input[type=text], input[type=password], select {
     width: 90%;
     border: none;
     border-bottom: 1px solid black;
-    box-sizing: border-box;
 	background-color: #f2f2f2;
 	padding-top: 10px;
 	outline: none;
