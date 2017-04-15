@@ -152,7 +152,7 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
     batch_s.append(si)
     batch_td.append(td)
     batch_r.append(R)
-    print(network.run_loss_debug(sess, batch_a, batch_r, batch_s, batch_td, 0.001))
+    #print(network.run_loss_debug(sess, batch_a, batch_r, batch_s, batch_td, 0.001))
     network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, 0.001)
 
 """
@@ -264,7 +264,7 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='my-model', gui=False):
+def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False, modelName='my-model', gui=False):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")

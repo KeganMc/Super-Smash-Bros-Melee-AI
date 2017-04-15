@@ -6,11 +6,11 @@ class ActorCriticNetwork(object):
 		self.state = tf.placeholder(tf.float32, [None, 1, 78])
 		self.action_size = act_size
 		self.optimizer = opt
-		self.fc1, self.fc1_b = self.fc_layer([78, 256])
-		self.fc2, self.fc2_b = self.fc_layer([256, 256])
-		self.fc3, self.fc3_b = self.fc_layer([256, act_size])
+		self.fc1, self.fc1_b = self.fc_layer([78, 128])
+		self.fc2, self.fc2_b = self.fc_layer([128, 128])
+		self.fc3, self.fc3_b = self.fc_layer([128, act_size])
 		#self.fc4, self.fc4_b = self.fc_layer([64, act_size])
-		self.fc4, self.fc4_b = self.fc_layer([256, 1])
+		self.fc4, self.fc4_b = self.fc_layer([128, 1])
 		h_fc1 = tf.nn.relu(tf.matmul(tf.reshape(self.state, [-1, 78]), self.fc1) + self.fc1_b)
 		h_fc2 = tf.nn.relu(tf.matmul(h_fc1, self.fc2) + self.fc2_b)
 		h_fc3 = tf.nn.relu(tf.matmul(h_fc2, self.fc3) + self.fc3_b)
@@ -68,9 +68,11 @@ class ActorCriticNetwork(object):
 		inputs = shapes[0]
 		outputs = shapes[1]
 		bias_shape = [outputs]
-		tmp = 1.0/np.sqrt(inputs)
-		weights = tf.Variable(tf.random_uniform(shapes, minval=-tmp, maxval=tmp))
-		biases = tf.Variable(tf.random_uniform(bias_shape, minval=-tmp, maxval=tmp))
+		initial = tf.random_normal(shapes, stddev=1.0)
+		norms = tf.sqrt(tf.reduce_sum(tf.square(initial), list(range(len(shapes)-1))))
+		initial /= norms
+		weights = tf.Variable(initial)
+		biases = tf.Variable(tf.truncated_normal(bias_shape, stddev=0.1))
 		return weights, biases
 
 	def run_policy_and_value(self, sess, state):
