@@ -9,10 +9,10 @@ $rs = mysqli_query($conn,$check);
 $rs2 = mysqli_query($conn,$pass);
 if($data = mysqli_fetch_array($rs, MYSQLI_NUM) && $data = mysqli_fetch_array($rs2, MYSQLI_NUM)) 
 {
-    header('Location: /dashboard/loginHome.html');
+    header('Location: /dashboard/HTML/loginHome.html');
 }
 else
 {
-	header('Location: /dashboard/loginError.html');
+	header('Location: /dashboard/HTML/loginError.html');
 }
 ?>
