@@ -34,6 +34,13 @@ div.directory{
     padding: 0;
 }
 
+div.slider{
+    text-align: center;
+    padding: 1px;
+    margin: auto;
+    width:100%;
+}
+
 div.download{
     text-align: left;
     margin: auto;
@@ -109,4 +116,18 @@ footer {
 	text-align: center;
     clear: left;
 	display: block;
+}
+
+table{
+    margin: auto;
+    border: solid black 4px;
+    border-color: #333333;
+    border-collapse: collapse;
+    width: 600px;
+}
+
+td,tr {
+    padding: 10px;
+    overflow: auto;
+    text-align: left;
 }
