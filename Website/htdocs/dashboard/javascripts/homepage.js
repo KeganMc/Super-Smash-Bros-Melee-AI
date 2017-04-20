@@ -1,4 +1,4 @@
-function insertRow(rate)
+function insertRow(botName, auth, stageName, rate, votes, downloads, time, character)
 {
 	var table = document.getElementById("botTable");
 	var row = table.insertRow(0);
@@ -8,19 +8,25 @@ function insertRow(rate)
 	var imageCell = row.insertCell(2);
 
 // Set up cell 1 components including the bot name, author, download link and description
-	var name = document.createElement("h3");
-	var nameNode = document.createTextNode("Default Bot");
+	var name = document.createElement("h2");
+	var nameNode = document.createTextNode(botName);
 	name.appendChild(nameNode);
 	cell.appendChild(name);
 
 	// Author
 	var author = document.createElement("p");
-	var authorNode = document.createTextNode("Author");
+	var authorNode = document.createTextNode("Author: "+auth);
 	author.appendChild(authorNode);
 	cell.appendChild(author);
 
+	// Stage
+	var stage = document.createElement("p");
+	var stageNode = document.createTextNode(stageName);
+	stage.appendChild(stageNode);
+	cell.appendChild(stage);
+
 	// Download Link
-	var download = document.createElement("a");
+	var download = document.createElement("BUTTON");
 	var downloadNode = document.createTextNode("Download");
 	download.appendChild(downloadNode);
 	download.href="/dashboard/bots/exampleBot.zip";
@@ -28,7 +34,7 @@ function insertRow(rate)
 
 // Set up cell 2 components including the ratings and the number of downloads
 	var rating = document.createElement("p");
-	var ratingNode = document.createTextNode("Rating (0 votes): ");
+	var ratingNode = document.createTextNode("Rating ("+votes+" votes): ");
 	rating.appendChild(ratingNode);
 	cell2.appendChild(rating);
 
@@ -47,10 +53,19 @@ function insertRow(rate)
 	totalDownloads.appendChild(totalNode);
 	cell2.appendChild(totalDownloads);
 
+	// Time Created
+	var timeCreated = document.createElement("p");
+	var timeNode = document.createTextNode("Time created: "+time.toString());
+	timeCreated.appendChild(timeNode);
+	cell2.appendChild(timeCreated);
+
 // Set up the image cell components
 	var image = document.createElement("img");
-	image.src = "/dashboard/images/mario.png";
-	image.style.width="100px";
-	image.style.height="100px";
+	var extension = ".jpg";
+	var dir = "/dashboard/images/characters/";
+	var url = dir.concat(character, extension);
+	image.src = url;
+	image.style.width="120px";
+	image.style.height="150px";
 	imageCell.appendChild(image);
 }

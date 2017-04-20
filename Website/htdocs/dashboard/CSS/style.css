@@ -102,6 +102,7 @@ input[type=submit] {
     color: white;
     padding: 14px 20px;
     border: none;
+     border-radius: 8px;
     cursor: pointer;
 }
 
@@ -130,4 +131,17 @@ td,tr {
     padding: 10px;
     overflow: auto;
     text-align: left;
+}
+
+button {
+    background-color: #991f00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 16px;
+}
+
+button:hover{
+    background-color: #4D0F00;
 }
