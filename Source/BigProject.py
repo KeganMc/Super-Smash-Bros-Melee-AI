@@ -280,7 +280,7 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False, mo
     with tf.Session() as sess:
       learning_rate_tensor = tf.placeholder(tf.float32)
       global_episodes = tf.Variable(0, dtype=tf.int32)
-      optimizer = tf.train.AdamOptimizer(learning_rate=1e-4)
+      optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True)
       globalNetwork = ActorCriticNetwork(40, optimizer, global_episodes)
       globalNetwork.set_up_loss(0.001)
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
@@ -315,7 +315,9 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False, mo
                                     st, stateManager, mw, botRelations[threadIndex],
                                     training, saver, modelName, lock)))
       if loading:
+        sess.run(tf.global_variables_initializer())
         saver.restore(sess, './saves/' + modelName)
+        glob = sess.run(global_episodes)
         print('loaded ' + modelName)
       else:
         sess.run(tf.global_variables_initializer())
