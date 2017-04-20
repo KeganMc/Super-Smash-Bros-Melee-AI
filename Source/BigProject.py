@@ -317,7 +317,6 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False, mo
       if loading:
         sess.run(tf.global_variables_initializer())
         saver.restore(sess, './saves/' + modelName)
-        glob = sess.run(global_episodes)
         print('loaded ' + modelName)
       else:
         sess.run(tf.global_variables_initializer())
