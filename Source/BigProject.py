@@ -264,7 +264,8 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False, modelName='my-model', gui=False):
+def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
+            modelName='my-model', gui=False):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -278,10 +279,13 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False, mo
   lock = threading.Lock()
   with memory_watcher.MemoryWatcher(mwLocation) as mw:
     with tf.Session() as sess:
+      summary_writer = None
+      if not gui:
+        summary_writer = tf.summary.FileWriter("train")
       learning_rate_tensor = tf.placeholder(tf.float32)
       global_episodes = tf.Variable(0, dtype=tf.int32)
       optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True)
-      globalNetwork = ActorCriticNetwork(40, optimizer, global_episodes)
+      globalNetwork = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
       globalNetwork.set_up_loss(0.001)
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
       globalVarDict = dict()
@@ -292,7 +296,7 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False, mo
       threads = []
       threadNets = []
       for threadIndex in range(len(botRelations)):
-        threadNet = ActorCriticNetwork(40, optimizer, global_episodes)
+        threadNet = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
         threadNet.set_up_loss(0.001)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
