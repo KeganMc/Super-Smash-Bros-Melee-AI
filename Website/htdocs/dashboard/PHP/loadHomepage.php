@@ -5,10 +5,11 @@
 	$author = "";
 	$stage = "";
   $votes = 0;
-  $rating = 1;
+  $rating = 0;
   $downloads = 0;
   $time = "";
   $character = "Mario";
+  $description = "";
 
   $count = $_REQUEST["count"];
   $id = (int)$count;
@@ -31,6 +32,8 @@
   $downloads = mysqli_fetch_assoc($downloadsQuery)['downloads'];
   $timeQuery = mysqli_query($conn, "SELECT TimeCreated FROM saves WHERE SaveId = '$id'");
   $time = mysqli_fetch_assoc($timeQuery)['TimeCreated'];
+  $descriptionIdQuery = mysqli_query($conn,"SELECT Description FROM saves WHERE SaveId = '$id'");
+  $description = mysqli_fetch_assoc($descriptionIdQuery)['Description'];
 
 	// get Author of given save's user foreign key id
   $authorQuery = mysqli_query($conn,"SELECT UserName FROM users WHERE UserId = '$id'");
@@ -53,11 +56,15 @@
   {
   	$total = $total + $value;
   }
-  $rating = ($total/$votes);
+  $rating = 0;
+  if($votes>=1)
+  {
+  	$rating = ($total/$votes);
+  }
 
 	// Get the character given save id
 	$characterQuery = mysqli_query($conn,"SELECT CharacterName FROM characters WHERE CharacterId = '$characterId'");
   $character = mysqli_fetch_assoc($characterQuery)['CharacterName'];
-  
-  echo ($name.','.$author.','.$stage.','.$rating.','.$votes.','.$downloads.','.$time.','.$character);
+
+  echo ($name.','.$author.','.$stage.','.$rating.','.$votes.','.$downloads.','.$time.','.$character.','.$description);
 ?>
