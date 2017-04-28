@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/dashboard/CSS/style.css">
+  <script src="/dashboard/javascripts/upload.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="container">
+	<header>
+	   <img src="/dashboard/images/ssbm.png" style="width:256px;height:128px;">
+	</header>
+
+	<div class="directory">
+		<ul>
+		  <li><a href="/dashboard/index.html">Home</a></li>
+		  <li><a href="/dashboard/HTML/about.html">About</a></li>
+		  <li><a href="/dashboard/HTML/login.html">Login</a></li>
+		  <li><a href="/dashboard/HTML/register.html">Register</a></li>
+		  <li><a href="/dashboard/HTML/download.html">Download</a></li>
+		</ul>
+	</div><br>
+
+	<div class="form">
+	  <form>
+	    <div class = "botName">
+	    	<label>Bot Name:</label>
+	    	<input type = "text" name = "name" id = "botName"><br>
+	    <div class = "character"><br>
+	    	<div class="dropdown">
+				  <input type="button" class="dropbtn" id="button1" name="character" value="Character">
+				  <div class="dropdown-content">
+				    <a href="#" onClick = "alterButtonText(1,'Fox');return false;">Fox</a>
+				    <a href="#" onClick = "alterButtonText(1,'Falco');return false;">Falco</a>
+				    <a href="#" onClick = "alterButtonText(1,'Marth');return false;">Marth</a>
+				    <a href="#" onClick = "alterButtonText(1,'Sheik');return false;">Sheik</a>
+				    <a href="#" onClick = "alterButtonText(1,'Jigglypuff');return false;">Jigglypuff</a>
+				    <a href="#" onClick = "alterButtonText(1,'Samus');return false;">Samus</a>
+				    <a href="#" onClick = "alterButtonText(1,'Captain Falcon');return false;">Captain Falcon</a>
+				    <a href="#" onClick = "alterButtonText(1,'Peach');return false;">Peach</a>
+				    <a href="#" onClick = "alterButtonText(1,'Yoshi');return false;">Yoshi</a>
+				    <a href="#" onClick = "alterButtonText(1,'Mario');return false;">Mario</a>
+				    <a href="#" onClick = "alterButtonText(1,'Dr. Mario');return false;">Dr. Mario</a>
+				    <a href="#" onClick = "alterButtonText(1,'Luigi');return false;">Luigi</a>
+				    <a href="#" onClick = "alterButtonText(1,'Bowser');return false;">Bowser</a>
+				    <a href="#" onClick = "alterButtonText(1,'Donkey Kong');return false;">Donkey Kong</a>
+				    <a href="#" onClick = "alterButtonText(1,'Ganondorf');return false;">Ganondorf</a>
+				    <a href="#" onClick = "alterButtonText(1,'Link');return false;">Link</a>
+				    <a href="#" onClick = "alterButtonText(1,'Young Link');return false;">Young Link</a>
+				    <a href="#" onClick = "alterButtonText(1,'Kirby');return false;">Kirby</a>
+				    <a href="#" onClick = "alterButtonText(1,'Pikachu');return false;">Pikachu</a>
+				    <a href="#" onClick = "alterButtonText(1,'Mew Two');return false;">Mew Two</a>
+				    <a href="#" onClick = "alterButtonText(1,'Pichu');return false;">Pichu</a>
+				    <a href="#" onClick = "alterButtonText(1,'Ice Climbers');return false;">Ice Climbers</a>
+				    <a href="#" onClick = "alterButtonText(1,'Mr. Game and Watch');return false;">Mr. Game and Watch</a>
+				    <a href="#" onClick = "alterButtonText(1,'Roy');return false;">Roy</a>
+				    <a href="#" onClick = "alterButtonText(1,'Zelda');return false;">Zelda</a>
+				    <a href="#" onClick = "alterButtonText(1,'Ness');return false;">Ness</a>
+				  </div>
+				</div>
+				<div class="dropdown-2">
+				  <input type="button" class="dropbtn" id="button2" name="stage" value="Stage">
+				  <div class="dropdown-content-2">
+				    <a href="#" onClick = "alterButtonText(2,'Brinstar');return false;">Brinstar</a>
+				    <a href="#" onClick = "alterButtonText(2,'Corneria');return false;">Corneria</a>
+				    <a href="#" onClick = "alterButtonText(2,'Fountain of Dreams');return false;">Fountain of Dreams</a>
+				    <a href="#" onClick = "alterButtonText(2,'Great Bay');return false;">Great Bay</a>
+				    <a href="#" onClick = "alterButtonText(2,'Green Greens');return false;">Green Greens</a>
+				    <a href="#" onClick = "alterButtonText(2,'Ice Mountain');return false;">Ice Mountain</a>
+				    <a href="#" onClick = "alterButtonText(2,'Jungle Japes');return false;">Jungle Japes</a>
+				    <a href="#" onClick = "alterButtonText(2,'Kongo Jungle');return false;">Kongo Jungle</a>
+				    <a href="#" onClick = "alterButtonText(2,'Mushroom Kingdom');return false;">Mushroom Kingdom</a>
+				    <a href="#" onClick = "alterButtonText(2,'Mute City');return false;">Mute City</a>
+				    <a href="#" onClick = "alterButtonText(2,'Onet');return false;">Onet</a>
+				    <a href="#" onClick = "alterButtonText(2,'Princess Peach's Castle);return false;">Princess Peach's Castle</a>
+				    <a href="#" onClick = "alterButtonText(2,'Pokemon Stadium');return false;">Pokemon Stadium</a>
+				    <a href="#" onClick = "alterButtonText(2,'Rainbow Cruise');return false;">Rainbow Cruise</a>
+				    <a href="#" onClick = "alterButtonText(2,'Venom');return false;">Venom</a>
+				    <a href="#" onClick = "alterButtonText(2,'Yoshi's Island);return false;">Yoshi's Island</a>
+				    <a href="#" onClick = "alterButtonText(2,'Yoshi's Story);return false;">Yoshi's Story</a>
+				    <a href="#" onClick = "alterButtonText(2,'Battlefield');return false;">Battlefield</a>
+				    <a href="#" onClick = "alterButtonText(2,'Big Blue');return false;">Big Blue</a>
+				    <a href="#" onClick = "alterButtonText(2,'Brinstar Depths');return false;">Brinstar Depths</a>
+				    <a href="#" onClick = "alterButtonText(2,'Dream Land');return false;">Dream Land</a>
+				    <a href="#" onClick = "alterButtonText(2,'Final Destination');return false;">Final Destination</a>
+				    <a href="#" onClick = "alterButtonText(2,'Flat Zone');return false;">Flat Zone</a>
+				    <a href="#" onClick = "alterButtonText(2,'Fourside');return false;">Fourside</a>
+				    <a href="#" onClick = "alterButtonText(2,'Kongo Jungle 2');return false;">Kongo Jungle 2</a>
+				    <a href="#" onClick = "alterButtonText(2,'Mushroom Kingdom 2');return false;">Mushroom Kingdom 2</a>
+				    <a href="#" onClick = "alterButtonText(2,'Poke Floats');return false;">Poke Floats</a>
+				    <a href="#" onClick = "alterButtonText(2,'Yoshi's Island 2);return false;">Yoshi's Island 2</a>
+				  </div>
+				</div>
+			</div>
+	    <div class = "description"><br>
+	    	<label id = "update">Short Description:</label>
+	    	<textarea name="description" cols="42" rows="6" id = "description"></textarea><br>
+	    </div>
+	    <div class = "submit">
+    		<br>
+    		<input type="file" name="fileName" accept="zip/*">
+    		<input type="submit" value="Upload Bot" onclick="uploadBot()">
+	    </div>
+	  </div>
+	  </form> 
+	</div>
+
+	<footer>
+	  <!--Copyright &copy; University of Wyoming-->
+	</footer>
+</div>
+
+</body>
+</html>

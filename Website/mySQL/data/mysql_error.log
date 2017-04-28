@@ -1,0 +1,532 @@
+2015-11-10 15:26:56 10fc InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2015-11-10 15:26:56 4348 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2015-11-10 15:26:56 4348 [Note] InnoDB: The InnoDB memory heap is disabled
+2015-11-10 15:26:56 4348 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2015-11-10 15:26:56 4348 [Note] InnoDB: Memory barrier is not used
+2015-11-10 15:26:56 4348 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2015-11-10 15:26:56 4348 [Note] InnoDB: Not using CPU crc32 instructions
+2015-11-10 15:26:56 4348 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2015-11-10 15:26:56 4348 [Note] InnoDB: Completed initialization of buffer pool
+2015-11-10 15:26:56 4348 [Note] InnoDB: Highest supported file format is Barracuda.
+2015-11-10 15:26:57 4348 [Note] InnoDB: 128 rollback segment(s) are active.
+2015-11-10 15:26:57 4348 [Note] InnoDB: Waiting for purge to start
+2015-11-10 15:26:57 4348 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.26-74.0 started; log sequence number 1835027
+2015-11-10 15:26:57 6140 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2015-11-10 15:26:57 4348 [Note] Plugin 'FEEDBACK' is disabled.
+2015-11-10 15:26:57 4348 [Note] Server socket created on IP: '::'.
+2015-11-10 15:26:57 4348 [Note] Event Scheduler: Loaded 0 events
+2015-11-10 15:26:57 4348 [Note] C:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.8-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2015-11-10 15:27:11 5152 [Note] C:\xampp\mysql\bin\mysqld.exe: Normal shutdown
+
+2015-11-10 15:27:11 5152 [Note] Event Scheduler: Purging the queue. 0 events
+2015-11-10 15:27:11 5732 [Note] InnoDB: FTS optimize thread exiting.
+2015-11-10 15:27:11 5152 [Note] InnoDB: Starting shutdown...
+2015-11-10 15:27:13 5152 [Note] InnoDB: Shutdown completed; log sequence number 1835037
+2015-11-10 15:27:13 5152 [Note] C:\xampp\mysql\bin\mysqld.exe: Shutdown complete
+
+2017-04-04 11:52:58 4ac InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-04 11:52:58 1196 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-04 11:52:58 1196 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-04 11:52:58 1196 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-04 11:52:58 1196 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-04 11:52:58 1196 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-04 11:52:58 1196 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-04 11:52:58 1196 [Note] InnoDB: Using generic crc32 instructions
+2017-04-04 11:52:58 1196 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-04 11:52:58 1196 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-04 11:52:58 1196 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-04 11:52:58 1196 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-04 11:52:58 1196 [Note] InnoDB: Waiting for purge to start
+2017-04-04 11:52:58 1196 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 1835037
+2017-04-04 11:52:58 13256 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-04 11:52:58 1196 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-04 11:52:58 1196 [Note] Server socket created on IP: '::'.
+2017-04-04 11:52:58 1196 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-04-04 20:40:05 2ebc InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-04 20:40:05 11964 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-04 20:40:05 11964 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-04 20:40:05 11964 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-04 20:40:05 11964 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-04 20:40:05 11964 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-04 20:40:05 11964 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-04 20:40:05 11964 [Note] InnoDB: Using generic crc32 instructions
+2017-04-04 20:40:05 11964 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-04 20:40:05 11964 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-04 20:40:05 11964 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-04 20:40:05 11964 [Note] InnoDB: The log sequence numbers 1835037 and 1835037 in ibdata files do not match the log sequence number 1835047 in the ib_logfiles!
+2017-04-04 20:40:05 11964 [Note] InnoDB: Database was not shutdown normally!
+2017-04-04 20:40:05 11964 [Note] InnoDB: Starting crash recovery.
+2017-04-04 20:40:05 11964 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-04-04 20:40:05 11964 [Note] InnoDB: Restoring possible half-written data pages 
+2017-04-04 20:40:05 11964 [Note] InnoDB: from the doublewrite buffer...
+2017-04-04 20:40:05 11964 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-04 20:40:05 11964 [Note] InnoDB: Waiting for purge to start
+2017-04-04 20:40:05 11964 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 1835047
+2017-04-04 20:40:05 14124 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-04 20:40:05 11964 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-04 20:40:05 11964 [Note] Server socket created on IP: '::'.
+2017-04-04 20:40:05 11964 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-04-05 09:59:40 3390 InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-05  9:59:40 13200 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-05  9:59:40 13200 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-05  9:59:40 13200 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-05  9:59:40 13200 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-05  9:59:40 13200 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-05  9:59:40 13200 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-05  9:59:40 13200 [Note] InnoDB: Using generic crc32 instructions
+2017-04-05  9:59:40 13200 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-05  9:59:40 13200 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-05  9:59:40 13200 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-05  9:59:40 13200 [Note] InnoDB: The log sequence numbers 1835037 and 1835037 in ibdata files do not match the log sequence number 1835057 in the ib_logfiles!
+2017-04-05  9:59:40 13200 [Note] InnoDB: Database was not shutdown normally!
+2017-04-05  9:59:40 13200 [Note] InnoDB: Starting crash recovery.
+2017-04-05  9:59:40 13200 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-04-05  9:59:40 13200 [Note] InnoDB: Restoring possible half-written data pages 
+2017-04-05  9:59:40 13200 [Note] InnoDB: from the doublewrite buffer...
+2017-04-05  9:59:40 13200 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-05  9:59:40 13200 [Note] InnoDB: Waiting for purge to start
+2017-04-05  9:59:40 13200 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 1835057
+2017-04-05  9:59:40 7432 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-05  9:59:40 13200 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-05  9:59:40 13200 [Note] Server socket created on IP: '::'.
+2017-04-05  9:59:40 13200 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-04-05 15:50:31 1d74 InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-05 15:50:31 7540 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-05 15:50:31 7540 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-05 15:50:31 7540 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-05 15:50:31 7540 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-05 15:50:31 7540 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-05 15:50:31 7540 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-05 15:50:31 7540 [Note] InnoDB: Using generic crc32 instructions
+2017-04-05 15:50:31 7540 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-05 15:50:31 7540 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-05 15:50:31 7540 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-05 15:50:31 7540 [Note] InnoDB: The log sequence numbers 1835037 and 1835037 in ibdata files do not match the log sequence number 1835067 in the ib_logfiles!
+2017-04-05 15:50:31 7540 [Note] InnoDB: Database was not shutdown normally!
+2017-04-05 15:50:31 7540 [Note] InnoDB: Starting crash recovery.
+2017-04-05 15:50:31 7540 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-04-05 15:50:31 7540 [Note] InnoDB: Restoring possible half-written data pages 
+2017-04-05 15:50:31 7540 [Note] InnoDB: from the doublewrite buffer...
+2017-04-05 15:50:31 7540 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-05 15:50:31 7540 [Note] InnoDB: Waiting for purge to start
+2017-04-05 15:50:31 7540 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 1835067
+2017-04-05 15:50:31 440 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-05 15:50:31 7540 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-05 15:50:31 7540 [Note] Server socket created on IP: '::'.
+2017-04-05 15:50:31 7540 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-04-06 10:31:54 14332 [Note] InnoDB: Online DDL : Start
+2017-04-06 10:31:54 14332 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-06 10:31:54 14332 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-06 10:31:54 14332 [Note] InnoDB: Online DDL : Completed
+2017-04-06 10:32:21 11552 [Note] InnoDB: Online DDL : Start
+2017-04-06 10:32:21 11552 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-06 10:32:21 11552 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-06 10:32:21 11552 [Note] InnoDB: Online DDL : Completed
+2017-04-06 10:32:42 14332 [Note] InnoDB: Online DDL : Start
+2017-04-06 10:32:42 14332 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-06 10:32:42 14332 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-06 10:32:42 14332 [Note] InnoDB: Online DDL : Completed
+2017-04-06 10:51:47 11552 [Note] InnoDB: Online DDL : Start
+2017-04-06 10:51:47 11552 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-06 10:51:47 11552 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-06 10:51:47 11552 [Note] InnoDB: Online DDL : Completed
+2017-04-06 15:13:00 6276 [Note] InnoDB: Online DDL : Start
+2017-04-06 15:13:00 6276 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-06 15:13:00 6276 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-06 15:13:00 6276 [Note] InnoDB: Online DDL : Completed
+2017-04-06 17:53:47 13984 [Note] InnoDB: Online DDL : Start
+2017-04-06 17:53:47 13984 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-06 17:53:47 13984 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-06 17:53:47 13984 [Note] InnoDB: Online DDL : Completed
+2017-04-07 12:49:14 4592 [Note] InnoDB: Online DDL : Start
+2017-04-07 12:49:14 4592 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-07 12:49:14 4592 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-07 12:49:14 4592 [Note] InnoDB: Online DDL : Completed
+2017-04-11 12:15:39 26f0 InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-11 12:15:39 9968 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-11 12:15:39 9968 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-11 12:15:39 9968 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-11 12:15:39 9968 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-11 12:15:39 9968 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-11 12:15:39 9968 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-11 12:15:39 9968 [Note] InnoDB: Using generic crc32 instructions
+2017-04-11 12:15:39 9968 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-11 12:15:39 9968 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-11 12:15:39 9968 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-11 12:15:39 9968 [Note] InnoDB: The log sequence numbers 1835037 and 1835037 in ibdata files do not match the log sequence number 3665595 in the ib_logfiles!
+2017-04-11 12:15:39 9968 [Note] InnoDB: Database was not shutdown normally!
+2017-04-11 12:15:39 9968 [Note] InnoDB: Starting crash recovery.
+2017-04-11 12:15:39 9968 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-04-11 12:15:39 9968 [Note] InnoDB: Restoring possible half-written data pages 
+2017-04-11 12:15:39 9968 [Note] InnoDB: from the doublewrite buffer...
+2017-04-11 12:15:39 9968 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-11 12:15:39 9968 [Note] InnoDB: Waiting for purge to start
+2017-04-11 12:15:39 9968 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 3665595
+2017-04-11 12:15:39 3408 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-11 12:15:39 9968 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-11 12:15:39 9968 [Note] Server socket created on IP: '::'.
+2017-04-11 12:15:40 9968 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-04-18 09:37:13 2dc0 InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-18  9:37:13 11712 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-18  9:37:13 11712 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-18  9:37:13 11712 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-18  9:37:13 11712 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-18  9:37:13 11712 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-18  9:37:13 11712 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-18  9:37:13 11712 [Note] InnoDB: Using generic crc32 instructions
+2017-04-18  9:37:13 11712 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-18  9:37:13 11712 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-18  9:37:13 11712 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-18  9:37:13 11712 [Note] InnoDB: The log sequence numbers 1835037 and 1835037 in ibdata files do not match the log sequence number 3665605 in the ib_logfiles!
+2017-04-18  9:37:13 11712 [Note] InnoDB: Database was not shutdown normally!
+2017-04-18  9:37:13 11712 [Note] InnoDB: Starting crash recovery.
+2017-04-18  9:37:13 11712 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-04-18  9:37:13 11712 [Note] InnoDB: Restoring possible half-written data pages 
+2017-04-18  9:37:13 11712 [Note] InnoDB: from the doublewrite buffer...
+2017-04-18  9:37:14 11712 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-18  9:37:14 11712 [Note] InnoDB: Waiting for purge to start
+2017-04-18  9:37:14 11712 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 3665605
+2017-04-18  9:37:14 11864 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-18  9:37:14 11712 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-18  9:37:14 11712 [Note] Server socket created on IP: '::'.
+2017-04-18  9:37:14 11712 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-04-19 17:23:22 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 17:23:22 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 17:23:22 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 17:23:22 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 17:23:22 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 17:23:22 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 21:55:49 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 21:55:49 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 21:55:49 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 21:55:49 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 21:55:49 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 1), estimated cost : 20.0000
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 1)
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 1), estimated cost : 30.0000
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 1)
+2017-04-19 21:58:31 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:13:50 5420 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:13:50 5420 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:13:50 5420 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:13:50 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:13:50 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:13:50 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:14:18 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:14:18 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:14:18 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:14:18 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:14:18 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:14:18 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:25:07 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:25:07 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:25:07 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:25:07 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:25:07 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:25:07 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:43:50 5420 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:43:50 5420 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:43:50 5420 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:43:50 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:43:50 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:43:50 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:49:38 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:49:38 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:49:38 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:49:38 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:51:20 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:51:20 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:51:20 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:51:20 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:51:20 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:51:20 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:51:20 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:54:11 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:54:11 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:54:11 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:54:11 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:56:13 3176 [Note] InnoDB: Online DDL : Start
+2017-04-19 22:56:13 3176 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-19 22:56:13 3176 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-19 22:56:13 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:56:13 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-19 22:56:13 3176 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Start
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 2), estimated cost : 13.3333
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 2)
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 2), estimated cost : 20.0000
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 2)
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `ratings_userid` (2 / 2), estimated cost : 13.3333
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `ratings_userid` (2 / 2)
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Start building index `ratings_userid` (2 / 2), estimated cost : 20.0000
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : End of building index `ratings_userid` (2 / 2)
+2017-04-20  0:31:25 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 4), estimated cost : 8.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 4), estimated cost : 12.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_userid` (2 / 4), estimated cost : 8.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_userid` (2 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start building index `saves_userid` (2 / 4), estimated cost : 12.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of building index `saves_userid` (2 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_stageid` (3 / 4), estimated cost : 8.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_stageid` (3 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start building index `saves_stageid` (3 / 4), estimated cost : 12.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of building index `saves_stageid` (3 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_savescharid` (4 / 4), estimated cost : 8.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_savescharid` (4 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Start building index `saves_savescharid` (4 / 4), estimated cost : 12.0000
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : End of building index `saves_savescharid` (4 / 4)
+2017-04-20  0:32:12 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : Start
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 4), estimated cost : 8.0000
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 4)
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 4), estimated cost : 12.0000
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 4)
+2017-04-20  0:40:25 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_userid` (2 / 4), estimated cost : 8.0000
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_userid` (2 / 4)
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Start building index `saves_userid` (2 / 4), estimated cost : 12.0000
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : End of building index `saves_userid` (2 / 4)
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_stageid` (3 / 4), estimated cost : 8.0000
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_stageid` (3 / 4)
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Start building index `saves_stageid` (3 / 4), estimated cost : 12.0000
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : End of building index `saves_stageid` (3 / 4)
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_savescharid` (4 / 4), estimated cost : 8.0000
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_savescharid` (4 / 4)
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Start building index `saves_savescharid` (4 / 4), estimated cost : 12.0000
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : End of building index `saves_savescharid` (4 / 4)
+2017-04-20  0:40:26 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Start
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 2), estimated cost : 13.3333
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 2)
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 2), estimated cost : 20.0000
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 2)
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Start merge-sorting index `ratings_userid` (2 / 2), estimated cost : 13.3333
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : End of  merge-sorting index `ratings_userid` (2 / 2)
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Start building index `ratings_userid` (2 / 2), estimated cost : 20.0000
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : End of building index `ratings_userid` (2 / 2)
+2017-04-20  0:42:39 8432 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 4), estimated cost : 8.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 4), estimated cost : 12.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_userid` (2 / 4), estimated cost : 8.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_userid` (2 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start building index `saves_userid` (2 / 4), estimated cost : 12.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of building index `saves_userid` (2 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_stageid` (3 / 4), estimated cost : 8.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_stageid` (3 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start building index `saves_stageid` (3 / 4), estimated cost : 12.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of building index `saves_stageid` (3 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_savescharid` (4 / 4), estimated cost : 8.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_savescharid` (4 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Start building index `saves_savescharid` (4 / 4), estimated cost : 12.0000
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : End of building index `saves_savescharid` (4 / 4)
+2017-04-20  1:20:27 5508 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 4), estimated cost : 8.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 4), estimated cost : 12.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_userid` (2 / 4), estimated cost : 8.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_userid` (2 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start building index `saves_userid` (2 / 4), estimated cost : 12.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of building index `saves_userid` (2 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_stageid` (3 / 4), estimated cost : 8.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_stageid` (3 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start building index `saves_stageid` (3 / 4), estimated cost : 12.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of building index `saves_stageid` (3 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_savescharid` (4 / 4), estimated cost : 8.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_savescharid` (4 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Start building index `saves_savescharid` (4 / 4), estimated cost : 12.0000
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : End of building index `saves_savescharid` (4 / 4)
+2017-04-20  1:22:35 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:23:08 5420 [Note] InnoDB: Online DDL : Start
+2017-04-20  1:23:08 5420 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20  1:23:08 5420 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20  1:23:08 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:23:08 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-20  1:23:08 5420 [Note] InnoDB: Online DDL : Completed
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Start
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 2), estimated cost : 13.3333
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 2)
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 2), estimated cost : 20.0000
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 2)
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Completed
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Start merge-sorting index `ratings_savesid` (2 / 2), estimated cost : 13.3333
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : End of  merge-sorting index `ratings_savesid` (2 / 2)
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Start building index `ratings_savesid` (2 / 2), estimated cost : 20.0000
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : End of building index `ratings_savesid` (2 / 2)
+2017-04-20 13:01:23 7596 [Note] InnoDB: Online DDL : Completed
+2017-04-20 13:04:13 7596 [ERROR] Incorrect definition of table mysql.column_stats: expected column 'min_value' at position 3 to have type varbinary(255), found type varchar(255).
+2017-04-20 13:04:13 7596 [ERROR] Incorrect definition of table mysql.column_stats: expected column 'max_value' at position 4 to have type varbinary(255), found type varchar(255).
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Start
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 2), estimated cost : 13.3333
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 2)
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 2), estimated cost : 20.0000
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 2)
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Completed
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Start merge-sorting index `ratings_savesid` (2 / 2), estimated cost : 13.3333
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : End of  merge-sorting index `ratings_savesid` (2 / 2)
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Start building index `ratings_savesid` (2 / 2), estimated cost : 20.0000
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : End of building index `ratings_savesid` (2 / 2)
+2017-04-20 13:04:48 9328 [Note] InnoDB: Online DDL : Completed
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 3), estimated cost : 10.0000
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 3)
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 3), estimated cost : 15.0000
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 3)
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Completed
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start merge-sorting index `ratings_savesid` (2 / 3), estimated cost : 10.0000
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : End of  merge-sorting index `ratings_savesid` (2 / 3)
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start building index `ratings_savesid` (2 / 3), estimated cost : 15.0000
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : End of building index `ratings_savesid` (2 / 3)
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Completed
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start merge-sorting index `ratings_userid` (3 / 3), estimated cost : 10.0000
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : End of  merge-sorting index `ratings_userid` (3 / 3)
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Start building index `ratings_userid` (3 / 3), estimated cost : 15.0000
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : End of building index `ratings_userid` (3 / 3)
+2017-04-20 13:13:43 7596 [Note] InnoDB: Online DDL : Completed
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 4), estimated cost : 8.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 4), estimated cost : 12.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Completed
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_userid` (2 / 4), estimated cost : 8.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_userid` (2 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start building index `saves_userid` (2 / 4), estimated cost : 12.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of building index `saves_userid` (2 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Completed
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_stageid` (3 / 4), estimated cost : 8.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_stageid` (3 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start building index `saves_stageid` (3 / 4), estimated cost : 12.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of building index `saves_stageid` (3 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Completed
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start merge-sorting index `saves_savescharid` (4 / 4), estimated cost : 8.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of  merge-sorting index `saves_savescharid` (4 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Start building index `saves_savescharid` (4 / 4), estimated cost : 12.0000
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : End of building index `saves_savescharid` (4 / 4)
+2017-04-23 21:50:57 15556 [Note] InnoDB: Online DDL : Completed
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start reading clustered index of the table and create temporary files
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : End of reading clustered index of the table and create temporary files
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start merge-sorting index `PRIMARY` (1 / 3), estimated cost : 10.0000
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : End of  merge-sorting index `PRIMARY` (1 / 3)
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start building index `PRIMARY` (1 / 3), estimated cost : 15.0000
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : End of building index `PRIMARY` (1 / 3)
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Completed
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start merge-sorting index `saveschar_characterid` (2 / 3), estimated cost : 10.0000
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : End of  merge-sorting index `saveschar_characterid` (2 / 3)
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start building index `saveschar_characterid` (2 / 3), estimated cost : 15.0000
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : End of building index `saveschar_characterid` (2 / 3)
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Completed
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start merge-sorting index `saveschar_relationid` (3 / 3), estimated cost : 10.0000
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : End of  merge-sorting index `saveschar_relationid` (3 / 3)
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Start building index `saveschar_relationid` (3 / 3), estimated cost : 15.0000
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : End of building index `saveschar_relationid` (3 / 3)
+2017-04-24 20:23:29 5860 [Note] InnoDB: Online DDL : Completed
+2017-04-26 02:28:34 2218 InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-26  2:28:34 8728 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-26  2:28:34 8728 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-26  2:28:34 8728 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-26  2:28:34 8728 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-26  2:28:34 8728 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-26  2:28:34 8728 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-26  2:28:34 8728 [Note] InnoDB: Using generic crc32 instructions
+2017-04-26  2:28:34 8728 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-26  2:28:34 8728 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-26  2:28:34 8728 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-26  2:28:34 8728 [Note] InnoDB: The log sequence numbers 1835037 and 1835037 in ibdata files do not match the log sequence number 4811735 in the ib_logfiles!
+2017-04-26  2:28:34 8728 [Note] InnoDB: Database was not shutdown normally!
+2017-04-26  2:28:34 8728 [Note] InnoDB: Starting crash recovery.
+2017-04-26  2:28:34 8728 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-04-26  2:28:34 8728 [Note] InnoDB: Restoring possible half-written data pages 
+2017-04-26  2:28:34 8728 [Note] InnoDB: from the doublewrite buffer...
+2017-04-26  2:28:34 8728 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-26  2:28:34 8728 [Note] InnoDB: Waiting for purge to start
+2017-04-26  2:28:34 8728 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 4811735
+2017-04-26  2:28:34 9592 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-26  2:28:34 8728 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-26  2:28:34 8728 [Note] Server socket created on IP: '::'.
+2017-04-26  2:28:35 8728 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2017-04-27 20:21:11 2a90 InnoDB: Warning: Using innodb_additional_mem_pool_size is DEPRECATED. This option may be removed in future releases, together with the option innodb_use_sys_malloc and with the InnoDB's internal memory allocator.
+2017-04-27 20:21:11 10896 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2017-04-27 20:21:12 10896 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2017-04-27 20:21:12 10896 [Note] InnoDB: The InnoDB memory heap is disabled
+2017-04-27 20:21:12 10896 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2017-04-27 20:21:12 10896 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2017-04-27 20:21:12 10896 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2017-04-27 20:21:12 10896 [Note] InnoDB: Using generic crc32 instructions
+2017-04-27 20:21:12 10896 [Note] InnoDB: Initializing buffer pool, size = 16.0M
+2017-04-27 20:21:12 10896 [Note] InnoDB: Completed initialization of buffer pool
+2017-04-27 20:21:12 10896 [Note] InnoDB: Highest supported file format is Barracuda.
+2017-04-27 20:21:12 10896 [Note] InnoDB: The log sequence numbers 1835037 and 1835037 in ibdata files do not match the log sequence number 4865326 in the ib_logfiles!
+2017-04-27 20:21:12 10896 [Note] InnoDB: Database was not shutdown normally!
+2017-04-27 20:21:12 10896 [Note] InnoDB: Starting crash recovery.
+2017-04-27 20:21:12 10896 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2017-04-27 20:21:12 10896 [Note] InnoDB: Restoring possible half-written data pages 
+2017-04-27 20:21:12 10896 [Note] InnoDB: from the doublewrite buffer...
+2017-04-27 20:21:12 10896 [Note] InnoDB: 128 rollback segment(s) are active.
+2017-04-27 20:21:12 10896 [Note] InnoDB: Waiting for purge to start
+2017-04-27 20:21:12 10896 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.34-79.1 started; log sequence number 4865326
+2017-04-27 20:21:12 8548 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2017-04-27 20:21:12 10896 [Note] Plugin 'FEEDBACK' is disabled.
+2017-04-27 20:21:12 10896 [Note] Server socket created on IP: '::'.
+2017-04-27 20:21:12 10896 [Note] c:\xampp\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.21-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution

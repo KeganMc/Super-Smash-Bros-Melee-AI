@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/dashboard/CSS/style.css">
+  <script src="/dashboard/javascripts/login.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <img src="/dashboard/images/ssbm.png" style="width:256px;height:128px;">
+</header>
+
+<div class="directory">
+  <ul>
+    <li><a href="/dashboard/index.html">Home</a></li>
+    <li><a href="/dashboard/HTML/about.html">About</a></li>
+    <li><a href="/dashboard/HTML/login.html">Login</a></li>
+    <li><a href="/dashboard/HTML/register.html">Register</a></li>
+    <li><a href="/dashboard/HTML/download.html">Download</a></li>
+  </ul>
+</div><br>
+
+<div class="form">
+  <p id="warning" style="color:red">Warning: Incorrect Email/Password</p>
+  <form name="login" action="/dashboard/PHP/login.php" onsubmit="return loginCheck()" method="POST">
+    <div class="label">
+      <label id="emailLabel">Email:</label><br>
+    </div>
+    <input type="text" name="email" value="" placeholder="Email" onfocus="emailChange()">
+    <br>
+    <div class="label">
+      <label id="passwordLabel">Password:</label><br>
+    </div>
+    <input type="password" name="password" value="" placeholder = "Password" onfocus="passChange()">
+    <br><br>
+    <input type="submit" value="Submit">
+  </form> 
+</div>
+
+<footer>
+  <!--Copyright &copy; University of Wyoming-->
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -24,6 +24,7 @@ class SmashGui(QMainWindow):
 
 	def __init__(self):
 		super().__init__()
+		global bigProject
 		global load
 		global save
 		global training
@@ -37,6 +38,7 @@ class SmashGui(QMainWindow):
 		global player4
 		global player4Agent
 
+		bigProject = BigProject
 		load = False
 		save = ''
 		training = False
@@ -58,7 +60,7 @@ class SmashGui(QMainWindow):
 		self.show()
 
 	def initializeWindow(self):
-		self.setWindowTitle("Super Smash Bros AI")
+		self.setWindowTitle("Super Smash Bros Melee AI")
 		self.setGeometry(300, 200, 900, 500)
 		self.setWindowIcon(QIcon("SSBMAI_Icon.png"))
 		self.smashPix = QLabel(self)
@@ -70,23 +72,34 @@ class SmashGui(QMainWindow):
 
 	def initializeButtons(self):
 		self.save = QPushButton("Save", self)
-		self.save.move(400,450)
+		self.save.move(350,450)
 		self.save.setFixedWidth(100)
 		self.save.setFixedHeight(50)
 		self.save.clicked.connect(self.saveMenu)
+		self.quit = QPushButton("Quit", self)
+		self.quit.move(450,450)
+		self.quit.setFixedWidth(100)
+		self.quit.setFixedHeight(50)
+		self.quit.clicked.connect(self.quitMenu)
 		self.load = QPushButton("Load", self)
-		self.load.move(300,450)
+		self.load.move(250,450)
 		self.load.setFixedWidth(100)
 		self.load.setFixedHeight(50)
 		self.load.clicked.connect(self.loadMenu)
 		self.launch = QPushButton("Launch", self)
-		self.launch.move(500,450)
+		self.launch.move(550,450)
 		self.launch.setFixedWidth(100)
 		self.launch.setFixedHeight(50)
 		self.launch.clicked.connect(self.launchApp)
 
 	def initializeMenu(self):
 		self.mainMenu = self.menuBar()
+<<<<<<< HEAD
+		self.mainMenu.setNativeMenuBar(True)
+=======
+		# Set to False if using a Mac OS
+		self.mainMenu.setNativeMenuBar(True) 
+>>>>>>> origin/master
 		self.fileMenu = self.mainMenu.addMenu('File')
 
 		self.exitButton = QAction('Exit', self)
@@ -99,7 +112,10 @@ class SmashGui(QMainWindow):
 		#aboutAction.triggered.connect(self.about)
 
 		self.fileMenu.addAction(self.aboutButton)
-		self.fileMenu.addAction(self.exitButton)
+		self.fileMenu.addAction('Exit')
+
+	def onExit(self):
+		self.close
 
 	def initializeText(self):
 		font = QFont("SansSerif",18,QFont.Bold)
@@ -326,6 +342,7 @@ class SmashGui(QMainWindow):
 		global save
 		global training
 		global mName
+		global bigProject
 
 		if mName == '':
 			loadInput = QInputDialog.getText(self, "New Training Model", "Please enter a name for the new model", QLineEdit.Normal, "")
@@ -337,13 +354,19 @@ class SmashGui(QMainWindow):
 
 		botRelations = self.createBotRelations()
 
-		self.bigProject = BigProject
-		self.bigProject.runBots(botRelations, training, load, mName, True)
+		bigProject.runBots(botRelations, training, load, mName, True)
 
 		#BigProject
 
 	def saveMenu(self):
-		print("save")
+		global bigProject
+
+		bigProject.save()
+
+	def quitMenu(self):
+		global bigProject
+
+		bigProject.quit()
 
 
 	def loadMenu(self):
@@ -358,9 +381,6 @@ class SmashGui(QMainWindow):
 			print('inside')
 			load = True
 			mName = loadDialog.selectedFiles()
-
-	def onExit(self):
-		self.close
 
 app = QApplication(sys.argv)
 

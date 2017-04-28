@@ -18,7 +18,11 @@ from reward_data import RewardData
 PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
 global threads_save
 global threads_quit
+<<<<<<< HEAD
 global lock
+=======
+
+>>>>>>> origin/master
 """
 Find the Dolphin user directory.
 """
@@ -134,7 +138,7 @@ Call this function to update an ActorCritic network. The lists are reversed in t
     rewardList = the list of rewards in order
     gamma = discount factor
 """
-def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma):
+def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gamma, lr):
   R = valList[0]
   actionList.reverse()
   stateList.reverse()
@@ -153,8 +157,7 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
     batch_s.append(si)
     batch_td.append(td)
     batch_r.append(R)
-    print(network.run_loss_debug(sess, batch_a, batch_r, batch_s, batch_td, 0.01))
-    network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, 0.01)
+    network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, lr)
 
 """
 Create an object that stores the relevant info from the previous state for rewards.
@@ -227,7 +230,7 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
 
         if len(valList) >= 64:
           if training:
-            updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99)
+            updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99, 0.0001)
           lock.acquire()
           if threads_save:
             saver.save(sess, './saves/' + modelName)
@@ -265,7 +268,8 @@ Create the bots and start to run them.
         2 = enemy
         3 = ally
 """
-def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='my-model', gui=False):
+def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
+            modelName='my-model', gui=False):
   dolphinPath = find_directory()
   if dolphinPath is None:
     print("Could not find dolphin directory!")
@@ -280,10 +284,14 @@ def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='m
   lock = threading.Lock()
   with memory_watcher.MemoryWatcher(mwLocation) as mw:
     with tf.Session() as sess:
+      summary_writer = None
+      if not gui:
+        summary_writer = tf.summary.FileWriter("train1net")
       learning_rate_tensor = tf.placeholder(tf.float32)
-      optimizer = tf.train.RMSPropOptimizer(learning_rate=learning_rate_tensor, decay=0.9)
-      globalNetwork = ActorCriticNetwork(40, optimizer)
-      globalNetwork.set_up_loss(0.01)
+      global_episodes = tf.Variable(0, dtype=tf.int32)
+      optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True, epsilon=0.02)
+      globalNetwork = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
+      globalNetwork.set_up_loss(0.00025)
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
       globalVarDict = dict()
       counter = 0
@@ -293,8 +301,8 @@ def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='m
       threads = []
       threadNets = []
       for threadIndex in range(len(botRelations)):
-        threadNet = ActorCriticNetwork(40, optimizer)
-        threadNet.set_up_loss(0.0001)
+        threadNet = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
+        threadNet.set_up_loss(0.0005)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
         threadNets.append(threadNet)
@@ -302,9 +310,10 @@ def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='m
       for var in globalNetwork.get_vars():
         for name in optimizer.get_slot_names():
           tempVar = optimizer.get_slot(var, name)
-          if tempVar is not None:
+          if tempVar is not None and not (tempVar in globalVarDict.values()):
             globalVarDict["optimizer" + str(counter)] = tempVar
             counter = counter + 1
+      globalVarDict["globalEp"] = global_episodes
       saver = tf.train.Saver(globalVarDict)
       st = state.State()
       stateManager = state_manager.StateManager(st)
@@ -315,6 +324,7 @@ def runBots(botRelations=[[2,1,0,0]], training=True, loading=False, modelName='m
                                     st, stateManager, mw, botRelations[threadIndex],
                                     training, saver, modelName, lock)))
       if loading:
+        sess.run(tf.global_variables_initializer())
         saver.restore(sess, './saves/' + modelName)
         print('loaded ' + modelName)
       else:
