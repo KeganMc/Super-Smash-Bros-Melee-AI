@@ -94,12 +94,8 @@ class SmashGui(QMainWindow):
 
 	def initializeMenu(self):
 		self.mainMenu = self.menuBar()
-<<<<<<< HEAD
-		self.mainMenu.setNativeMenuBar(True)
-=======
 		# Set to False if using a Mac OS
-		self.mainMenu.setNativeMenuBar(True) 
->>>>>>> origin/master
+		self.mainMenu.setNativeMenuBar(True)
 		self.fileMenu = self.mainMenu.addMenu('File')
 
 		self.exitButton = QAction('Exit', self)
