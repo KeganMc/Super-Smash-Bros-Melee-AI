@@ -281,12 +281,12 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
     with tf.Session() as sess:
       summary_writer = None
       if not gui:
-        summary_writer = tf.summary.FileWriter("train")
+        summary_writer = tf.summary.FileWriter("train1net")
       learning_rate_tensor = tf.placeholder(tf.float32)
       global_episodes = tf.Variable(0, dtype=tf.int32)
-      optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True)
+      optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True, epsilon=0.02)
       globalNetwork = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
-      globalNetwork.set_up_loss(0.001)
+      globalNetwork.set_up_loss(0.00025)
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
       globalVarDict = dict()
       counter = 0
@@ -297,7 +297,7 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
       threadNets = []
       for threadIndex in range(len(botRelations)):
         threadNet = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
-        threadNet.set_up_loss(0.001)
+        threadNet.set_up_loss(0.0005)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
         threadNets.append(threadNet)
@@ -305,7 +305,7 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
       for var in globalNetwork.get_vars():
         for name in optimizer.get_slot_names():
           tempVar = optimizer.get_slot(var, name)
-          if tempVar is not None:
+          if tempVar is not None and not (tempVar in globalVarDict.values()):
             globalVarDict["optimizer" + str(counter)] = tempVar
             counter = counter + 1
       globalVarDict["globalEp"] = global_episodes
