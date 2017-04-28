@@ -4,19 +4,26 @@ import numpy as np
 class ActorCriticNetwork(object):
 	def __init__(self, act_size, opt, global_ep_tensor, summary_writer):
 		self.state = tf.placeholder(tf.float32, [None, 1, 78])
+		self.state_and_action = tf.placeholder(tf.float32, [None, 1, 78 + act_size])
 		self.action_size = act_size
 		self.optimizer = opt
 		self.global_episodes = global_ep_tensor
 		self.summary_writer = summary_writer
+		# Actor network
 		self.fc1, self.fc1_b = self.fc_layer([78, 128])
 		self.fc2, self.fc2_b = self.fc_layer([128, 128])
 		self.fc3, self.fc3_b = self.fc_layer([128, act_size])
-		self.fc4, self.fc4_b = self.fc_layer([128, 1])
 		h_fc1 = tf.nn.relu(tf.matmul(tf.reshape(self.state, [-1, 78]), self.fc1) + self.fc1_b)
 		h_fc2 = tf.nn.relu(tf.matmul(h_fc1, self.fc2) + self.fc2_b)
 		h_fc3 = tf.nn.relu(tf.matmul(h_fc2, self.fc3) + self.fc3_b)
 		self.policy_out = tf.nn.softmax(tf.nn.relu(tf.matmul(h_fc2, self.fc3) + self.fc3_b))
-		val = tf.matmul(h_fc2, self.fc4) + self.fc4_b
+		#Critic network
+		self.fc4, self.fc4_b = self.fc_layer([78 + act_size, 128])
+		self.fc5, self.fc5_b = self.fc_layer([128, 128])
+		self.fc6, self.fc6_b = self.fc_layer([128, 1])
+		h_fc4 = tf.nn.relu(tf.matmul(tf.reshape(self.state_and_action, [-1, 78 + act_size]), self.fc4) + self.fc4_b)
+		h_fc5 = tf.nn.relu(tf.matmul(h_fc4, self.fc5) + self.fc5_b)
+		val = tf.matmul(h_fc5, self.fc6) + self.fc6_b
 		self.value = tf.reshape(val, [-1])
 
 	def set_up_loss(self, entropy_var):
@@ -78,21 +85,23 @@ class ActorCriticNetwork(object):
 		biases = tf.Variable(tf.truncated_normal(bias_shape, stddev=0.1))
 		return weights, biases
 
-	def run_policy_and_value(self, sess, state):
+	"""def run_policy_and_value(self, sess, state):
 		policy_out, value_out = sess.run([self.policy_out, self.value],
 						feed_dict={self.state:[state]})
-		return(policy_out[0], value_out[0])
+		return(policy_out[0], value_out[0])"""
 
 	def run_policy(self, sess, state):
 		policy_out = sess.run(self.policy_out, feed_dict={self.state:[state]})
 		return policy_out[0]
 
 	def run_value(self, sess, state):
-		value = sess.run(self.value, feed_dict={self.state:[state]})
+		value = sess.run(self.value, feed_dict={self.state_and_action:[state]})
 		return value[0]
 
 	def get_vars(self):
 		return [self.fc1, self.fc1_b,
 			self.fc2, self.fc2_b,
 			self.fc3, self.fc3_b,
-			self.fc4, self.fc4_b]
+			self.fc4, self.fc4_b,
+			self.fc5, self.fc5_b,
+			self.fc6, self.fc6_b]
