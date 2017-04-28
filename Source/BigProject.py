@@ -18,6 +18,7 @@ from reward_data import RewardData
 PLAYER_RELATIONSHIP_LIST = [2, 1, 0, 0]
 global threads_save
 global threads_quit
+global lock
 
 """
 Find the Dolphin user directory.
