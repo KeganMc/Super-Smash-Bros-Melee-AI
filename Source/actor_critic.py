@@ -64,8 +64,6 @@ class ActorCriticNetwork(object):
 		sess.run([self.apply_pgradients, self.apply_vgradients], feed_dict=feed_dic)
 		if self.summary_writer is None:
 			return
-		#print(r_batch)
-		print(sess.run(self.fc1))
 		mean_reward = np.mean(r_batch)
 		loss = sess.run(self.total_loss, feed_dict=feed_dic)
 		entropy = sess.run(self.entropy, feed_dict=feed_dic)
