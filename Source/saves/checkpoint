@@ -1,2 +1,2 @@
-model_checkpoint_path: "newOpt"
-all_model_checkpoint_paths: "newOpt"
+model_checkpoint_path: "donothing"
+all_model_checkpoint_paths: "donothing"

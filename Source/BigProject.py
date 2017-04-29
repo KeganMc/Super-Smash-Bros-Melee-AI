@@ -143,6 +143,7 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
   rewardList.reverse()
   batch_a = []
   batch_s = []
+  batch_sa = []
   batch_r = []
   batch_td = []
   for(ai, ri, si, vi) in zip(actionList, rewardList, stateList, valList):
@@ -152,9 +153,10 @@ def updateNetwork(sess, network, actionList, stateList, valList, rewardList, gam
     a[ai.value] = 1
     batch_a.append(a)
     batch_s.append(si)
+    batch_sa.append([np.append(si, a)])
     batch_td.append(td)
     batch_r.append(R)
-    network.apply_grads(sess, batch_a, batch_r, batch_s, batch_td, lr)
+    network.apply_grads(sess, batch_a, batch_r, batch_s, batch_sa, batch_td, lr)
 
 """
 Create an object that stores the relevant info from the previous state for rewards.
@@ -221,10 +223,7 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
         lock.release()
         if lastStateRewardData is not None:
           rew = reward(lastStateRewardData, currentStateRewardData, relationList)
-          if rew != 0:
-            print(rew)
           rewardList.append(rew)
-
         if len(valList) >= 64:
           if training:
             updateNetwork(sess, network, actionList, stateList, valList, rewardList, 0.99, 0.0001)
@@ -243,8 +242,11 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
           stateList = []
           valList = []
           rewardList = []
-        action, val =  network.run_policy_and_value(sess, currentState)
+        action =  network.run_policy(sess, currentState)
         chosenAction = np.random.choice(list(outputs), p=action)
+        action_array = np.zeros([40])
+        action_array[chosenAction.value] = 1
+        val = network.run_value(sess, [np.append(currentState, action_array)])
         actionList.append(chosenAction)
         valList.append(val)
         stateList.append(currentState)
@@ -288,7 +290,7 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
       global_episodes = tf.Variable(0, dtype=tf.int32)
       optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True, epsilon=0.02)
       globalNetwork = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
-      globalNetwork.set_up_loss(0.00025)
+      globalNetwork.set_up_loss(0.002)
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
       globalVarDict = dict()
       counter = 0
@@ -299,7 +301,7 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
       threadNets = []
       for threadIndex in range(len(botRelations)):
         threadNet = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
-        threadNet.set_up_loss(0.0005)
+        threadNet.set_up_loss(0.002)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
         threadNets.append(threadNet)
