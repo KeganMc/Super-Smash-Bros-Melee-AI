@@ -74,21 +74,18 @@ def appendPlayerInfoToStateList(stList, st, players):
   for playerID in players:
     player = st.players[playerID]
     stList.append(player.stocks)
-    stList.append(player.cursor_x)
-    stList.append(player.cursor_y)
-    stList.append(player.type.value)
     stList.append(player.character.value)
-    stList.append(player.action_state.value)
+    stList.append(player.action_state.value % 0x8000)
     stList.append(player.facing)
-    stList.append(player.self_air_vel_x)
-    stList.append(player.self_air_vel_y)
-    stList.append(player.attack_vel_x)
-    stList.append(player.attack_vel_y)
-    stList.append(player.pos_x)
-    stList.append(player.pos_y)
+    stList.append(player.self_air_vel_x * 0.01)
+    stList.append(player.self_air_vel_y * 0.01)
+    stList.append(player.attack_vel_x * 0.01)
+    stList.append(player.attack_vel_y * 0.01)
+    stList.append(player.pos_x * 0.1)
+    stList.append(player.pos_y * 0.1)
     stList.append(player.on_ground)
-    stList.append(player.action_frame)
-    stList.append(player.percent)
+    stList.append(player.action_frame * 0.02)
+    stList.append(player.percent * 0.01)
     stList.append(player.hitlag)
     stList.append(player.jumps_used)
     stList.append(player.body_state.value)
@@ -110,20 +107,25 @@ def preprocess(st, players):
   botID = None
   allies = []
   enemies = []
+  nothing = []
   for playerID, relation in enumerate(players):
     if relation == 1:
       botID = playerID
     elif relation == 3:
       allies.append(playerID)
-    else:
+    elif relation == 2:
       enemies.append(playerID)
+    else:
+      nothing.append(playerID)
   stList = []
-  stList.append(st.frame)
   stList.append(st.stage.value)
   appendPlayerInfoToStateList(stList, st, [botID])
   appendPlayerInfoToStateList(stList, st, enemies)
   appendPlayerInfoToStateList(stList, st, allies)
-  return np.reshape(np.array(stList), [1,78])
+  for playerID in nothing:
+    for i in range(16):
+      stList.append(0.0)
+  return np.reshape(np.array(stList), [1,65])
 
 """
 Call this function to update an ActorCritic network. The lists are reversed in this function.
@@ -243,7 +245,10 @@ def trainingThread(i, sess, network, st, stateManager, mw, relationList, trainin
           valList = []
           rewardList = []
         action =  network.run_policy(sess, currentState)
+        print(currentState)
+        print(action)
         chosenAction = np.random.choice(list(outputs), p=action)
+        print(chosenAction)
         action_array = np.zeros([40])
         action_array[chosenAction.value] = 1
         val = network.run_value(sess, [np.append(currentState, action_array)])
@@ -288,9 +293,9 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
         summary_writer = tf.summary.FileWriter("train1net")
       learning_rate_tensor = tf.placeholder(tf.float32)
       global_episodes = tf.Variable(0, dtype=tf.int32)
-      optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True, epsilon=0.02)
+      optimizer = tf.train.AdamOptimizer(learning_rate=1e-4, use_locking=True)
       globalNetwork = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
-      globalNetwork.set_up_loss(0.002)
+      globalNetwork.set_up_loss(0.02)
       globalNetwork.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
       globalVarDict = dict()
       counter = 0
@@ -301,7 +306,7 @@ def runBots(botRelations=[[0,1,2,0],[0,2,1,0]], training=True, loading=False,
       threadNets = []
       for threadIndex in range(len(botRelations)):
         threadNet = ActorCriticNetwork(40, optimizer, global_episodes, summary_writer)
-        threadNet.set_up_loss(0.002)
+        threadNet.set_up_loss(0.02)
         threadNet.set_up_apply_grads(learning_rate_tensor, globalNetwork.get_vars())
         threadNet.set_up_sync_weights(globalNetwork.get_vars())
         threadNets.append(threadNet)

@@ -1,2 +1,2 @@
-model_checkpoint_path: "donothing"
-all_model_checkpoint_paths: "donothing"
+model_checkpoint_path: "4"
+all_model_checkpoint_paths: "4"

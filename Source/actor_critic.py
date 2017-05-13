@@ -3,26 +3,38 @@ import numpy as np
 
 class ActorCriticNetwork(object):
 	def __init__(self, act_size, opt, global_ep_tensor, summary_writer):
-		self.state = tf.placeholder(tf.float32, [None, 1, 78])
-		self.state_and_action = tf.placeholder(tf.float32, [None, 1, 78 + act_size])
+		self.state = tf.placeholder(tf.float32, [None, 1, 65])
+		self.state_and_action = tf.placeholder(tf.float32, [None, 1, 65 + act_size])
 		self.action_size = act_size
 		self.optimizer = opt
 		self.global_episodes = global_ep_tensor
 		self.summary_writer = summary_writer
 		# Actor network
-		self.fc1, self.fc1_b = self.fc_layer([78, 128])
-		self.fc2, self.fc2_b = self.fc_layer([128, 128])
-		self.fc3, self.fc3_b = self.fc_layer([128, act_size])
-		h_fc1 = tf.nn.elu(tf.matmul(tf.reshape(self.state, [-1, 78]), self.fc1) + self.fc1_b)
+		self.fc1, self.fc1_b = self.fc_layer([65, 64])
+		self.fc2, self.fc2_b = self.fc_layer([64, 64])
+		self.fc3, self.fc3_b = self.fc_layer([64, act_size])
+		"""x1 = tf.matmul(tf.reshape(self.state, [-1, 65]), self.fc1) + self.fc1_b
+		ax1 = 0.01 * x1
+		maxes1 = tf.stop_gradient(tf.maximum(ax1, x1))
+		h_fc1 = maxes1 + tf.log(tf.exp(ax1 - maxes1) + tf.exp(x1 - maxes1))"""
+		h_fc1 = tf.nn.elu(tf.matmul(tf.reshape(self.state, [-1, 65]), self.fc1) + self.fc1_b)
+		"""x2 = tf.matmul(h_fc1, self.fc2) + self.fc1_b
+		ax2 = 0.01 * x2
+		maxes2 = tf.stop_gradient(tf.maximum(ax2, x2))
+		h_fc2 = maxes2 + tf.log(tf.exp(ax2 - maxes2) + tf.exp(x2 - maxes2))"""
 		h_fc2 = tf.nn.elu(tf.matmul(h_fc1, self.fc2) + self.fc2_b)
+		"""x3 = tf.matmul(h_fc2, self.fc3) + self.fc3_b
+		ax3 = 0.01 * x3
+		maxes3 = tf.stop_gradient(tf.maximum(ax3, x3))
+		h_fc3 = maxes3 + tf.log(tf.exp(ax3 - maxes3) + tf.exp(x3 - maxes3))"""
 		h_fc3 = tf.nn.elu(tf.matmul(h_fc2, self.fc3) + self.fc3_b)
 		#self.policy_out = tf.nn.softmax(tf.nn.elu(tf.matmul(h_fc2, self.fc3) + self.fc3_b))
-		self.policy_out = tf.nn.softmax(h_fc3)
+		self.policy_out = 0.98 * tf.nn.softmax(h_fc3) + 0.02 / 40
 		#Critic network
-		self.fc4, self.fc4_b = self.fc_layer([78 + act_size, 128])
-		self.fc5, self.fc5_b = self.fc_layer([128, 128])
-		self.fc6, self.fc6_b = self.fc_layer([128, 1])
-		h_fc4 = tf.nn.elu(tf.matmul(tf.reshape(self.state_and_action, [-1, 78 + act_size]), self.fc4) + self.fc4_b)
+		self.fc4, self.fc4_b = self.fc_layer([65 + act_size, 64])
+		self.fc5, self.fc5_b = self.fc_layer([64, 64])
+		self.fc6, self.fc6_b = self.fc_layer([64, 1])
+		h_fc4 = tf.nn.elu(tf.matmul(tf.reshape(self.state_and_action, [-1, 65 + act_size]), self.fc4) + self.fc4_b)
 		h_fc5 = tf.nn.elu(tf.matmul(h_fc4, self.fc5) + self.fc5_b)
 		val = tf.matmul(h_fc5, self.fc6) + self.fc6_b
 		self.value = tf.reshape(val, [-1])
@@ -42,10 +54,10 @@ class ActorCriticNetwork(object):
 	def set_up_apply_grads(self, learning_rate_tensor, global_vars):
 		self.learning_rate = learning_rate_tensor
 		self.var_norms = tf.global_norm(self.get_vars())
-		vgrads, self.vgrad_norms = tf.clip_by_global_norm(self.value_gradients, 40.0)
-		pgrads, self.pgrad_norms = tf.clip_by_global_norm(self.policy_gradients, 40.0)
-		self.apply_vgradients = self.optimizer.apply_gradients(zip(vgrads, global_vars[6:]))
-		self.apply_pgradients = self.optimizer.apply_gradients(zip(pgrads, global_vars[:6]))
+		self.vgrads, self.vgrad_norms = tf.clip_by_global_norm(self.value_gradients, 40.0)
+		self.pgrads, self.pgrad_norms = tf.clip_by_global_norm(self.policy_gradients, 40.0)
+		self.apply_vgradients = self.optimizer.apply_gradients(zip(self.vgrads, global_vars[6:]))
+		self.apply_pgradients = self.optimizer.apply_gradients(zip(self.pgrads, global_vars[:6]))
 		self.add_eps = self.global_episodes.assign_add(1)
 
 	def set_up_sync_weights(self, global_vars):
